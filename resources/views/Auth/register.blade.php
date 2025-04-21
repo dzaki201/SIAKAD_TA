@@ -19,20 +19,27 @@
         <!-- Right: Login Form -->
         <div class="lg:p-36 md:p-52 sm:20 p-8 w-full lg:w-1/2">
             <h1 class="text-2xl font-semibold mb-4">Register</h1>
-            <form action="#" method="POST">
+            <form action="{{ route('register.save') }}" method="POST">
+                @csrf
                 <!-- Username Input -->
                 <div class="mb-4">
                     <label for="username" class="block text-gray-600">Username</label>
-                    <input type="text" id="username" name="username"
+                    <input type="text" id="username" name="name"
                         class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
                         autocomplete="off">
+                    @error('name')
+                        <span class="text-red-600">{{ $message }}</span>
+                    @enderror
                 </div>
                 <!-- Email Input -->
                 <div class="mb-4">
-                    <label for="username" class="block text-gray-600">Email</label>
+                    <label for="email" class="block text-gray-600">Email</label>
                     <input type="email" id="email" name="email"
                         class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
                         autocomplete="off">
+                    @error('email')
+                        <span class="text-red-600">{{ $message }}</span>
+                    @enderror
                 </div>
                 <!-- Password Input -->
                 <div class="mb-4">
@@ -40,13 +47,19 @@
                     <input type="password" id="password" name="password"
                         class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
                         autocomplete="off">
+                    @error('password')
+                        <span class="text-red-600">{{ $message }}</span>
+                    @enderror
                 </div>
                 <!-- Comfirm Password -->
                 <div class="mb-4">
-                    <label for="password" class="block text-gray-600">Konfirmasi Password</label>
-                    <input type="password" id="password" name="password"
+                    <label for="password_confirmation" class="block text-gray-600">Konfirmasi Password</label>
+                    <input type="password" id="password_confirmation" name="password_confirmation"
                         class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
                         autocomplete="off">
+                    @error('password_confirmation')
+                        <span class="text-red-600">{{ $message }}</span>
+                    @enderror
                 </div>
                 <!-- Login Button -->
                 <button type="submit"
@@ -54,8 +67,9 @@
             </form>
             <!-- Sign up  Link -->
             <div class="mt-6 text-center">
-                <a class="text-black-500">sudah punya akun?</a>
-                <a href="#" class="text-blue-500 hover:underline">login</a>
+                <span>sudah punya akun?
+                    <a href="{{ route('login') }}" class="text-blue-500 hover:underline">Login disini</a>
+                </span>
             </div>
         </div>
     </div>
