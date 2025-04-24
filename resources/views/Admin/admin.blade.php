@@ -10,10 +10,12 @@
 </head>
 
 <body>
-    @include('components.navbar-admin')
-    @include('components.sidebar-admin')
-    Ini Halaman Admin
-    <a href="{{ route('logout') }}">Logout</a>
+    @include('components.navbaradmin')
+    @include('components.sidebaradmin')
+    <div class="p-4 ml-64">
+        @yield('content')
+    </div>
+    
 </body>
 
 </html>
