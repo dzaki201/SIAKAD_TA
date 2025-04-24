@@ -19,13 +19,15 @@ class AuthController extends Controller
         Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'required|confirmed'
+            'password' => 'required|confirmed',
+            'role' => 'required'
         ])->validate();
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => 'orang_tua'
         ]);
         
         return redirect()->route('login');
@@ -48,8 +50,18 @@ class AuthController extends Controller
         } 
 
         $request->session()->regenerate();
+        $user = Auth::user();
 
-        return redirect()->route('beranda.user');
+        if ($user->role == 'admin') {
+            return redirect()->route('beranda.admin');
+        } elseif ($user->role == 'guru') {
+            return redirect()->route('beranda.guru');
+        } elseif ($user->role == 'orang_tua') {
+            return redirect()->route('beranda.orangtua');
+        } else {
+            // Kalau role tidak terdaftar, redirect ke halaman utama atau logout
+            return redirect('/');
+        }
         
     }
     public function logout(Request $request){

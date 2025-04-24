@@ -29,6 +29,18 @@ Route::controller(AuthController::class)->group(function(){
     Route::get('logout', 'logout')->middleware('auth')->name('logout');
 });
 
-Route::middleware('auth')->group(function(){
-    Route::get('/beranda',[HomeController::class,'BerandaUser'])->name('beranda.user');
+// Route::middleware('auth')->group(function(){
+//     Route::get('/beranda',[HomeController::class,'BerandaUser'])->name('beranda.user');
+// });
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/beranda/admin',[HomeController::class,'BerandaAdmin'])->name('beranda.admin');
+});
+
+Route::middleware(['auth', 'role:guru'])->group(function () {
+    Route::get('/beranda/guru',[HomeController::class,'BerandaGuru'])->name('beranda.guru');
+});
+
+Route::middleware(['auth', 'role:orang_tua'])->group(function () {
+    Route::get('/beranda/orangtua',[HomeController::class,'BerandaOrangTua'])->name('beranda.orangtua');
 });
