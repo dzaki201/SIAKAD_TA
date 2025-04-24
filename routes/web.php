@@ -1,8 +1,11 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Dashboard\DashboardGuruController;
+use App\Http\Controllers\Dashboard\DashboardAdminController;
+use App\Http\Controllers\Dashboard\DashboardOrangTuaController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,17 +33,18 @@ Route::controller(AuthController::class)->group(function(){
 });
 
 // Route::middleware('auth')->group(function(){
-//     Route::get('/beranda',[HomeController::class,'BerandaUser'])->name('beranda.user');
+//     Route::get('/beranda',[DashboardController::class,'BerandaUser'])->name('beranda.user');
 // });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/beranda/admin',[HomeController::class,'BerandaAdmin'])->name('beranda.admin');
+    Route::get('/admin-dashboard',[DashboardAdminController::class,'adminIndex'])->name('admin.dashboard');
+    Route::get('/admin-guru',[DashboardAdminController::class,'adminGuru'])->name('admin.guru');
 });
 
 Route::middleware(['auth', 'role:guru'])->group(function () {
-    Route::get('/beranda/guru',[HomeController::class,'BerandaGuru'])->name('beranda.guru');
+    Route::get('/beranda-guru',[DashboardGuruController::class,'guruIndex'])->name('beranda.guru');
 });
 
 Route::middleware(['auth', 'role:orang_tua'])->group(function () {
-    Route::get('/beranda/orangtua',[HomeController::class,'BerandaOrangTua'])->name('beranda.orangtua');
+    Route::get('/beranda-orangtua',[DashboardOrangTuaController::class,'OrangTuaIndex'])->name('beranda.orangtua');
 });

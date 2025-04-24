@@ -53,7 +53,7 @@ class AuthController extends Controller
         $user = Auth::user();
 
         if ($user->role == 'admin') {
-            return redirect()->route('beranda.admin');
+            return redirect()->route('admin.dashboard');
         } elseif ($user->role == 'guru') {
             return redirect()->route('beranda.guru');
         } elseif ($user->role == 'orang_tua') {
