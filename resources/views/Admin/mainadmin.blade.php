@@ -10,10 +10,10 @@
     <title>Admin</title>
 </head>
 
-<body>
-    @include('components.navbaradmin')
-    @include('components.sidebaradmin')
-    <div class="p-4 sm:ml-64 pt-20">
+<body class="bg-gray-100">
+    @include('Admin.components.navbaradmin')
+    @include('Admin.components.sidebaradmin')
+    <div class="p-4 sm:ml-64 pt-20 ">
         @yield('content')
     </div>
 

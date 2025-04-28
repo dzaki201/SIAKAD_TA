@@ -1,11 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\User\GuruController;
+use App\Http\Controllers\Kelas\KelasController;
 use App\Http\Controllers\Dashboard\DashboardGuruController;
 use App\Http\Controllers\Dashboard\DashboardAdminController;
 use App\Http\Controllers\Dashboard\DashboardOrangTuaController;
-
+use App\Http\Controllers\MataPelajaran\MataPelajaranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,12 +24,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::controller(AuthController::class)->group(function(){
-    Route::get('/register','register')->name('register');
-    Route::post('/register','registerSave')->name('register.save');
-    
-    Route::get('/login','login')->name('login');
-    Route::post('/login','loginAction')->name('login.action');
+Route::controller(AuthController::class)->group(function () {
+    Route::get('/register', 'register')->name('register');
+    Route::post('/register', 'registerSave')->name('register.save');
+
+    Route::get('/login', 'login')->name('login');
+    Route::post('/login', 'loginAction')->name('login.action');
 
     Route::get('logout', 'logout')->middleware('auth')->name('logout');
 });
@@ -37,14 +39,26 @@ Route::controller(AuthController::class)->group(function(){
 // });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin-dashboard',[DashboardAdminController::class,'adminIndex'])->name('admin.dashboard');
-    Route::get('/admin-guru',[DashboardAdminController::class,'adminGuru'])->name('admin.guru');
+    Route::get('/admin-dashboard', [DashboardAdminController::class, 'adminIndex'])->name('admin.dashboard');
+    Route::get('/admin-guru', [DashboardAdminController::class, 'adminGuru'])->name('admin.guru');
+    Route::post('/admin-guru', [GuruController::class, 'store'])->name('admin.guru.store');
+    Route::put('/admin-guru/{id}', [GuruController::class, 'update'])->name('admin.guru.update');
+
+    Route::get('/admin-kelas', [DashboardAdminController::class, 'adminKelas'])->name('admin.kelas');
+    Route::post('/admin-kelas', [KelasController::class, 'store'])->name('admin.kelas.store');
+    Route::put('/admin-kelas/{id}/edit', [KelasController::class, 'update'])->name('admin.kelas.update');
+    Route::delete('/admin-kelas/{id}', [KelasController::class, 'destroy'])->name('admin.kelas.destroy');
+
+    Route::get('/admin-matapelajaran', [DashboardAdminController::class, 'adminMataPelajaran'])->name('admin.matapelajaran');
+    Route::post('/admin-matapelajaran', [MataPelajaranController::class, 'store'])->name('admin.matapelajaran.store');
+    Route::put('/admin-matapelajaran/{id}/edit', [MataPelajaranController::class, 'update'])->name('admin.matapelajaran.update');
+    Route::delete('/admin-matapelajaran/{id}', [MataPelajaranController::class, 'destroy'])->name('admin.matapelajaran.destroy');
 });
 
 Route::middleware(['auth', 'role:guru'])->group(function () {
-    Route::get('/beranda-guru',[DashboardGuruController::class,'guruIndex'])->name('beranda.guru');
+    Route::get('/beranda-guru', [DashboardGuruController::class, 'guruIndex'])->name('beranda.guru');
 });
 
 Route::middleware(['auth', 'role:orang_tua'])->group(function () {
-    Route::get('/beranda-orangtua',[DashboardOrangTuaController::class,'OrangTuaIndex'])->name('beranda.orangtua');
+    Route::get('/beranda-orangtua', [DashboardOrangTuaController::class, 'OrangTuaIndex'])->name('beranda.orangtua');
 });
