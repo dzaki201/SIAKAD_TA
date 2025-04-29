@@ -54,8 +54,32 @@ class UserSeeder extends Seeder
                 'role' => 'guru',
             ],
             [
-                'username' => 'orang_tua',
-                'email' => 'orangtua@gmail.com',
+                'username' => 'orang_tua1',
+                'email' => 'orangtua1@gmail.com',
+                'password' => Hash::make('password123'),
+                'role' => 'orang_tua',
+            ],
+            [
+                'username' => 'orang_tua2',
+                'email' => 'orangtua2@gmail.com',
+                'password' => Hash::make('password123'),
+                'role' => 'orang_tua',
+            ],
+            [
+                'username' => 'orang_tua3',
+                'email' => 'orangtua3@gmail.com',
+                'password' => Hash::make('password123'),
+                'role' => 'orang_tua',
+            ],
+            [
+                'username' => 'orang_tua4',
+                'email' => 'orangtua4@gmail.com',
+                'password' => Hash::make('password123'),
+                'role' => 'orang_tua',
+            ],
+            [
+                'username' => 'orang_tua5',
+                'email' => 'orangtua5@gmail.com',
                 'password' => Hash::make('password123'),
                 'role' => 'orang_tua',
             ]

@@ -8,6 +8,7 @@ use App\Http\Controllers\Dashboard\DashboardGuruController;
 use App\Http\Controllers\Dashboard\DashboardAdminController;
 use App\Http\Controllers\Dashboard\DashboardOrangTuaController;
 use App\Http\Controllers\MataPelajaran\MataPelajaranController;
+use App\Http\Controllers\User\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,8 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin-dashboard', [DashboardAdminController::class, 'adminIndex'])->name('admin.dashboard');
+    Route::put('/admin-dashboard/{id}/edit', [UserController::class, 'update'])->name('admin.dashboard.update');
+
     Route::get('/admin-guru', [DashboardAdminController::class, 'adminGuru'])->name('admin.guru');
     Route::post('/admin-guru', [GuruController::class, 'store'])->name('admin.guru.store');
     Route::put('/admin-guru/{id}/edit', [GuruController::class, 'update'])->name('admin.guru.update');
