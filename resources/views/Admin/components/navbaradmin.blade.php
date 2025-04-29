@@ -1,5 +1,5 @@
 <div>
-<nav class="fixed top-0 z-50 w-full bg-blue-700 border-b border-blue-800 dark:bg-blue-900 dark:border-blue-700">
+<nav class="fixed top-0 z-50 w-full bg-blue-600 border-b border-blue-700 dark:bg-blue-600 dark:border-blue-600">
         <div class="px-3 py-3 lg:px-5 lg:pl-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center justify-start rtl:justify-end">
@@ -20,7 +20,7 @@
                             class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Siakad</span>
                     </a>
                 </div>
-                <div class="flex items-center">
+                {{-- <div class="flex items-center">
                     <div class="flex items-center ms-3">
                         <div>
                             <button type="button"
@@ -48,7 +48,7 @@
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                                         role="menuitem">Dashboard</a>
                                 </li>
-                                {{-- <li>
+                                <li>
                                     <a href="#"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                                         role="menuitem">Settings</a>
@@ -57,7 +57,7 @@
                                     <a href="#"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                                         role="menuitem">Earnings</a>
-                                </li> --}}
+                                </li>
                                 <li>
                                     <a href="{{ route('logout') }}"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
@@ -66,7 +66,7 @@
                             </ul>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </nav>

@@ -42,7 +42,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin-dashboard', [DashboardAdminController::class, 'adminIndex'])->name('admin.dashboard');
     Route::get('/admin-guru', [DashboardAdminController::class, 'adminGuru'])->name('admin.guru');
     Route::post('/admin-guru', [GuruController::class, 'store'])->name('admin.guru.store');
-    Route::put('/admin-guru/{id}', [GuruController::class, 'update'])->name('admin.guru.update');
+    Route::put('/admin-guru/{id}/edit', [GuruController::class, 'update'])->name('admin.guru.update');
+    Route::delete('/admin-guru/{id}', [GuruController::class, 'destroy'])->name('admin.guru.destroy');
 
     Route::get('/admin-kelas', [DashboardAdminController::class, 'adminKelas'])->name('admin.kelas');
     Route::post('/admin-kelas', [KelasController::class, 'store'])->name('admin.kelas.store');

@@ -17,12 +17,11 @@ class DashboardAdminController extends Controller
     }
     public function adminGuru()
     {
-        $gurukelas = Guru::whereNull('mata_pelajaran_id')->with('kelas')->get();
-        $gurumapel = Guru::whereNull('kelas_id')->with('mataPelajaran')->get();
+        $gurus = Guru::all();
         $mapels = MataPelajaran::doesntHave('guru')->get();
         $kelases = Kelas::doesntHave('guru')->get();
         $users = User::where('role', 'guru')->whereDoesntHave('guru')->get();
-        return view('admin.layouts.guru', compact('gurukelas', 'gurumapel', 'mapels', 'kelases', 'users'));
+        return view('admin.layouts.guru', compact('gurus', 'mapels', 'kelases', 'users'));
     }
     public function adminMataPelajaran()
     {

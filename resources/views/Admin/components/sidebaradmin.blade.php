@@ -1,12 +1,12 @@
 <div>
     <aside id="logo-sidebar"
-        class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-[#191970] border-r border-blue-700 sm:translate-x-0"
+        class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
         aria-label="Sidebar">
-        <div class="h-full px-3 pb-4 overflow-y-auto bg-[#191970]">
+        <div class="h-full  pt-16 px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
             <ul class="space-y-2 font-medium">
                 <li>
                     <a href="{{ route('admin.dashboard') }}"
-                        class="flex items-center p-2 text-white rounded-lg hover:bg-blue-700 group {{ request()->routeIs('admin.dashboard') ? 'bg-blue-700' : '' }}">
+                        class="flex items-center p-2 text-black rounded-lg dark:text-white hover:bg-blue-600 group {{ request()->routeIs('admin.dashboard') ? 'bg-blue-600' : '' }}">
                         <svg class="w-5 h-5 text-gray-400 transition duration-75 group-hover:text-white"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
                             <path
@@ -19,7 +19,7 @@
                 </li>
                 <li>
                     <a href="{{ route('admin.guru') }}"
-                        class="flex items-center p-2 text-white rounded-lg hover:bg-blue-700 group {{ request()->routeIs('admin.guru') ? 'bg-blue-700' : '' }}">
+                        class="flex items-center p-2 text-black rounded-lg dark:text-white hover:bg-blue-600 group {{ request()->routeIs('admin.guru') ? 'bg-blue-600' : '' }}">
                         <svg class="shrink-0 w-5 h-5 text-gray-400 transition duration-75 group-hover:text-white"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 18 18">
@@ -31,7 +31,7 @@
                 </li>
                 <li>
                     <a href="#"
-                        class="flex items-center p-2 text-white rounded-lg hover:bg-blue-700 group {{ request()->routeIs('admin.siswa') ? 'bg-blue-700' : '' }}">
+                        class="flex items-center p-2 text-black rounded-lg dark:text-white hover:bg-blue-600 group {{ request()->routeIs('admin.siswa') ? 'bg-blue-600' : '' }}">
                         <svg class="shrink-0 w-5 h-5 text-gray-400 transition duration-75 group-hover:text-white"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 20 20">
@@ -43,7 +43,7 @@
                 </li>
                 <li>
                     <a href="{{ route('admin.matapelajaran') }}"
-                        class="flex items-center p-2 text-white rounded-lg hover:bg-blue-700 group {{ request()->routeIs('admin.matapelajaran') ? 'bg-blue-700' : '' }}">
+                        class="flex items-center p-2 text-black rounded-lg dark:text-white hover:bg-blue-600 group {{ request()->routeIs('admin.matapelajaran') ? 'bg-blue-600' : '' }}">
                         <svg class="shrink-0 w-5 h-5 text-gray-400 transition duration-75 group-hover:text-white"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 20 18">
@@ -55,7 +55,7 @@
                 </li>
                 <li>
                     <a href="{{ route('admin.kelas') }}"
-                        class="flex items-center p-2 text-white rounded-lg hover:bg-blue-700 group {{ request()->routeIs('admin.kelas') ? 'bg-blue-700' : '' }}">
+                        class="flex items-center p-2 text-black rounded-lg dark:text-white hover:bg-blue-600 group {{ request()->routeIs('admin.kelas') ? 'bg-blue-600' : '' }}">
                         <svg class="shrink-0 w-5 h-5 text-gray-400 transition duration-75 group-hover:text-white"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 18 20">
@@ -63,6 +63,22 @@
                                 d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z" />
                         </svg>
                         <span class="flex-1 ms-3 whitespace-nowrap">Kelas</span>
+                    </a>
+                </li>
+
+            </ul>
+            <ul class="mt-4 space-y-2 border-t border-gray-200 pt-4 font-medium dark:border-gray-700">
+                <li>
+                    <a href="{{ route('logout') }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white  hover:bg-blue-600 group {{ request()->routeIs('logout') ? 'bg-blue-600' : '' }}">
+                        <svg class="shrink-0 w-5 h-5 text-gray-400 transition duration-75 group-hover:text-white"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
+                        </svg>
+
+                        <span class="flex-1 ms-3 whitespace-nowrap">Log Out</span>
                     </a>
                 </li>
             </ul>
