@@ -21,13 +21,14 @@
             <h1 class="text-2xl font-semibold mb-4">Register</h1>
             <form action="{{ route('register.save') }}" method="POST">
                 @csrf
+                @include('components.alert')
                 <!-- Username Input -->
                 <div class="mb-4">
                     <label for="username" class="block text-gray-600">Username</label>
-                    <input type="text" id="username" name="name"
+                    <input type="text" id="username" name="username"
                         class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
                         autocomplete="off">
-                    @error('name')
+                    @error('username')
                         <span class="text-red-600">{{ $message }}</span>
                     @enderror
                 </div>

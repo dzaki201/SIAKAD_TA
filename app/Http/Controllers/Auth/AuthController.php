@@ -18,14 +18,13 @@ class AuthController extends Controller
 
     public function registerSave(Request $request){
         Validator::make($request->all(), [
-            'name' => 'required',
+            'username' => 'required',
             'email' => 'required|email',
             'password' => 'required|confirmed',
-            'role' => 'required'
         ])->validate();
 
         User::create([
-            'name' => $request->name,
+            'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'orang_tua'

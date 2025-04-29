@@ -14,10 +14,7 @@ class KelasController extends Controller
             'nama_kelas' => 'required|string',
         ]);
 
-        Kelas::create([
-            'nama_kelas' => $validatedData['nama_kelas'],
-        ]);
-
+        Kelas::create($validatedData);
         return redirect()->route('admin.kelas')->with('success', 'Kelas berhasil ditambahkan');
     }
     public function update(Request $request, string $id)

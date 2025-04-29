@@ -14,9 +14,7 @@ class MataPelajaranController extends Controller
             'nama_mata_pelajaran' => 'required|string',
         ]);
 
-        MataPelajaran::create([
-            'nama_mata_pelajaran' => $validatedData['nama_mata_pelajaran'],
-        ]);
+        MataPelajaran::create($validatedData);
         return redirect()->route('admin.matapelajaran')->with('success', 'Mata Pelajaran berhasil ditambahkan');
     }
     public function update(Request $request, string $id)
