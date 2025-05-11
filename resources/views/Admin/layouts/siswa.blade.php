@@ -4,41 +4,41 @@
 
 @section('content')
 
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg mb-6">
         @include('components.alert')
-        <button data-modal-target="tambah-mata-pelajaran-modal" data-modal-toggle="tambah-mata-pelajaran-modal"
+        <button data-modal-target="tambah-siswa-modal" data-modal-toggle="tambah-siswa-modal"
             class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
             type="button">
-            Tambah Mata Pelajaran
+            Tambah Siswa
         </button>
+        <a href="{{ route('admin.edit.kelas.siswa') }}">
+            <button
+                class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
+                type="button">
+                Edit Kelas Siswa
+            </button>
+        </a>
         <div class="overflow-x-auto rounded-lg ">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" class="px-6 py-3">
-                            Id
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Nama Mata Pelajaran
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Aksi
-                        </th>
+                        <th scope="col" class="px-6 py-3">Nis</th>
+                        <th scope="col" class="px-6 py-3">Nama Siswa</th>
+                        <th scope="col" class="px-6 py-3">Kelas</th>
+                        <th scope="col" class="px-6 py-3">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($mapels as $mapel)
+                    @foreach ($siswas as $siswa)
                         <tr
                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <td class="px-6 py-4">{{ $siswa->nis }}</td>
+                            <td class="px-6 py-4">{{ $siswa->nama }}</td>
+                            <td class="px-6 py-4">{{ $siswa->kelas ? $siswa->kelas->nama_kelas : '-' }}</td>
                             <td class="px-6 py-4">
-                                {{ $mapel->id }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $mapel->nama_mata_pelajaran }}
-                            </td>
-                            <td class="px-6 py-4 ">
-                                <button data-modal-target="edit-mapel-modal-{{ $mapel->id }}"
-                                    data-modal-toggle="edit-mapel-modal-{{ $mapel->id }}"
+                                <button data-modal-target="edit-siswa-modal-{{ $siswa->id }}"
+                                    data-modal-toggle="edit-siswa-modal-{{ $siswa->id }}"
                                     class="inline-flex items-center bg-yellow-500 text-white p-2 rounded-lg hover:bg-yellow-600">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-5 mr-1">
@@ -47,8 +47,8 @@
                                     </svg>
                                     Edit
                                 </button>
-                                <button data-modal-target="delete-mapel-modal-{{ $mapel->id }}"
-                                    data-modal-toggle="delete-mapel-modal-{{ $mapel->id }}"
+                                <button data-modal-target="hapus-siswa-modal-{{ $siswa->id }}"
+                                    data-modal-toggle="hapus-siswa-modal-{{ $siswa->id }}"
                                     class="inline-flex items-center bg-red-500 text-white p-2 rounded-lg hover:bg-red-600 ml-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-5 mr-1">
@@ -59,12 +59,13 @@
                                 </button>
                             </td>
                         </tr>
-                        @include('admin.partials.matapelajaran.modaleditmatapelajaran')
-                        @include('admin.partials.matapelajaran.modalhapusmatapelajaran')
+                        @include('Admin.partials.siswa.modaleditsiswa')
+                        @include('Admin.partials.siswa.modalhapussiswa')
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-    @include('admin.partials.matapelajaran.modaltambahmatapelajaran')
+    @include('Admin.partials.siswa.modaltambahsiswa')
+    </div>
 @endsection

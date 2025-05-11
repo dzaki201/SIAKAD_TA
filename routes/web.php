@@ -8,6 +8,7 @@ use App\Http\Controllers\Dashboard\DashboardGuruController;
 use App\Http\Controllers\Dashboard\DashboardAdminController;
 use App\Http\Controllers\Dashboard\DashboardOrangTuaController;
 use App\Http\Controllers\MataPelajaran\MataPelajaranController;
+use App\Http\Controllers\Siswa\SiswaController;
 use App\Http\Controllers\User\UserController;
 
 /*
@@ -47,6 +48,13 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/admin-guru', [GuruController::class, 'store'])->name('admin.guru.store');
     Route::put('/admin-guru/{id}/edit', [GuruController::class, 'update'])->name('admin.guru.update');
     Route::delete('/admin-guru/{id}', [GuruController::class, 'destroy'])->name('admin.guru.destroy');
+
+    Route::get('/admin-siswa', [DashboardAdminController::class, 'adminSiswa'])->name('admin.siswa');
+    Route::get('/admin-edit-kelas-siswa', [DashboardAdminController::class, 'adminEditKelasSiswa'])->name('admin.edit.kelas.siswa');
+    Route::post('/admin-siswa', [SiswaController::class, 'store'])->name('admin.siswa.store');
+    Route::put('/admin-siswa/{id}/edit', [SiswaController::class, 'update'])->name('admin.siswa.update');
+    Route::post('/admin-siswa/update-kelas', [SiswaController::class, 'updateKelas'])->name('admin.update.kelas.siswa');
+    Route::delete('/admin-siswa/{id}', [SiswaController::class, 'destroy'])->name('admin.siswa.destroy');
 
     Route::get('/admin-kelas', [DashboardAdminController::class, 'adminKelas'])->name('admin.kelas');
     Route::post('/admin-kelas', [KelasController::class, 'store'])->name('admin.kelas.store');

@@ -68,12 +68,8 @@ class GuruController extends Controller
     }
     public function destroy($id)
     {
-        // Cari data guru
         $guru = Guru::findOrFail($id);
-
-        // Hapus data guru
         $guru->delete();
-
         return redirect()->back()->with('success', 'Data guru berhasil dihapus.');
     }
 }

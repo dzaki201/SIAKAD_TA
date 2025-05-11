@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Guru;
 use App\Models\Kelas;
 use App\Models\MataPelajaran;
+use App\Models\Siswa;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,9 @@ class DashboardAdminController extends Controller
 {
     public function adminIndex()
     {
-        return view('Admin.layouts.dashboard');
+        $guru = Guru::count();
+        $siswa = Siswa::count();
+        return view('Admin.layouts.dashboard', compact('guru','siswa'));
     }
     public function adminGuru()
     {
@@ -22,6 +25,28 @@ class DashboardAdminController extends Controller
         $kelases = Kelas::doesntHave('guru')->get();
         $users = User::where('role', 'guru')->whereDoesntHave('guru')->get();
         return view('admin.layouts.guru', compact('gurus', 'mapels', 'kelases', 'users'));
+    }
+    public function adminSiswa()
+    {
+        $siswas = Siswa::all();
+        $kelases = Kelas::all();
+        return view('admin.layouts.siswa', compact('siswas', 'kelases'));
+    }
+    public function adminEditKelasSiswa(Request $request)
+    {
+        $kelases = Kelas::all();
+        $siswa = Siswa::query();
+        if ($request->filter_kelas) {
+            $siswa->where('kelas_id', $request->filter_kelas);
+        }
+        $siswas = $siswa->get();
+        return view('admin.layouts.editkelassiswa', compact('siswas', 'kelases'));
+    }
+    public function adminFilterEditKelasSiswa()
+    {
+        $siswas = Siswa::all();
+        $kelases = Kelas::all();
+        return view('admin.layouts.editkelassiswa', compact('siswas', 'kelases'));
     }
     public function adminMataPelajaran()
     {

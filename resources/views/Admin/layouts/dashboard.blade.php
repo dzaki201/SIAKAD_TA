@@ -28,15 +28,15 @@
                 <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
                     <li class="py-3 sm:py-4 flex items-center justify-between">
                         <span class="text-sm font-medium text-gray-900 dark:text-white">Guru</span>
-                        <span class="text-base font-semibold text-gray-900 dark:text-white">12</span>
+                        <span class="text-base font-semibold text-gray-900 dark:text-white">{{ $guru }}</span>
                     </li>
                     <li class="py-3 sm:py-4 flex items-center justify-between">
                         <span class="text-sm font-medium text-gray-900 dark:text-white">Siswa</span>
-                        <span class="text-base font-semibold text-gray-900 dark:text-white">210</span>
+                        <span class="text-base font-semibold text-gray-900 dark:text-white">{{ $siswa }}</span>
                     </li>
                     <li class="py-3 sm:py-4 flex items-center justify-between">
                         <span class="text-sm font-medium text-gray-900 dark:text-white">Pengajuan Baru belum disetujui</span>
-                        <span class="text-base font-semibold text-gray-900 dark:text-white">5</span>
+                        <span class="text-base font-semibold text-gray-900 dark:text-white">-</span>
                     </li>
                 </ul>
             </div>
