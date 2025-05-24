@@ -17,7 +17,7 @@
                 </button>
             </div>
             <div class="p-6 space-y-6">
-                <form action="{{ route('admin.matapelajaran.update', ['id' => $mapel->id]) }}" method="POST">
+                <form action="{{ route('admin.mata-pelajaran.update', ['id' => $mapel->id]) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="mb-4">

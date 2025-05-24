@@ -9,7 +9,9 @@ use App\Http\Controllers\Dashboard\DashboardAdminController;
 use App\Http\Controllers\Dashboard\DashboardOrangTuaController;
 use App\Http\Controllers\MataPelajaran\MataPelajaranController;
 use App\Http\Controllers\Siswa\SiswaController;
+use App\Http\Controllers\TahunAjaran\TahunAjaranController;
 use App\Http\Controllers\User\UserController;
+use App\Models\TahunAjaran;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,10 +63,16 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/admin-kelas/{id}/edit', [KelasController::class, 'update'])->name('admin.kelas.update');
     Route::delete('/admin-kelas/{id}', [KelasController::class, 'destroy'])->name('admin.kelas.destroy');
 
-    Route::get('/admin-matapelajaran', [DashboardAdminController::class, 'adminMataPelajaran'])->name('admin.matapelajaran');
-    Route::post('/admin-matapelajaran', [MataPelajaranController::class, 'store'])->name('admin.matapelajaran.store');
-    Route::put('/admin-matapelajaran/{id}/edit', [MataPelajaranController::class, 'update'])->name('admin.matapelajaran.update');
-    Route::delete('/admin-matapelajaran/{id}', [MataPelajaranController::class, 'destroy'])->name('admin.matapelajaran.destroy');
+    Route::get('/admin-mata-pelajaran', [DashboardAdminController::class, 'adminMataPelajaran'])->name('admin.mata-pelajaran');
+    Route::post('/admin-mata-pelajaran', [MataPelajaranController::class, 'store'])->name('admin.mata-pelajaran.store');
+    Route::put('/admin-mata-pelajaran/{id}/edit', [MataPelajaranController::class, 'update'])->name('admin.mata-pelajaran.update');
+    Route::delete('/admin-mata-pelajaran/{id}', [MataPelajaranController::class, 'destroy'])->name('admin.mata-pelajaran.destroy');
+
+    Route::get('/admin-tahun-ajaran', [DashboardAdminController::class, 'adminTahunAjaran'])->name('admin.tahun-ajaran');
+    Route::post('/admin-tahun-ajaran', [TahunAjaranController::class, 'store'])->name('admin.tahun-ajaran.store');
+    Route::post('/admin-tahun-ajaran/{id}/aktifkan', [TahunAjaranController::class, 'aktifkan'])->name('admin.tahun-ajaran.aktifkan');
+    Route::post('/admin-tahun-ajaran/{id}/nonaktifkan', [TahunAjaranController::class, 'nonaktifkan'])->name('admin.tahun-ajaran.nonaktifkan');
+    Route::delete('/admin-tahun-ajaran/{id}', [TahunAjaranController::class, 'destroy'])->name('admin.tahun-ajaran.destroy');
 });
 
 Route::middleware(['auth', 'role:guru'])->group(function () {

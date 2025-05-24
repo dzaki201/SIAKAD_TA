@@ -66,6 +66,5 @@
             </table>
         </div>
     </div>
-    @include('Admin.partials.siswa.modaltambahsiswa')
-    </div>
+    @include('admin.partials.siswa.modaltambahsiswa')
 @endsection

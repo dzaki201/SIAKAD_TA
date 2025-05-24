@@ -7,6 +7,7 @@ use App\Models\Guru;
 use App\Models\Kelas;
 use App\Models\MataPelajaran;
 use App\Models\Siswa;
+use App\Models\TahunAjaran;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -51,11 +52,16 @@ class DashboardAdminController extends Controller
     public function adminMataPelajaran()
     {
         $mapels = MataPelajaran::all();
-        return view('admin.layouts.matapelajaran', compact('mapels'));
+        return view('admin.layouts.mata-pelajaran', compact('mapels'));
     }
     public function adminKelas()
     {
         $kelases = Kelas::all();
         return view('admin.layouts.kelas', compact('kelases'));
+    }
+    public function adminTahunAjaran()
+    {
+        $tahuns = TahunAjaran::all();
+        return view('admin.layouts.tahun-ajaran', compact('tahuns'));
     }
 }

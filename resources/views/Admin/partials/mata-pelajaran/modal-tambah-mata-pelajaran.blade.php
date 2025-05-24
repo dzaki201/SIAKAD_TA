@@ -18,7 +18,7 @@
                 </button>
             </div>
             <div class="p-6 space-y-6">
-                <form action="{{ route('admin.matapelajaran.store') }}" method="POST">
+                <form action="{{ route('admin.mata-pelajaran.store') }}" method="POST">
                     @csrf
                     <div class="mb-4">
                         <label for="nama_mata_pelajaran"

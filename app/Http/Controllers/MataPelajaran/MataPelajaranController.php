@@ -15,7 +15,7 @@ class MataPelajaranController extends Controller
         ]);
 
         MataPelajaran::create($validatedData);
-        return redirect()->route('admin.matapelajaran')->with('success', 'Mata Pelajaran berhasil ditambahkan');
+        return redirect()->back()->with('success', 'Mata Pelajaran berhasil ditambahkan');
     }
     public function update(Request $request, string $id)
     {
@@ -25,13 +25,13 @@ class MataPelajaranController extends Controller
 
         $mapel = MataPelajaran::findOrFail($id);
         $mapel->update($validatedData);
-        return redirect()->route('admin.matapelajaran')->with('success', 'Mata Pelajaran berhasil diperbaharui');
+        return redirect()->back()->with('success', 'Mata Pelajaran berhasil diperbaharui');
     }
 
     public function destroy(string $id)
     {
         $mapel = MataPelajaran::findOrFail($id);
         $mapel->delete();
-        return redirect()->route('admin.matapelajaran')->with('success', 'Mata Pelajaran berhasil dihapus');
+        return redirect()->back()->with('success', 'Mata Pelajaran berhasil dihapus');
     }
 }

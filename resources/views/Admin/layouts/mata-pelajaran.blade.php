@@ -59,12 +59,12 @@
                                 </button>
                             </td>
                         </tr>
-                        @include('admin.partials.matapelajaran.modaleditmatapelajaran')
-                        @include('admin.partials.matapelajaran.modalhapusmatapelajaran')
+                        @include('admin.partials.mata-pelajaran.modal-edit-mata-pelajaran')
+                        @include('admin.partials.mata-pelajaran.modal-hapus-mata-pelajaran')
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-    @include('admin.partials.matapelajaran.modaltambahmatapelajaran')
+    @include('admin.partials.mata-pelajaran.modal-tambah-mata-pelajaran')
 @endsection
