@@ -42,17 +42,23 @@
                 Pindahkan
             </button>
             <div class="overflow-x-auto rounded-lg">
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <table class="w-full min-w-[1000px] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-white uppercase bg-blue-800 dark:bg-gray-700">
                         <tr>
                             <th scope="col" class="p-4">
-                                {{-- <input type="checkbox" id="check-all"
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600"> --}}
+
                                 Pilih
                             </th>
                             <th scope="col" class="px-6 py-3">NIS</th>
-                            <th scope="col" class="px-6 py-3">Nama</th>
-                            <th scope="col" class="px-6 py-3">Kelas Sekarang</th>
+                            <th scope="col" class="px-6 py-3">NISN</th>
+                            <th scope="col" class="px-6 py-3">Nama Siswa</th>
+                            <th scope="col" class="px-6 py-3">Tempat Lahir</th>
+                            <th scope="col" class="px-6 py-3">Tanggal Lahir</th>
+                            <th scope="col" class="px-6 py-3">Jenis Kelamin</th>
+                            <th scope="col" class="px-6 py-3">Agama</th>
+                            <th scope="col" class="px-6 py-3">Sekolah Asal</th>
+                            <th scope="col" class="px-6 py-3">Alamat</th>
+                            <th scope="col" class="px-6 py-3">Kelas</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,7 +70,14 @@
                                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600">
                                 </td>
                                 <td class="px-6 py-4">{{ $siswa->nis }}</td>
+                                <td class="px-6 py-4">{{ $siswa->nisn }}</td>
                                 <td class="px-6 py-4">{{ $siswa->nama }}</td>
+                                <td class="px-6 py-4">{{ $siswa->tempat_lahir }}</td>
+                                <td class="px-6 py-4">{{ $siswa->tanggal_lahir }}</td>
+                                <td class="px-6 py-4">{{ $siswa->jenis_kelamin }}</td>
+                                <td class="px-6 py-4">{{ $siswa->agama }}</td>
+                                <td class="px-6 py-4">{{ $siswa->sekolah_asal }}</td>
+                                <td class="px-6 py-4">{{ $siswa->alamat }}</td>
                                 <td class="px-6 py-4">{{ $siswa->kelas->nama_kelas ?? '-' }}</td>
                             </tr>
                         @endforeach

@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orang_tua', function (Blueprint $table) {
+       Schema::create('orang_tua', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('nama',100);
-            $table->string('nik',50)->unique();
+            $table->foreignId('siswa_id')->constrained('siswa');
+            $table->enum('status',['ayah', 'ibu', 'wali']);
+            $table->string('nik',20);
+            $table->string('nama', 50);
+            $table->string('pekerjaan',30);
+            $table->string('alamat');
             $table->string('no_hp',20);
             $table->timestamps();
         });

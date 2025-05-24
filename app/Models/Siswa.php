@@ -14,19 +14,19 @@ class Siswa extends Model
     protected $fillable = [
         'nama',
         'nis',
+        'nisn',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'jenis_kelamin',
+        'agama',
+        'sekolah_asal',
+        'alamat',
         'kelas_id',
-        'orangtua_id'
     ];
 
     // Relasi ke Kelas
     public function kelas()
     {
         return $this->belongsTo(Kelas::class, 'kelas_id');
-    }
-
-    // Relasi ke Orang Tua
-    public function orangTua()
-    {
-        return $this->belongsTo(OrangTua::class, 'orangtua_id');
     }
 }
