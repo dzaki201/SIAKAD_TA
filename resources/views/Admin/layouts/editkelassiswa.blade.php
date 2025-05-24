@@ -4,9 +4,9 @@
 
 @section('content')
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg mb-6">
-        
+
         <div class="flex justify-between items-center">
-            <a href="{{ route('admin.siswa') }}" 
+            <a href="{{ route('admin.siswa') }}"
                 class="text-white bg-gray-600 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
                 Kembali
             </a>
@@ -38,12 +38,12 @@
                 @endforeach
             </select>
             <button type="submit"
-            class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ">
+                class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ">
                 Pindahkan
             </button>
             <div class="overflow-x-auto rounded-lg">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <thead class="text-xs text-white uppercase bg-blue-800 dark:bg-gray-700">
                         <tr>
                             <th scope="col" class="p-4">
                                 {{-- <input type="checkbox" id="check-all"

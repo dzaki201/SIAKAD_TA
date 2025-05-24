@@ -14,7 +14,7 @@
         </button>
         <div class="overflow-x-auto rounded-lg ">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <thead class="text-xs text-white uppercase bg-blue-800 dark:bg-gray-700">
                     <tr>
                         <th scope="col" class="px-6 py-3">
                             Status
@@ -42,7 +42,7 @@
                 <tbody>
                     @foreach ($gurus as $guru)
                         <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-blue-100 dark:hover:bg-gray-600">
                             <td class="px-6 py-4">
                                 {{ $guru->status }}
                             </td>
@@ -64,7 +64,7 @@
                             <td class="px-6 py-4">
                                 <button data-modal-target="edit-guru-modal-{{ $guru->id }}"
                                     data-modal-toggle="edit-guru-modal-{{ $guru->id }}"
-                                    class="inline-flex items-center bg-yellow-500 text-white p-2 rounded-lg hover:bg-yellow-600">
+                                    class="inline-flex items-center bg-yellow-500 text-white p-2 rounded-lg hover:bg-yellow-600 transition duration-200">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-5 mr-1">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -74,7 +74,7 @@
                                 </button>
                                 <button data-modal-target="hapus-guru-modal-{{ $guru->id }}"
                                     data-modal-toggle="hapus-guru-modal-{{ $guru->id }}"
-                                    class="inline-flex items-center bg-red-500 text-white p-2 rounded-lg hover:bg-red-600 ml-2">
+                                    class="inline-flex items-center bg-red-500 text-white p-2 rounded-lg hover:bg-red-600 ml-2 transition duration-200">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-5 mr-1">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -89,6 +89,7 @@
                     @endforeach
                 </tbody>
             </table>
+
         </div>
     </div>
     @include('admin.partials.guru.modaltambahguru')

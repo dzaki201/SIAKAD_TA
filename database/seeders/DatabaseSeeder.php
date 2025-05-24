@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             MataPelajaranSeeder::class,
             GuruSeeder::class,
             OrangTuaSeeder::class,
-            SiswaSeeder::class
+            SiswaSeeder::class,
+            TahunAjaranSeeder::class
         ]);
     }
 }

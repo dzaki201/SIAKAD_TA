@@ -11,7 +11,7 @@
 </head>
 
 <body class="bg-gray-100 dark:bg-gray-900">
-    @include('Admin.components.navbaradmin')
+    {{-- @include('Admin.components.navbaradmin') --}}
     @include('Admin.components.sidebaradmin')
     <div class="p-4 sm:ml-64 pt-20 ">
         @yield('content')
