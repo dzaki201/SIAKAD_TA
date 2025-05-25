@@ -8,16 +8,15 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('mata_pelajaran', function (Blueprint $table) {
+        Schema::create('ekstrakulikuler', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_mata_pelajaran', 100);
-            $table->string('status'); //status apakah muatan lokal atau tidak
+            $table->string('nama');
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('mata_pelajaran');
+        Schema::dropIfExists('ekstrakulikuler');
     }
 };

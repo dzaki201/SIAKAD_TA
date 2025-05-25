@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Guru;
 use App\Models\Kelas;
 use App\Models\MataPelajaran;
+use App\Models\OrangTua;
 use App\Models\Siswa;
 use App\Models\TahunAjaran;
 use App\Models\User;
@@ -32,6 +33,12 @@ class DashboardAdminController extends Controller
         $siswas = Siswa::all();
         $kelases = Kelas::all();
         return view('admin.layouts.siswa', compact('siswas', 'kelases'));
+    }
+    public function adminOrangTua()
+    {
+        $orangtuas = OrangTua::all();
+        $siswas = Siswa::all();
+        return view('admin.layouts.orang-tua',compact('orangtuas','siswas'));
     }
     public function adminEditKelasSiswa(Request $request)
     {

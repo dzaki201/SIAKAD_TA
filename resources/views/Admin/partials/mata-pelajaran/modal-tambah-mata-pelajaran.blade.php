@@ -1,4 +1,3 @@
-<!-- Modal for Adding Mata Pelajaran -->
 <div id="tambah-mata-pelajaran-modal" tabindex="-1" aria-hidden="true"
     class="fixed inset-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0">
     <div class="relative w-full h-full max-w-2xl md:h-auto">

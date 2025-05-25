@@ -18,51 +18,28 @@
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-white uppercase bg-blue-800 dark:bg-gray-700">
                     <tr>
-                        <th scope="col" class="px-6 py-3">
-                            Status
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Nip
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Nama Guru
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Username
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Wali Kelas
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Mata Pelajaran
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Aksi
-                        </th>
+                        <th scope="col" class="px-6 py-3">No</th>
+                        <th scope="col" class="px-6 py-3">Status</th>
+                        <th scope="col" class="px-6 py-3">Nip</th>
+                        <th scope="col" class="px-6 py-3">Nama Guru</th>
+                        <th scope="col" class="px-6 py-3">Username</th>
+                        <th scope="col" class="px-6 py-3">Wali Kelas</th>
+                        <th scope="col" class="px-6 py-3">Mata Pelajaran</th>
+                        <th scope="col" class="px-6 py-3">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($gurus as $guru)
                         <tr
                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-blue-100 dark:hover:bg-gray-600">
+                            <td class="px-6 py-4">{{ $loop->iteration }}</td>
+                            <td class="px-6 py-4">{{ $guru->status }}</td>
+                            <td class="px-6 py-4">{{ $guru->nip }}</td>
+                            <td class="px-6 py-4">{{ $guru->nama }}</td>
+                            <td class="px-6 py-4">{{ $guru->user->username }}</td>
+                            <td class="px-6 py-4">{{ $guru->kelas ? $guru->kelas->nama_kelas : '-' }}</td>
                             <td class="px-6 py-4">
-                                {{ $guru->status }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $guru->nip }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $guru->nama }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $guru->user->username }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $guru->kelas ? $guru->kelas->nama_kelas : '-' }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $guru->mataPelajaran ? $guru->mataPelajaran->nama_mata_pelajaran : '-' }}
-                            </td>
+                                {{ $guru->mataPelajaran ? $guru->mataPelajaran->nama_mata_pelajaran : '-' }}</td>
                             <td class="px-6 py-4">
                                 <button data-modal-target="edit-guru-modal-{{ $guru->id }}"
                                     data-modal-toggle="edit-guru-modal-{{ $guru->id }}"

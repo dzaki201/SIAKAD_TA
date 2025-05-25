@@ -25,6 +25,7 @@
             <table class="w-full min-w-[1000px] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-white uppercase bg-blue-800 dark:bg-gray-700">
                     <tr>
+                        <th scope="col" class="px-6 py-3">No</th>
                         <th scope="col" class="px-6 py-3">NIS</th>
                         <th scope="col" class="px-6 py-3">NISN</th>
                         <th scope="col" class="px-6 py-3">Nama Siswa</th>
@@ -42,6 +43,7 @@
                     @foreach ($siswas as $siswa)
                         <tr
                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <td class="px-6 py-4">{{ $loop->iteration }}</td>
                             <td class="px-6 py-4">{{ $siswa->nis }}</td>
                             <td class="px-6 py-4">{{ $siswa->nisn }}</td>
                             <td class="px-6 py-4">{{ $siswa->nama }}</td>
@@ -80,6 +82,7 @@
                         @include('Admin.partials.siswa.modaleditsiswa')
                         @include('Admin.partials.siswa.modalhapussiswa')
                     @endforeach
+                    
                 </tbody>
             </table>
         </div>

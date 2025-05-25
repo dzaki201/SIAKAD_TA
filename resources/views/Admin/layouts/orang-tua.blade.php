@@ -5,42 +5,44 @@
 @section('content')
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <div class="mb-4">
-        @include('components.alert')
-        <button data-modal-target="tambah-mata-pelajaran-modal" data-modal-toggle="tambah-mata-pelajaran-modal"
-            class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
-            type="button">
-            Tambah Mata Pelajaran
-        </button>
-    </div>
+        <div class="mb-4">
+            @include('components.alert')
+            <button data-modal-target="tambah-orang-tua-modal" data-modal-toggle="tambah-orang-tua-modal"
+                class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
+                type="button">
+                Tambah Data Orang Tua
+            </button>
+        </div>
         <div class="overflow-x-auto rounded-lg ">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-white uppercase bg-blue-800 dark:bg-gray-700">
                     <tr>
-                        <th scope="col" class="px-6 py-3">
-                            Id
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Nama Mata Pelajaran
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Aksi
-                        </th>
+                        <th scope="col" class="px-6 py-3">No</th>
+                        <th scope="col" class="px-6 py-3">Siswa</th>
+                        <th scope="col" class="px-6 py-3">Status</th>
+                        <th scope="col" class="px-6 py-3">NIK</th>
+                        <th scope="col" class="px-6 py-3">Nama</th>
+                        <th scope="col" class="px-6 py-3">Pekerjaan</th>
+                        <th scope="col" class="px-6 py-3">Alamat</th>
+                        <th scope="col" class="px-6 py-3">No HP</th>
+                        <th scope="col" class="px-6 py-3">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($mapels as $mapel)
+                    @foreach ($orangtuas as $ortu)
                         <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <td class="px-6 py-4">
-                                {{ $mapel->id }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $mapel->nama_mata_pelajaran }}
-                            </td>
+                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-blue-100 dark:hover:bg-gray-600">
+                            <td class="px-6 py-4">{{ $loop->iteration }}</td>
+                            <td class="px-6 py-4">{{ $ortu->siswa->nama }}</td>
+                            <td class="px-6 py-4">{{ ucfirst($ortu->status) }}</td>
+                            <td class="px-6 py-4">{{ $ortu->nik }}</td>
+                            <td class="px-6 py-4">{{ $ortu->nama }}</td>
+                            <td class="px-6 py-4">{{ $ortu->pekerjaan }}</td>
+                            <td class="px-6 py-4">{{ $ortu->alamat }}</td>
+                            <td class="px-6 py-4">{{ $ortu->no_hp }}</td>
                             <td class="px-6 py-4 ">
-                                <button data-modal-target="edit-mapel-modal-{{ $mapel->id }}"
-                                    data-modal-toggle="edit-mapel-modal-{{ $mapel->id }}"
+                                <button data-modal-target="edit-orang-tua-modal-{{ $ortu->id }}"
+                                    data-modal-toggle="edit-orang-tua-modal-{{ $ortu->id }}"
                                     class="inline-flex items-center bg-yellow-500 text-white p-2 rounded-lg hover:bg-yellow-600">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-5 mr-1">
@@ -49,8 +51,8 @@
                                     </svg>
                                     Edit
                                 </button>
-                                <button data-modal-target="hapus-mapel-modal-{{ $mapel->id }}"
-                                    data-modal-toggle="hapus-mapel-modal-{{ $mapel->id }}"
+                                <button data-modal-target="hapus-orang-tua-modal-{{ $ortu->id }}"
+                                    data-modal-toggle="hapus-orang-tua-modal-{{ $ortu->id }}"
                                     class="inline-flex items-center bg-red-500 text-white p-2 rounded-lg hover:bg-red-600 ml-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-5 mr-1">
@@ -61,12 +63,13 @@
                                 </button>
                             </td>
                         </tr>
-                        @include('admin.partials.mata-pelajaran.modal-edit-mata-pelajaran')
-                        @include('admin.partials.mata-pelajaran.modal-hapus-mata-pelajaran')
+                        @include('admin.partials.orang-tua.modal-edit-orang-tua')
+                        @include('admin.partials.orang-tua.modal-hapus-orang-tua')
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-    @include('admin.partials.mata-pelajaran.modal-tambah-mata-pelajaran')
+    @include('admin.partials.orang-tua.modal-tambah-orang-tua')
+
 @endsection

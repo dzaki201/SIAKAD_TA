@@ -8,25 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class OrangTua extends Model
 {
     use HasFactory;
-
     protected $table = 'orang_tua';
 
     protected $fillable = [
-        'user_id',
-        'nama',
+        'siswa_id',
+        'status',
         'nik',
-        'no_hp'
+        'nama',
+        'pekerjaan',
+        'alamat',
+        'no_hp',
     ];
 
-    // Relasi ke User
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    // Relasi ke Siswa
+    // Relasi ke tabel siswa
     public function siswa()
     {
-        return $this->hasMany(Siswa::class, 'orangtua_id');
+        return $this->belongsTo(Siswa::class);
     }
 }

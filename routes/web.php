@@ -8,10 +8,12 @@ use App\Http\Controllers\Dashboard\DashboardGuruController;
 use App\Http\Controllers\Dashboard\DashboardAdminController;
 use App\Http\Controllers\Dashboard\DashboardOrangTuaController;
 use App\Http\Controllers\MataPelajaran\MataPelajaranController;
+use App\Http\Controllers\OrangTua\OrangTuaController;
 use App\Http\Controllers\Siswa\SiswaController;
 use App\Http\Controllers\TahunAjaran\TahunAjaranController;
 use App\Http\Controllers\User\UserController;
 use App\Models\TahunAjaran;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +59,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/admin-siswa/{id}/edit', [SiswaController::class, 'update'])->name('admin.siswa.update');
     Route::post('/admin-siswa/update-kelas', [SiswaController::class, 'updateKelas'])->name('admin.update.kelas.siswa');
     Route::delete('/admin-siswa/{id}', [SiswaController::class, 'destroy'])->name('admin.siswa.destroy');
+
+    Route::get('/admin-orang-tua', [DashboardAdminController::class, 'adminOrangTua'])->name('admin.orang-tua');
+    Route::post('/admin-orang-tua',[OrangTuaController::class, 'store'])->name('admin.orang-tua.store');
+    Route::put('/admin-orang-tua/{id}/edit',[OrangTuaController::class, 'update'])->name('admin.orang-tua.update');
+    Route::delete('/admin-orang-tua/{id}',[OrangTuaController::class, 'destroy'])->name('admin.orang-tua.destroy');
 
     Route::get('/admin-kelas', [DashboardAdminController::class, 'adminKelas'])->name('admin.kelas');
     Route::post('/admin-kelas', [KelasController::class, 'store'])->name('admin.kelas.store');
