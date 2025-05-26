@@ -2,7 +2,8 @@
     <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
         @foreach ($mapels as $mapel)
             <li class="me-2">
-                <a href=""
+                <a 
+                href="{{ route('guru.get-nilai', ['id' => $mapel->id]) }}"
                     class="inline-flex items-center justify-center p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
                     aria-current="page">
                     <svg class="w-4 h-4 me-2 text-blue-600 dark:text-blue-500" aria-hidden="true"

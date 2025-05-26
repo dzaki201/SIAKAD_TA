@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\GuruController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Kelas\KelasController;
+use App\Http\Controllers\Nilai\NilaiController;
 use App\Http\Controllers\Siswa\SiswaController;
 use App\Http\Controllers\OrangTua\OrangTuaController;
 use App\Http\Controllers\Ekstrakulikuler\Ekstrakulikuler;
@@ -16,6 +17,7 @@ use App\Http\Controllers\Dashboard\DashboardAdminController;
 use App\Http\Controllers\Dashboard\DashboardOrangTuaController;
 use App\Http\Controllers\MataPelajaran\MataPelajaranController;
 use App\Http\Controllers\Ekstrakulikuler\EkstrakulikulerController;
+use App\Http\Controllers\Nilai\CapaianPembelajaranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,7 +95,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::middleware(['auth', 'role:guru'])->group(function () {
     Route::get('/guru-dashboard', [DashboardGuruController::class, 'guruIndex'])->name('guru.dashboard');
 
+    Route::post('/guru-capaian-pembelajaran', [CapaianPembelajaranController::class, 'store'])->name('guru.cp.store');
+
     Route::get('/guru-nilai', [DashboardGuruController::class, 'guruNilai'])->name('guru.nilai');
+    Route::get('/guru-data-nilai/{id}', [DashboardGuruController::class, 'guruGetNilai'])->name('guru.get-nilai');
 });
 
 Route::middleware(['auth', 'role:orang_tua'])->group(function () {
