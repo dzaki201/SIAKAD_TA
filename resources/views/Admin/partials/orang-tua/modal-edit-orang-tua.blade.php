@@ -26,7 +26,7 @@
                             <label for="siswa_id"
                                 class="block text-sm font-medium text-gray-700 dark:text-white">Siswa</label>
                             <select id="siswa_id" name="siswa_id" required
-                                class="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:ring-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                                class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                                 <option value="">Pilih Siswa</option>
                                 @foreach ($siswas as $siswa)
                                     <option value="{{ $siswa->id }}"
@@ -39,7 +39,7 @@
                             <label for="status"
                                 class="block text-sm font-medium text-gray-700 dark:text-white">Status</label>
                             <select id="status" name="status" required
-                                class="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:ring-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                                class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                                 <option value="">Pilih Status</option>
                                 <option value="ayah" {{ $ortu->status == 'ayah' ? 'selected' : '' }}>Ayah</option>
                                 <option value="ibu" {{ $ortu->status == 'ibu' ? 'selected' : '' }}>Ibu</option>
@@ -52,13 +52,13 @@
                             <label for="nik"
                                 class="block text-sm font-medium text-gray-700 dark:text-white">NIK</label>
                             <input type="text" id="nik" name="nik" value="{{ $ortu->nik }}" required
-                                class="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:ring-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                                class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                         </div>
                         <div class="w-full">
                             <label for="nama" class="block text-sm font-medium text-gray-700 dark:text-white">Nama
                                 Lengkap</label>
                             <input type="text" id="nama" name="nama" value="{{ $ortu->nama }}" required
-                                class="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:ring-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                                class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                         </div>
                     </div>
                     <div class="flex flex-col md:flex-row md:space-x-4">
@@ -67,20 +67,20 @@
                                 class="block text-sm font-medium text-gray-700 dark:text-white">Pekerjaan</label>
                             <input type="text" id="pekerjaan" name="pekerjaan" value="{{ $ortu->pekerjaan }}"
                                 required
-                                class="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:ring-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                                class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                         </div>
                         <div class="w-full">
                             <label for="no_hp" class="block text-sm font-medium text-gray-700 dark:text-white">Nomor
                                 HP</label>
                             <input type="text" id="no_hp" name="no_hp" value="{{ $ortu->no_hp }}"
-                                class="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:ring-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                                class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                         </div>
                     </div>
                     <div class="md:col-span-2">
                         <label for="alamat"
                             class="block text-sm font-medium text-gray-700 dark:text-white">Alamat</label>
                         <textarea id="alamat" name="alamat" rows="3"
-                            class="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:ring-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white">{{ $ortu->alamat }}</textarea>
+                            class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">{{ $ortu->alamat }}</textarea>
                     </div>
                     <div class="md:col-span-2 p-6 space-x-4 border-t border-gray-200 dark:border-gray-600 text-right">
                         <button type="submit"

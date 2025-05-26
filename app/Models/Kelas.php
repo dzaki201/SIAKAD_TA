@@ -12,7 +12,7 @@ class Kelas extends Model
     protected $table = 'kelas';
 
     protected $fillable = [
-        'nama_kelas',
+        'nama',
     ];
 
     // Relasi: Satu kelas bisa punya banyak guru

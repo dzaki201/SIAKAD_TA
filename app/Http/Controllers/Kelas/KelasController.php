@@ -11,7 +11,7 @@ class KelasController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nama_kelas' => 'required|string',
+            'nama' => 'required|string',
         ]);
 
         Kelas::create($validatedData);
@@ -20,7 +20,7 @@ class KelasController extends Controller
     public function update(Request $request, string $id)
     {
         $validatedData = $request->validate([
-            'nama_kelas' => 'required|string',
+            'nama' => 'required|string',
         ]);
 
         $kelas = Kelas::findOrFail($id);

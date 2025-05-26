@@ -20,9 +20,9 @@
                 <form action="{{ route('admin.mata-pelajaran.store') }}" method="POST">
                     @csrf
                     <div class="mb-4">
-                        <label for="nama_mata_pelajaran"
+                        <label for="nama"
                             class="block text-sm font-medium text-gray-700 dark:text-white">Nama Mata Pelajaran</label>
-                        <input type="text" id="nama_mata_pelajaran" name="nama_mata_pelajaran"
+                        <input type="text" id="nama" name="nama"
                             class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white"
                             required>
                     </div>

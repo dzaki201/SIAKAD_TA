@@ -10,8 +10,8 @@ return new class extends Migration
     {
         Schema::create('mata_pelajaran', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_mata_pelajaran', 100);
-            $table->string('status'); //status apakah muatan lokal atau tidak
+            $table->string('nama', 100);
+            $table->string('status')->nullable(); //status apakah muatan lokal atau tidak
             $table->timestamps();
         });
     }

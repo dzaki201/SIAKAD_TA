@@ -11,7 +11,7 @@ class MataPelajaranController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nama_mata_pelajaran' => 'required|string',
+            'nama' => 'required|string',
         ]);
 
         MataPelajaran::create($validatedData);
@@ -20,7 +20,7 @@ class MataPelajaranController extends Controller
     public function update(Request $request, string $id)
     {
         $validatedData = $request->validate([
-            'nama_mata_pelajaran' => 'required|string',
+            'nama' => 'required|string',
         ]);
 
         $mapel = MataPelajaran::findOrFail($id);

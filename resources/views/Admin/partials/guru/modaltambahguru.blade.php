@@ -51,7 +51,7 @@
                             <option value="">Pilih Kelas Jika Guru Kelas</option>
                             <option value="">-</option>
                             @foreach ($kelases as $kelas)
-                                <option value="{{ $kelas->id }}">{{ $kelas->nama_kelas }}</option>
+                                <option value="{{ $kelas->id }}">{{ $kelas->nama }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -64,7 +64,7 @@
                             <option value="">Pilih Mata Pelajaran Jika Guru Mata Pelajaran</option>
                             <option value="">-</option>
                             @foreach ($mapels as $mapel)
-                                <option value="{{ $mapel->id }}">{{ $mapel->nama_mata_pelajaran }}</option>
+                                <option value="{{ $mapel->id }}">{{ $mapel->nama }}</option>
                             @endforeach
                         </select>
                     </div>

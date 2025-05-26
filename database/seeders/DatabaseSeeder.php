@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             GuruSeeder::class,
             SiswaSeeder::class,
             OrangTuaSeeder::class,
-            TahunAjaranSeeder::class
+            TahunAjaranSeeder::class,
+            EkstrakulikulerSeeder::class
         ]);
     }
 }

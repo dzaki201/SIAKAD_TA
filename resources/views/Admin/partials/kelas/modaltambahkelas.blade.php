@@ -20,9 +20,9 @@
                 <form action="{{ route('admin.kelas.store') }}" method="POST">
                     @csrf
                     <div class="mb-4">
-                        <label for="nama_kelas" class="block text-sm font-medium text-gray-700 dark:text-white">Nama
+                        <label for="nama" class="block text-sm font-medium text-gray-700 dark:text-white">Nama
                             Kelas</label>
-                        <input type="text" id="nama_kelas" name="nama_kelas"
+                        <input type="text" id="nama" name="nama"
                             class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white"
                             placeholder="Nama kelas" required>
                     </div>

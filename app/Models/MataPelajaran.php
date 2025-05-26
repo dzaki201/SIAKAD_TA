@@ -12,7 +12,7 @@ class MataPelajaran extends Model
     protected $table = 'mata_pelajaran';
 
     protected $fillable = [
-        'nama_mata_pelajaran',
+        'nama',
     ];
 
     // Relasi: Satu mata pelajaran bisa diajar oleh banyak guru

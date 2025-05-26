@@ -59,12 +59,12 @@
                             <option value="">-</option>
                             @if ($guru->kelas_id)
                                 <option value="{{ $guru->kelas_id }}" selected>
-                                    {{ $guru->kelas->nama_kelas }}
+                                    {{ $guru->kelas->nama }}
                                 </option>
                             @endif
                             @foreach ($kelases as $kelas)
                                 <option value="{{ $kelas->id }}">
-                                    {{ $kelas->nama_kelas }}
+                                    {{ $kelas->nama }}
                                 </option>
                             @endforeach
                         </select>
@@ -79,12 +79,12 @@
                             <option value="">-</option>
                             @if ($guru->mata_pelajaran_id)
                             <option value="{{ $guru->mata_pelajaran_id }}" selected>
-                                {{ $guru->mataPelajaran->nama_mata_pelajaran }}
+                                {{ $guru->mataPelajaran->nama }}
                             </option>
                             @endif
                             @foreach ($mapels as $mapel)
                                 <option value="{{ $mapel->id }}">
-                                    {{ $mapel->nama_mata_pelajaran }}
+                                    {{ $mapel->nama }}
                                 </option>
                             @endforeach
                         </select>

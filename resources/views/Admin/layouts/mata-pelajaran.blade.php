@@ -36,7 +36,7 @@
                                 {{ $mapel->id }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $mapel->nama_mata_pelajaran }}
+                                {{ $mapel->nama }}
                             </td>
                             <td class="px-6 py-4 ">
                                 <button data-modal-target="edit-mapel-modal-{{ $mapel->id }}"

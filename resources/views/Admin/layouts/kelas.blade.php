@@ -36,7 +36,7 @@
                                 {{ $kelas->id }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $kelas->nama_kelas }}
+                                {{ $kelas->nama }}
                             </td>
                             <td class="px-6 py-4 ">
                                 <button data-modal-target="edit-kelas-modal-{{ $kelas->id }}"
