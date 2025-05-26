@@ -7,12 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <title>Admin</title>
+    <title>Orang Tua</title>
 </head>
 
 <body class="bg-gray-100 dark:bg-gray-900">
-    {{-- @include('Admin.components.navbar-admin') --}}
-    @include('Admin.components.sidebar-admin')
+    {{-- @include('components.navbar') --}}
+    @include('components.sidebar')
     <div class="p-4 sm:ml-64 pt-20 ">
         @yield('content')
     </div>

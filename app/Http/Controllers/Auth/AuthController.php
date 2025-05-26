@@ -55,9 +55,9 @@ class AuthController extends Controller
         if ($user->role == 'admin') {
             return redirect()->route('admin.dashboard');
         } elseif ($user->role == 'guru') {
-            return redirect()->route('beranda.guru');
+            return redirect()->route('guru.dashboard');
         } elseif ($user->role == 'orang_tua') {
-            return redirect()->route('beranda.orangtua');
+            return redirect()->route('orang-tua.dashboard');
         } else {
             // Kalau role tidak terdaftar, redirect ke halaman utama atau logout
             return redirect('/');

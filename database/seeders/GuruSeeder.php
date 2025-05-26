@@ -12,6 +12,16 @@ class GuruSeeder extends Seeder
     {
         Guru::insert([
             [
+                'user_id' => 2,
+                'nama' => 'Pak Dodi',
+                'nip' => '19821212 334455 5 005',
+                'kelas_id' => 1,  
+                'mata_pelajaran_id' => null,  
+                'status' => 'guru kelas',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
                 'user_id' => 3,
                 'nama' => 'Pak Budi',
                 'nip' => '19800101 123456 1 001',

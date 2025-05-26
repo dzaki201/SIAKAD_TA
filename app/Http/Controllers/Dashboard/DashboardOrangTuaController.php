@@ -9,6 +9,6 @@ class DashboardOrangTuaController extends Controller
 {
     public function orangTuaIndex()
     {
-        return view('OrangTua.berandaorangtua');
+        return view('OrangTua.main-orang-tua');
     }
 }

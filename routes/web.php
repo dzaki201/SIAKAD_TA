@@ -91,9 +91,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:guru'])->group(function () {
-    Route::get('/beranda-guru', [DashboardGuruController::class, 'guruIndex'])->name('beranda.guru');
+    Route::get('/guru-dashboard', [DashboardGuruController::class, 'guruIndex'])->name('guru.dashboard');
+
+    Route::get('/guru-nilai', [DashboardGuruController::class, 'guruNilai'])->name('guru.nilai');
 });
 
 Route::middleware(['auth', 'role:orang_tua'])->group(function () {
-    Route::get('/beranda-orangtua', [DashboardOrangTuaController::class, 'OrangTuaIndex'])->name('beranda.orangtua');
+    Route::get('/orang-tua-dashboard', [DashboardOrangTuaController::class, 'OrangTuaIndex'])->name('orang-tua.dashboard');
 });
