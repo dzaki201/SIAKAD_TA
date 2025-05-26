@@ -53,7 +53,7 @@
                             <td class="px-6 py-4">{{ $siswa->agama }}</td>
                             <td class="px-6 py-4">{{ $siswa->sekolah_asal }}</td>
                             <td class="px-6 py-4">{{ $siswa->alamat }}</td>
-                            <td class="px-6 py-4">{{ $siswa->kelas ? $siswa->kelas->nama_kelas : '-' }}</td>
+                            <td class="px-6 py-4">{{ $siswa->kelas ? $siswa->kelas->nama : '-' }}</td>
                             <td class="px-6 py-4">
                                 <div class="flex space-x-2">
                                     <button data-modal-target="edit-siswa-modal-{{ $siswa->id }}"

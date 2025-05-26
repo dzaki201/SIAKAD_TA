@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Ekstrakulikuler;
 use App\Models\Guru;
 use App\Models\Kelas;
 use App\Models\MataPelajaran;
@@ -70,5 +71,10 @@ class DashboardAdminController extends Controller
     {
         $tahuns = TahunAjaran::all();
         return view('admin.layouts.tahun-ajaran', compact('tahuns'));
+    }
+    public function adminEkstrakulikuler()
+    {
+        $ekskuls = Ekstrakulikuler::all();
+        return view('admin.layouts.ekstrakulikuler', compact('ekskuls'));
     }
 }

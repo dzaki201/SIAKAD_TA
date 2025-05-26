@@ -17,7 +17,7 @@
                     <option value="">Semua Kelas</option>
                     @foreach ($kelases as $kelas)
                         <option value="{{ $kelas->id }}">
-                            {{ $kelas->nama_kelas }}
+                            {{ $kelas->nama }}
                         </option>
                     @endforeach
                 </select>
@@ -34,7 +34,7 @@
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                 <option value="">Pilih Kelas</option>
                 @foreach ($kelases as $kelas)
-                    <option value="{{ $kelas->id }}">{{ $kelas->nama_kelas }}</option>
+                    <option value="{{ $kelas->id }}">{{ $kelas->nama }}</option>
                 @endforeach
             </select>
             <button type="submit"
@@ -78,7 +78,7 @@
                                 <td class="px-6 py-4">{{ $siswa->agama }}</td>
                                 <td class="px-6 py-4">{{ $siswa->sekolah_asal }}</td>
                                 <td class="px-6 py-4">{{ $siswa->alamat }}</td>
-                                <td class="px-6 py-4">{{ $siswa->kelas->nama_kelas ?? '-' }}</td>
+                                <td class="px-6 py-4">{{ $siswa->kelas->nama ?? '-' }}</td>
                             </tr>
                         @endforeach
                     </tbody>

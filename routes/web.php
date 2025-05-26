@@ -1,19 +1,21 @@
 <?php
 
+use App\Models\TahunAjaran;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\GuruController;
+use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Kelas\KelasController;
+use App\Http\Controllers\Siswa\SiswaController;
+use App\Http\Controllers\OrangTua\OrangTuaController;
+use App\Http\Controllers\Ekstrakulikuler\Ekstrakulikuler;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\Dashboard\DashboardGuruController;
+use App\Http\Controllers\TahunAjaran\TahunAjaranController;
 use App\Http\Controllers\Dashboard\DashboardAdminController;
 use App\Http\Controllers\Dashboard\DashboardOrangTuaController;
 use App\Http\Controllers\MataPelajaran\MataPelajaranController;
-use App\Http\Controllers\OrangTua\OrangTuaController;
-use App\Http\Controllers\Siswa\SiswaController;
-use App\Http\Controllers\TahunAjaran\TahunAjaranController;
-use App\Http\Controllers\User\UserController;
-use App\Models\TahunAjaran;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Http\Controllers\Ekstrakulikuler\EkstrakulikulerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,6 +82,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/admin-tahun-ajaran/{id}/aktifkan', [TahunAjaranController::class, 'aktifkan'])->name('admin.tahun-ajaran.aktifkan');
     Route::post('/admin-tahun-ajaran/{id}/nonaktifkan', [TahunAjaranController::class, 'nonaktifkan'])->name('admin.tahun-ajaran.nonaktifkan');
     Route::delete('/admin-tahun-ajaran/{id}', [TahunAjaranController::class, 'destroy'])->name('admin.tahun-ajaran.destroy');
+
+    Route::get('/admin-ekstrakulikuler', [DashboardAdminController::class, 'adminEkstrakulikuler'])->name('admin.ekskul');
+    Route::post('/admin-ekstrakulikuler', [EkstrakulikulerController::class, 'store'])->name('admin.ekskul.store');
+    Route::put('/admin-ekstrakulikuler/{id}/edit', [EkstrakulikulerController::class, 'update'])->name('admin.ekskul.update');
+    Route::delete('/admin-ekstrakulikuler/{id}', [EkstrakulikulerController::class, 'destroy'])->name('admin.ekskul.destroy');
+
 });
 
 Route::middleware(['auth', 'role:guru'])->group(function () {

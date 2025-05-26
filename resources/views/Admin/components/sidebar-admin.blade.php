@@ -5,7 +5,7 @@
         <div class="h-full px-3 py-4 overflow-y-auto bg-blue-600 dark:bg-gray-800">
             <a href="https://flowbite.com/" class="flex items-center ps-2.5 mb-5">
                 <img src="https://flowbite.com/docs/images/logo.svg" class="h-6 me-3 sm:h-7" alt="Flowbite Logo" />
-                <span class="self-center text-xl font-semibold whitespace-nowrap text-white dark:text-black">Flowbite</span>
+                <span class="self-center text-xl font-semibold whitespace-nowrap text-white dark:text-black">SIAKAD</span>
             </a>
             <ul class="space-y-2 font-medium">
                 <li>
@@ -106,7 +106,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.tahun-ajaran') }}"
+                    <a href="{{ route('admin.ekskul') }}"
                         class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 group {{ request()->routeIs('admin.tahun-ajaran') ? 'bg-blue-700' : '' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 20" fill="currentColor"
                             class="size-5 text-gray-200 transition duration-75 group-hover:text-white">

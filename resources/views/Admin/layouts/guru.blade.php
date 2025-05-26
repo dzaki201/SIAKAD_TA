@@ -37,9 +37,9 @@
                             <td class="px-6 py-4">{{ $guru->nip }}</td>
                             <td class="px-6 py-4">{{ $guru->nama }}</td>
                             <td class="px-6 py-4">{{ $guru->user->username }}</td>
-                            <td class="px-6 py-4">{{ $guru->kelas ? $guru->kelas->nama_kelas : '-' }}</td>
+                            <td class="px-6 py-4">{{ $guru->kelas ? $guru->kelas->nama : '-' }}</td>
                             <td class="px-6 py-4">
-                                {{ $guru->mataPelajaran ? $guru->mataPelajaran->nama_mata_pelajaran : '-' }}</td>
+                                {{ $guru->mataPelajaran ? $guru->mataPelajaran->nama : '-' }}</td>
                             <td class="px-6 py-4">
                                 <button data-modal-target="edit-guru-modal-{{ $guru->id }}"
                                     data-modal-toggle="edit-guru-modal-{{ $guru->id }}"
