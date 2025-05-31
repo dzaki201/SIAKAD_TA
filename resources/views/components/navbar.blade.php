@@ -1,6 +1,5 @@
 <div>
-    <nav class="fixed top-0 z-50 w-full bg-blue-600 border-b border-blue-700 dark:bg-blue-800 dark:border-blue-900">
-        <div class="px-3 py-3 lg:px-5 lg:pl-3">
+<nav class="fixed top-0 z-50 w-full shadow-lg bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">        <div class="px-3 py-3 lg:px-5 lg:pl-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center justify-start rtl:justify-end">
                     <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar"
@@ -17,7 +16,7 @@
                     <a href="https://flowbite.com" class="flex ms-2 md:me-24">
                         <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 me-3" alt="FlowBite Logo" />
                         <span
-                            class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-white dark:text-dark">SIAKAD</span>
+                            class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-dark dark:text-white">SIAKAD</span>
                     </a>
                 </div>
                 <div class="flex items-center">
