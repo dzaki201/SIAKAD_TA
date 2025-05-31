@@ -11,9 +11,21 @@ class MataPelajaranSeeder extends Seeder
     public function run(): void
     {
         MataPelajaran::insert([
-            ['nama' => 'Matematika', 'created_at' => now(), 'updated_at' => now()],
-            ['nama' => 'Bahasa Indonesia', 'created_at' => now(), 'updated_at' => now()],
-            ['nama' => 'Agama', 'created_at' => now(), 'updated_at' => now()],
+            [
+                'nama' => 'Matematika',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'nama' => 'Bahasa Indonesia',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'nama' => 'Agama',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
         ]);
     }
 }

@@ -18,13 +18,10 @@ class CapaianPembelajaran extends Model
         'tahun_ajaran_id'
     ];
 
-    // Relasi ke Mata Pelajaran
     public function mataPelajaran()
     {
         return $this->belongsTo(MataPelajaran::class);
     }
-
-    // Relasi ke Guru
     public function guru()
     {
         return $this->belongsTo(Guru::class);
@@ -33,4 +30,5 @@ class CapaianPembelajaran extends Model
     {
         return $this->belongsTo(TahunAjaran::class);
     }
+   
 }

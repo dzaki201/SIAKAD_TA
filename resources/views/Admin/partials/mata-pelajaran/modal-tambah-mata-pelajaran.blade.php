@@ -20,11 +20,21 @@
                 <form action="{{ route('admin.mata-pelajaran.store') }}" method="POST">
                     @csrf
                     <div class="mb-4">
-                        <label for="nama"
-                            class="block text-sm font-medium text-gray-700 dark:text-white">Nama Mata Pelajaran</label>
+                        <label for="nama" class="block text-sm font-medium text-gray-700 dark:text-white">Nama Mata
+                            Pelajaran</label>
                         <input type="text" id="nama" name="nama"
                             class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white"
                             required>
+                    </div>
+                    <div class="grid grid-cols-5 gap-4 max-h-72 overflow-y-auto border p-4 rounded">
+                        @foreach ($kelases as $kelas)
+                            <label class="inline-flex items-center space-x-2">
+                                <input type="checkbox" name="kelas_id[]" value="{{ $kelas->id }}"
+                                    id="kelas_{{ $kelas->id }}"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <span class="text-gray-700 dark:text-white">{{ $kelas->nama }}</span>
+                            </label>
+                        @endforeach
                     </div>
                     <div class="p-6 space-x-4 border-t border-gray-200 dark:border-gray-600 text-right">
                         <button type="submit"

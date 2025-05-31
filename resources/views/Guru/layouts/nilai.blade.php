@@ -3,7 +3,6 @@
 @section('title', 'Dashboard Guru')
 
 @section('content')
-    @include('guru.components.navbar-guru')
     <div class="flex items-center justify-between mt-4 mb-4">
         <div>
             @include('components.alert')
@@ -57,7 +56,15 @@
                         <td class="w-16 px-4 py-3 border border-gray-300">{{ $loop->iteration }}</td>
                         <td class="w-60 px-4 py-3 border border-gray-300">{{ $siswa->nama }}</td>
                         @foreach ($capaians as $cp)
-                            <td class="w-24 px-4 py-3 border border-gray-300"></td>
+                            @php
+                                $nilai = $nilais
+                                    ->where('siswa_id', $siswa->id)
+                                    ->where('capaian_pembelajaran_id', $cp->id)
+                                    ->first();
+                            @endphp
+                            <td class="w-24 px-4 py-3 border border-gray-300 text-center">
+                                {{ $nilai ? $nilai->nilai : '-' }}
+                            </td>
                         @endforeach
                         <td class="w-24 px-4 py-3 border border-gray-300"></td>
                         <td class="w-24 px-4 py-3 border border-gray-300"></td>

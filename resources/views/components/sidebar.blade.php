@@ -7,7 +7,7 @@
                 @if (Auth::user() && Auth::user()->role === 'admin')
                     <li>
                         <a href="{{ route('admin.dashboard') }}"
-                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 group {{ request()->routeIs('admin.dashboard') ? 'bg-blue-700' : '' }}">
+                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 dark:hover:bg-blue-300 group {{ request()->routeIs('admin.dashboard') ? 'bg-blue-700 dark:bg-blue-600' : '' }}">
                             <svg class="w-5 h-5 text-gray-200 transition duration-75 group-hover:text-white"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                 viewBox="0 0 22 21">
@@ -21,7 +21,7 @@
                     </li>
                     <li>
                         <a href="{{ route('admin.guru') }}"
-                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 group {{ request()->routeIs('admin.guru') ? 'bg-blue-700' : '' }}">
+                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 dark:hover:bg-blue-500 group {{ request()->routeIs('admin.guru') ? 'bg-blue-700 dark:bg-blue-600' : '' }}">
                             <svg class="shrink-0 w-5 h-5 text-gray-200 transition duration-75 group-hover:text-white"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                 viewBox="0 0 18 18">
@@ -34,7 +34,7 @@
                     </li>
                     <li>
                         <a href="{{ route('admin.siswa') }}"
-                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 group {{ request()->routeIs('admin.siswa') ? 'bg-blue-700' : '' }}">
+                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 dark:hover:bg-blue-500 group {{ request()->routeIs('admin.siswa') ? 'bg-blue-700 dark:bg-blue-600' : '' }}">
                             <svg class="shrink-0 w-5 h-5 text-gray-200 transition duration-75 group-hover:text-white"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                 viewBox="0 0 20 20">
@@ -47,7 +47,7 @@
                     </li>
                     <li>
                         <a href="{{ route('admin.orang-tua') }}"
-                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 group {{ request()->routeIs('admin.orang-tua') ? 'bg-blue-700' : '' }}">
+                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 dark:hover:bg-blue-500 group {{ request()->routeIs('admin.orang-tua') ? 'bg-blue-700 dark:bg-blue-600' : '' }}">
                             <svg class="shrink-0 w-5 h-5 text-gray-200 transition duration-75 group-hover:text-white"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                 viewBox="0 0 20 20">
@@ -60,7 +60,7 @@
                     </li>
                     <li>
                         <a href="{{ route('admin.mata-pelajaran') }}"
-                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 group {{ request()->routeIs('admin.mata-pelajaran') ? 'bg-blue-700' : '' }}">
+                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 dark:hover:bg-blue-500 group {{ request()->routeIs('admin.mata-pelajaran') ? 'bg-blue-700 dark:bg-blue-600' : '' }}">
                             <svg class="shrink-0 w-5 h-5 text-gray-200 transition duration-75 group-hover:text-white"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                 viewBox="0 0 20 18">
@@ -73,7 +73,7 @@
                     </li>
                     <li>
                         <a href="{{ route('admin.kelas') }}"
-                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 group {{ request()->routeIs('admin.kelas') ? 'bg-blue-700' : '' }}">
+                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 dark:hover:bg-blue-500 group {{ request()->routeIs('admin.kelas') ? 'bg-blue-700 dark:bg-blue-600' : '' }}">
 
                             <svg class="shrink-0 w-5 h-5 text-gray-200 transition duration-75 group-hover:text-white"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -89,7 +89,7 @@
                     </li>
                     <li>
                         <a href="{{ route('admin.tahun-ajaran') }}"
-                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 group {{ request()->routeIs('admin.tahun-ajaran') ? 'bg-blue-700' : '' }}">
+                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 dark:hover:bg-blue-500 group {{ request()->routeIs('admin.tahun-ajaran') ? 'bg-blue-700 dark:bg-blue-600' : '' }}">
                             <svg class="shrink-0 w-5 h-5 text-gray-200 transition duration-75 group-hover:text-white"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                 viewBox="0 0 18 20">
@@ -104,7 +104,7 @@
                     </li>
                     <li>
                         <a href="{{ route('admin.ekskul') }}"
-                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 group {{ request()->routeIs('admin.ekskul') ? 'bg-blue-700' : '' }}">
+                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 dark:hover:bg-blue-500 group {{ request()->routeIs('admin.ekskul') ? 'bg-blue-700 dark:bg-blue-600' : '' }}">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 20" fill="currentColor"
                                 class="size-5 text-gray-200 transition duration-75 group-hover:text-white">
                                 <path fill-rule="evenodd"
@@ -119,7 +119,7 @@
                 @elseif (Auth::user() && Auth::user()->role === 'guru')
                     <li>
                         <a href="{{ route('guru.dashboard') }}"
-                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 group {{ request()->routeIs('guru.dashboard') ? 'bg-blue-700' : '' }}">
+                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 dark:hover:bg-blue-500 group {{ request()->routeIs('guru.dashboard') ? 'bg-blue-700 dark:bg-blue-600' : '' }}">
                             <svg class="w-5 h-5 text-gray-200 transition duration-75 group-hover:text-white"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                 viewBox="0 0 22 21">
@@ -132,24 +132,42 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('guru.nilai') }}"
-                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 group {{ request()->routeIs('guru.nilai') ? 'bg-blue-700' : '' }}">
-                            <svg class="shrink-0 w-5 h-5 text-gray-200 transition duration-75 group-hover:text-white"
-                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                viewBox="0 0 20 18">
+                        <button type="button"
+                            class="mb-2 flex items-center w-full p-2 text-white rounded-lg hover:bg-blue-800 group"
+                            aria-controls="dropdown-nilai" data-collapse-toggle="dropdown-nilai">
+                            <svg class="w-5 h-5 shrink-0 text-gray-200 transition duration-75 group-hover:text-white"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                                 <path fill-rule="evenodd"
                                     d="M11 4.717c-2.286-.58-4.16-.756-7.045-.71A1.99 1.99 0 0 0 2 6v11c0 1.133.934 2.022 2.044 2.007 2.759-.038 4.5.16 6.956.791V4.717Zm2 15.081c2.456-.631 4.198-.829 6.956-.791A2.013 2.013 0 0 0 22 16.999V6a1.99 1.99 0 0 0-1.955-1.993c-2.885-.046-4.76.13-7.045.71v15.081Z"
                                     clip-rule="evenodd" />
                             </svg>
-                            <span class="flex-1 ms-3 whitespace-nowrap">Nilai</span>
-                        </a>
+                            <span class="flex-1 ms-3 text-left whitespace-nowrap">Nilai</span>
+                            <svg class="w-3 h-3 ml-auto" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 4 4 4-4" />
+                            </svg>
+                        </button>
+                        {{-- Dropdown --}}
+                        <ul id="dropdown-nilai"
+                            class="{{ request()->routeIs('guru.nilai') ? 'block' : 'hidden' }} space-y-2 " >
+                            @foreach ($mapels as $mapel)
+                                <li>
+                                    <a href="{{ route('guru.nilai', ['id' => $mapel->id]) }}"
+                                        class="flex items-center w-full p-2 pl-11 rounded-lg transition duration-75 group
+                        {{ request()->fullUrl() == route('guru.nilai', ['id' => $mapel->id]) ? 'bg-blue-800 text-white' : 'text-white hover:bg-blue-800' }}">
+                                        {{ $mapel->nama }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
                     </li>
                 @endif
             </ul>
             <ul class="mt-4 space-y-2 border-t border-gray-200 pt-4 font-medium dark:border-gray-700">
                 <li>
                     <a href="{{ route('logout') }}"
-                        class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 group {{ request()->routeIs('logout') ? 'bg-blue-700' : '' }}">
+                        class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 dark:hover:bg-blue-500 group {{ request()->routeIs('logout') ? 'bg-blue-700 dark:bg-blue-600' : '' }}">
                         <svg class="shrink-0 w-5 h-5 text-gray-200 transition duration-75 group-hover:text-white"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">

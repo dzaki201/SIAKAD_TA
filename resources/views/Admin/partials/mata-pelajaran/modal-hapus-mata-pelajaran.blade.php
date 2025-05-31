@@ -17,7 +17,8 @@
                 </button>
             </div>
             <div class="p-6 space-y-6 text-center">
-                <p>Apakah Anda yakin ingin menghapus mata pelajaran "{{ $mapel->nama }}"?</p>
+                <p class="text-gray-700 dark:text-white">Apakah Anda yakin ingin menghapus mata pelajaran
+                    "{{ $mapel->nama }}"?</p>
             </div>
             <div class="p-6 space-x-4 border-t border-gray-200 dark:border-gray-600 text-right">
                 <form action="{{ route('admin.mata-pelajaran.destroy', ['id' => $mapel->id]) }}" method="POST">

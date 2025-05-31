@@ -13,10 +13,10 @@ return new class extends Migration
         Schema::create('nilai', function (Blueprint $table) {
             $table->id();
             $table->string('nilai');
-            $table->foreignId('siswa_id')->constrained('siswa');
-            $table->foreignId('guru_id')->constrained('guru');
-            $table->foreignId('capaian_pembelajaran_id')->constrained('capaian_pembelajaran');
-            $table->foreignId('tahun_ajaran_id')->constrained('tahun_ajaran');
+            $table->foreignId('siswa_id')->constrained('siswa')->onDelete('cascade');;
+            $table->foreignId('guru_id')->constrained('guru')->onDelete('cascade');;
+            $table->foreignId('capaian_pembelajaran_id')->constrained('capaian_pembelajaran')->onDelete('cascade');;
+            $table->foreignId('tahun_ajaran_id')->constrained('tahun_ajaran')->onDelete('cascade');;
             $table->timestamps();
         });
     }

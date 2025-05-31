@@ -15,9 +15,12 @@ class MataPelajaran extends Model
         'nama',
     ];
 
-    // Relasi: Satu mata pelajaran bisa diajar oleh banyak guru
     public function guru()
     {
         return $this->hasMany(Guru::class, 'mata_pelajaran_id');
+    }
+     public function kelases()
+    {
+        return $this->belongsToMany(Kelas::class, 'kelas_mata_pelajaran', 'mata_pelajaran_id', 'kelas_id');
     }
 }

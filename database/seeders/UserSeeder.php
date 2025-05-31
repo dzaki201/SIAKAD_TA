@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
                 'username' => 'guru1',
                 'email' => 'guru1@gmail.com',
                 'password' => Hash::make('password123'),
-                'role' => 'guru',
+                'role' => 'guru_mapel',
             ],
             [
                 'username' => 'guru2',
@@ -45,13 +45,13 @@ class UserSeeder extends Seeder
                 'username' => 'guru5',
                 'email' => 'guru5@gmail.com',
                 'password' => Hash::make('password123'),
-                'role' => 'guru',
+                'role' => 'guru_mapel',
             ],
             [
                 'username' => 'guru6',
                 'email' => 'guru6@gmail.com',
                 'password' => Hash::make('password123'),
-                'role' => 'guru',
+                'role' => 'guru_mapel',
             ],
             [
                 'username' => 'orang_tua1',

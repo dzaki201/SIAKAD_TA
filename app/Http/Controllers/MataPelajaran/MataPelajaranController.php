@@ -12,19 +12,31 @@ class MataPelajaranController extends Controller
     {
         $validatedData = $request->validate([
             'nama' => 'required|string',
+            'kelas_id' => 'required|array',
+            'kelas_id.*' => 'exists:kelas,id',
         ]);
 
-        MataPelajaran::create($validatedData);
+        $mataPelajaran = MataPelajaran::create([
+            'nama' => $validatedData['nama'],
+        ]);
+
+        $mataPelajaran->kelases()->attach($validatedData['kelas_id']);
         return redirect()->back()->with('success', 'Mata Pelajaran berhasil ditambahkan');
     }
     public function update(Request $request, string $id)
     {
         $validatedData = $request->validate([
             'nama' => 'required|string',
+            'kelas_id' => 'required|array',
+            'kelas_id.*' => 'exists:kelas,id',
         ]);
 
         $mapel = MataPelajaran::findOrFail($id);
-        $mapel->update($validatedData);
+        $mapel->update([
+            'nama' => $validatedData['nama'],
+        ]);
+
+        $mapel->kelases()->sync($validatedData['kelas_id']);
         return redirect()->back()->with('success', 'Mata Pelajaran berhasil diperbaharui');
     }
 

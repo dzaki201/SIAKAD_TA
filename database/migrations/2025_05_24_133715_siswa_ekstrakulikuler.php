@@ -11,9 +11,9 @@ return new class extends Migration
         Schema::create('siswa_ekstrakulikuler', function (Blueprint $table) {
             $table->id();
             $table->foreignId('siswa_id')->constrained('siswa');
-            $table->foreignId('ekstrakulikuler_id')->constrained('ekstrakulikuler');
+            $table->foreignId('ekstrakulikuler_id')->constrained('ekstrakulikuler')->onDelete('cascade');;
             $table->string('nilai')->nullable();
-            $table->foreignId('tahun_ajaran_id')->constrained('tahun_ajaran');
+            $table->foreignId('tahun_ajaran_id')->constrained('tahun_ajaran')->onDelete('cascade');;
             $table->timestamps();
         });
     }

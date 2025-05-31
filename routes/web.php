@@ -98,9 +98,9 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
     Route::post('/guru-capaian-pembelajaran', [CapaianPembelajaranController::class, 'store'])->name('guru.cp.store');
     Route::put('/guru-capaian-pembelajaran/{id}/edit', [CapaianPembelajaranController::class, 'update'])->name('guru.cp.update');
     Route::delete('/guru-capaian-pembelajaran/{id}', [CapaianPembelajaranController::class, 'destroy'])->name('guru.cp.destroy');
-
-    Route::get('/guru-nilai', [DashboardGuruController::class, 'guruNilai'])->name('guru.nilai');
-    Route::get('/guru-data-nilai/{id}', [DashboardGuruController::class, 'guruGetNilai'])->name('guru.get-nilai');
+    
+    Route::get('/guru-nilai/{id}', [DashboardGuruController::class, 'guruNilai'])->name('guru.nilai');
+    Route::get('/guru-edit-nilai/{id}/{cpId}', [DashboardGuruController::class, 'gurueditNilai'])->name('guru.edit-nilai');
 });
 
 Route::middleware(['auth', 'role:orang_tua'])->group(function () {
