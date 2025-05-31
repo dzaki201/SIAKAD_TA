@@ -17,7 +17,7 @@
                 </button>
             </div>
             <div class="p-6 space-y-6 text-center">
-                <p class="text-gray-700 dark:text-white">Apakah Anda yakin ingin menghapus kelas ini?</p>
+                <p class="text-gray-700 dark:text-white">Apakah Anda yakin ingin menghapus kelas {{ $kelas->nama }}?</p>
             </div>
             <div class="p-6 space-x-4 border-t border-gray-200 dark:border-gray-600 text-right">
                 <form action="{{ route('admin.kelas.destroy', ['id' => $kelas->id]) }}" method="POST">

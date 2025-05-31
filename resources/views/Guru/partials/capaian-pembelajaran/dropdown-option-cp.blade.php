@@ -1,22 +1,29 @@
-<div id="dropdownDots-{{ $cp->id }}" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600">
-    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownMenuIconButton-{{ $cp->id }}">
+<div id="dropdownDots-{{ $cp->id }}"
+    class="z-50 hidden w-44 bg-white border border-gray-200 divide-y divide-gray-100 rounded-lg shadow-lg dark:bg-gray-700 dark:divide-gray-600 dark:border-gray-600">
+    <div
+        class="px-4 py-2 text-sm font-semibold text-gray-800 border-b border-gray-200 dark:text-gray-100 dark:border-gray-600 break-words">
+        {{ $cp->nama }}
+    </div>
+    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+        aria-labelledby="dropdownMenuIconButton-{{ $cp->id }}">
         <li>
-            <a href="" 
-               class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                Edit CP
-            </a>
+            <button type="button" data-modal-target="edit-capaian-pembelajaran-modal-{{ $cp->id }}"
+                data-modal-toggle="edit-capaian-pembelajaran-modal-{{ $cp->id }}"
+                class="w-full text-left block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                Edit Capaian Pembelajaran
+            </button>
         </li>
         <li>
-            <a href="" 
-               class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                 Edit Nilai
             </a>
         </li>
         <li>
-             <a href="" 
-               class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                Edit Nilai
-            </a>
+             <button type="button" data-modal-target="hapus-capaian-pembelajaran-modal-{{ $cp->id }}"
+                data-modal-toggle="hapus-capaian-pembelajaran-modal-{{ $cp->id }}"
+                class="w-full text-left block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                Hapus
+            </button>
         </li>
     </ul>
 </div>

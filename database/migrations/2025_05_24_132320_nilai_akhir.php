@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('keterangan')->nullable();
             $table->boolean('status')->nullable(); //untuk mengunci nilai
             $table->dateTime('konfirmasi')->nullable(); //untuk mengunci nilai
+            $table->foreignId('tahun_ajaran_id')->constrained('tahun_ajaran');
             $table->timestamps();
         });
     }

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\MataPelajaran;
 use App\Http\Controllers\Controller;
 use App\Models\CapaianPembelajaran;
+use App\Models\TahunAjaran;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardGuruController extends Controller
@@ -28,12 +29,13 @@ class DashboardGuruController extends Controller
       $guru = Guru::where('user_id', $userId)->first();
       $kelasId = $guru->kelas_id;
 
-      $siswas = Siswa::where('kelas_id', $kelasId)->get();
-      $gurus = Guru::all();
-      $mapels = MataPelajaran::all();
       $mapel = MataPelajaran::where('id',$id)->first();
-      $capaians = CapaianPembelajaran::where('mata_pelajaran_id', $id)->get();
+      $capaians = CapaianPembelajaran::where('mata_pelajaran_id', $id)->orderBy('tanggal', 'asc')->get();
+      $siswas = Siswa::where('kelas_id', $kelasId)->get();
 
-      return view('guru.layouts.nilai', compact('siswas', 'gurus', 'mapels', 'capaians', 'mapel'));
+      $mapels = MataPelajaran::all();
+      $tahun = TahunAjaran::where('status','true')->first();
+
+      return view('guru.layouts.nilai', compact('siswas', 'mapels', 'capaians', 'mapel','tahun'));
    }
 }

@@ -13,6 +13,7 @@ return new class extends Migration
             $table->foreignId('siswa_id')->constrained('siswa');
             $table->foreignId('ekstrakulikuler_id')->constrained('ekstrakulikuler');
             $table->string('nilai')->nullable();
+            $table->foreignId('tahun_ajaran_id')->constrained('tahun_ajaran');
             $table->timestamps();
         });
     }

@@ -19,7 +19,7 @@ class TahunAjaranSeeder extends Seeder
             [
                 'tahun' => '2023/2024',
                 'semester' => 'Genap',
-                'status' => true,
+                'status' => false,
             ],
             [
                 'tahun' => '2022/2023',

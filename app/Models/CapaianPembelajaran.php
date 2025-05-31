@@ -13,7 +13,9 @@ class CapaianPembelajaran extends Model
     protected $fillable = [
         'nama',
         'mata_pelajaran_id',
-        'guru_id'
+        'guru_id',
+        'tanggal',
+        'tahun_ajaran_id'
     ];
 
     // Relasi ke Mata Pelajaran
@@ -26,5 +28,9 @@ class CapaianPembelajaran extends Model
     public function guru()
     {
         return $this->belongsTo(Guru::class);
+    }
+    public function tahunAjaran()
+    {
+        return $this->belongsTo(TahunAjaran::class);
     }
 }

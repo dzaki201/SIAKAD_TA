@@ -14,7 +14,7 @@ class GuruSeeder extends Seeder
             [
                 'user_id' => 2,
                 'nama' => 'Pak Dodi',
-                'nip' => '19821212 334455 5 005',
+                'nip' => '19821216 334456 6 006',
                 'kelas_id' => 1,  
                 'mata_pelajaran_id' => null,  
                 'status' => 'guru kelas',
