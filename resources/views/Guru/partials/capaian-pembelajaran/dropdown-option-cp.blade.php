@@ -14,8 +14,8 @@
             </button>
         </li>
         <li>
-            <a href="{{ route('guru.edit-nilai', ['id' => $mapel->id, 'cpId' => $cp->id]) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                Edit Nilai {{$mapel->id}}
+            <a href="{{ route('guru.edit.nilai', ['id' => $mapel->id, 'cpId' => $cp->id]) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                Edit Nilai
             </a>
         </li>
         <li>

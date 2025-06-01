@@ -135,7 +135,7 @@
                         <button type="button"
                             class="mb-2 flex items-center w-full p-2 text-white rounded-lg hover:bg-blue-800 group"
                             aria-controls="dropdown-nilai" data-collapse-toggle="dropdown-nilai">
-                            <svg class="w-5 h-5 shrink-0 text-gray-200 transition duration-75 group-hover:text-white"
+                            <svg class="w-5 h-5 text-gray-200 transition duration-75 group-hover:text-white"
                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                                 <path fill-rule="evenodd"
                                     d="M11 4.717c-2.286-.58-4.16-.756-7.045-.71A1.99 1.99 0 0 0 2 6v11c0 1.133.934 2.022 2.044 2.007 2.759-.038 4.5.16 6.956.791V4.717Zm2 15.081c2.456-.631 4.198-.829 6.956-.791A2.013 2.013 0 0 0 22 16.999V6a1.99 1.99 0 0 0-1.955-1.993c-2.885-.046-4.76.13-7.045.71v15.081Z"
@@ -150,12 +150,12 @@
                         </button>
                         {{-- Dropdown --}}
                         <ul id="dropdown-nilai"
-                            class="{{ request()->routeIs('guru.nilai') ? 'block' : 'hidden' }} space-y-2 " >
+                            class="{{ request()->routeIs('guru.nilai', 'guru.edit.nilai') ? 'block' : 'hidden' }} space-y-2 ">
                             @foreach ($mapels as $mapel)
                                 <li>
                                     <a href="{{ route('guru.nilai', ['id' => $mapel->id]) }}"
                                         class="flex items-center w-full p-2 pl-11 rounded-lg transition duration-75 group
-                        {{ request()->fullUrl() == route('guru.nilai', ['id' => $mapel->id]) ? 'bg-blue-800 text-white' : 'text-white hover:bg-blue-800' }}">
+{{ (request()->routeIs('guru.nilai') && request()->route('id') == $mapel->id) || (request()->routeIs('guru.edit.nilai') && request()->route('id') == $mapel->id) ? 'bg-blue-800 text-white' : 'text-white hover:bg-blue-800' }}">
                                         {{ $mapel->nama }}
                                     </a>
                                 </li>

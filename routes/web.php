@@ -50,33 +50,33 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin-dashboard', [DashboardAdminController::class, 'adminIndex'])->name('admin.dashboard');
-    Route::put('/admin-dashboard/{id}/edit', [UserController::class, 'update'])->name('admin.dashboard.update');
+    Route::put('/admin-dashboard/{id}/update', [UserController::class, 'update'])->name('admin.dashboard.update');
 
     Route::get('/admin-guru', [DashboardAdminController::class, 'adminGuru'])->name('admin.guru');
     Route::post('/admin-guru', [GuruController::class, 'store'])->name('admin.guru.store');
-    Route::put('/admin-guru/{id}/edit', [GuruController::class, 'update'])->name('admin.guru.update');
+    Route::put('/admin-guru/{id}/update', [GuruController::class, 'update'])->name('admin.guru.update');
     Route::delete('/admin-guru/{id}', [GuruController::class, 'destroy'])->name('admin.guru.destroy');
 
     Route::get('/admin-siswa', [DashboardAdminController::class, 'adminSiswa'])->name('admin.siswa');
     Route::get('/admin-edit-kelas-siswa', [DashboardAdminController::class, 'adminEditKelasSiswa'])->name('admin.edit.kelas.siswa');
     Route::post('/admin-siswa', [SiswaController::class, 'store'])->name('admin.siswa.store');
-    Route::put('/admin-siswa/{id}/edit', [SiswaController::class, 'update'])->name('admin.siswa.update');
+    Route::put('/admin-siswa/{id}/update', [SiswaController::class, 'update'])->name('admin.siswa.update');
     Route::post('/admin-siswa/update-kelas', [SiswaController::class, 'updateKelas'])->name('admin.update.kelas.siswa');
     Route::delete('/admin-siswa/{id}', [SiswaController::class, 'destroy'])->name('admin.siswa.destroy');
 
     Route::get('/admin-orang-tua', [DashboardAdminController::class, 'adminOrangTua'])->name('admin.orang-tua');
     Route::post('/admin-orang-tua',[OrangTuaController::class, 'store'])->name('admin.orang-tua.store');
-    Route::put('/admin-orang-tua/{id}/edit',[OrangTuaController::class, 'update'])->name('admin.orang-tua.update');
+    Route::put('/admin-orang-tua/{id}/update',[OrangTuaController::class, 'update'])->name('admin.orang-tua.update');
     Route::delete('/admin-orang-tua/{id}',[OrangTuaController::class, 'destroy'])->name('admin.orang-tua.destroy');
 
     Route::get('/admin-kelas', [DashboardAdminController::class, 'adminKelas'])->name('admin.kelas');
     Route::post('/admin-kelas', [KelasController::class, 'store'])->name('admin.kelas.store');
-    Route::put('/admin-kelas/{id}/edit', [KelasController::class, 'update'])->name('admin.kelas.update');
+    Route::put('/admin-kelas/{id}/update', [KelasController::class, 'update'])->name('admin.kelas.update');
     Route::delete('/admin-kelas/{id}', [KelasController::class, 'destroy'])->name('admin.kelas.destroy');
 
     Route::get('/admin-mata-pelajaran', [DashboardAdminController::class, 'adminMataPelajaran'])->name('admin.mata-pelajaran');
     Route::post('/admin-mata-pelajaran', [MataPelajaranController::class, 'store'])->name('admin.mata-pelajaran.store');
-    Route::put('/admin-mata-pelajaran/{id}/edit', [MataPelajaranController::class, 'update'])->name('admin.mata-pelajaran.update');
+    Route::put('/admin-mata-pelajaran/{id}/update', [MataPelajaranController::class, 'update'])->name('admin.mata-pelajaran.update');
     Route::delete('/admin-mata-pelajaran/{id}', [MataPelajaranController::class, 'destroy'])->name('admin.mata-pelajaran.destroy');
 
     Route::get('/admin-tahun-ajaran', [DashboardAdminController::class, 'adminTahunAjaran'])->name('admin.tahun-ajaran');
@@ -87,7 +87,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/admin-ekstrakulikuler', [DashboardAdminController::class, 'adminEkstrakulikuler'])->name('admin.ekskul');
     Route::post('/admin-ekstrakulikuler', [EkstrakulikulerController::class, 'store'])->name('admin.ekskul.store');
-    Route::put('/admin-ekstrakulikuler/{id}/edit', [EkstrakulikulerController::class, 'update'])->name('admin.ekskul.update');
+    Route::put('/admin-ekstrakulikuler/{id}/update', [EkstrakulikulerController::class, 'update'])->name('admin.ekskul.update');
     Route::delete('/admin-ekstrakulikuler/{id}', [EkstrakulikulerController::class, 'destroy'])->name('admin.ekskul.destroy');
 
 });
@@ -96,11 +96,12 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
     Route::get('/guru-dashboard', [DashboardGuruController::class, 'guruIndex'])->name('guru.dashboard');
 
     Route::post('/guru-capaian-pembelajaran', [CapaianPembelajaranController::class, 'store'])->name('guru.cp.store');
-    Route::put('/guru-capaian-pembelajaran/{id}/edit', [CapaianPembelajaranController::class, 'update'])->name('guru.cp.update');
+    Route::put('/guru-capaian-pembelajaran/{id}/update', [CapaianPembelajaranController::class, 'update'])->name('guru.cp.update');
     Route::delete('/guru-capaian-pembelajaran/{id}', [CapaianPembelajaranController::class, 'destroy'])->name('guru.cp.destroy');
     
     Route::get('/guru-nilai/{id}', [DashboardGuruController::class, 'guruNilai'])->name('guru.nilai');
-    Route::get('/guru-edit-nilai/{id}/{cpId}', [DashboardGuruController::class, 'gurueditNilai'])->name('guru.edit-nilai');
+    Route::get('/guru-edit-nilai/{id}/{cpId}', [DashboardGuruController::class, 'gurueditNilai'])->name('guru.edit.nilai');
+    Route::post('/guru-nilai-update', [NilaiController::class, 'update'])->name('guru.nilai.update');
 });
 
 Route::middleware(['auth', 'role:orang_tua'])->group(function () {
