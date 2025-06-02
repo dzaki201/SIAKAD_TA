@@ -154,8 +154,8 @@
                             @foreach ($mapels as $mapel)
                                 <li>
                                     <a href="{{ route('guru.nilai', ['id' => $mapel->id]) }}"
-                                        class="flex items-center w-full p-2 pl-11 rounded-lg transition duration-75 group
-{{ (request()->routeIs('guru.nilai') && request()->route('id') == $mapel->id) || (request()->routeIs('guru.edit.nilai') && request()->route('id') == $mapel->id) ? 'bg-blue-800 text-white' : 'text-white hover:bg-blue-800' }}">
+                                        class="flex items-center w-full p-2 pl-11 text-white rounded-lg transition duration-75 group hover:bg-blue-800 dark:hover:bg-blue-500 
+                {{ (request()->routeIs('guru.nilai') && request()->route('id') == $mapel->id) || (request()->routeIs('guru.edit.nilai') && request()->route('id') == $mapel->id) ? 'bg-blue-700 dark:bg-blue-600' : '' }}">
                                         {{ $mapel->nama }}
                                     </a>
                                 </li>

@@ -5,31 +5,32 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CapaianPembelajaran extends Model
+class KunciNilai extends Model
 {
     use HasFactory;
-    protected $table = 'capaian_pembelajaran';
+    protected $table = 'kunci_nilai';
 
     protected $fillable = [
-        'nama',
-        'mata_pelajaran_id',
         'guru_id',
-        'tanggal',
+        'mata_pelajaran_id',
         'tahun_ajaran_id',
-        'status'
+        'is_locked',
+        'locked_at',
     ];
+
+    // Relasi ke Guru
+    public function guru()
+    {
+        return $this->belongsTo(Guru::class);
+    }
 
     public function mataPelajaran()
     {
         return $this->belongsTo(MataPelajaran::class);
     }
-    public function guru()
-    {
-        return $this->belongsTo(Guru::class);
-    }
+
     public function tahunAjaran()
     {
         return $this->belongsTo(TahunAjaran::class);
     }
-   
 }

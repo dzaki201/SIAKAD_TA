@@ -18,6 +18,7 @@ use App\Http\Controllers\Dashboard\DashboardOrangTuaController;
 use App\Http\Controllers\MataPelajaran\MataPelajaranController;
 use App\Http\Controllers\Ekstrakulikuler\EkstrakulikulerController;
 use App\Http\Controllers\Nilai\CapaianPembelajaranController;
+use App\Http\Controllers\Nilai\KunciNilaiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -96,12 +97,17 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
     Route::get('/guru-dashboard', [DashboardGuruController::class, 'guruIndex'])->name('guru.dashboard');
 
     Route::post('/guru-capaian-pembelajaran', [CapaianPembelajaranController::class, 'store'])->name('guru.cp.store');
+    Route::post('/guru-pts-pas', [CapaianPembelajaranController::class, 'tambahPtsPas'])->name('guru.tambah.pts-pas');
     Route::put('/guru-capaian-pembelajaran/{id}/update', [CapaianPembelajaranController::class, 'update'])->name('guru.cp.update');
+    Route::put('/guru-pts-pas/{id}/update', [CapaianPembelajaranController::class, 'updatePtsPas'])->name('guru.update.pts-pas');
     Route::delete('/guru-capaian-pembelajaran/{id}', [CapaianPembelajaranController::class, 'destroy'])->name('guru.cp.destroy');
     
     Route::get('/guru-nilai/{id}', [DashboardGuruController::class, 'guruNilai'])->name('guru.nilai');
     Route::get('/guru-edit-nilai/{id}/{cpId}', [DashboardGuruController::class, 'gurueditNilai'])->name('guru.edit.nilai');
     Route::post('/guru-nilai-update', [NilaiController::class, 'update'])->name('guru.nilai.update');
+
+    Route::get('/guru-kunci-nilai/{id}', [KunciNilaiController::class, 'store'])->name('guru.kunci-nilai.store');
+    Route::post('/guru-nilai-kunci/{id}', [KunciNilaiController::class, 'kunci'])->name('guru.kunci-nilai');
 });
 
 Route::middleware(['auth', 'role:orang_tua'])->group(function () {

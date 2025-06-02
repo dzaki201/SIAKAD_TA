@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Models\Guru;
+use App\Models\Kelas;
 use App\Models\Nilai;
 use App\Models\Siswa;
+use App\Models\KunciNilai;
+use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
 use App\Models\MataPelajaran;
-use App\Http\Controllers\Controller;
 use App\Models\CapaianPembelajaran;
-use App\Models\Kelas;
-use App\Models\TahunAjaran;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardGuruController extends Controller
@@ -28,18 +29,36 @@ class DashboardGuruController extends Controller
       $kelasId = $guru->kelas_id;
 
       $mapel = MataPelajaran::where('id', $id)->first();
-      $capaians = CapaianPembelajaran::where('mata_pelajaran_id', $id)->orderBy('tanggal', 'asc')->get();
+      $tahun = TahunAjaran::where('status', 1)->first();
+      $mapels = MataPelajaran::all();
+      $kunci = KunciNilai::where('guru_id', $guru->id)
+         ->where('mata_pelajaran_id', $id)
+         ->where('tahun_ajaran_id', $tahun->id)
+         ->first();
+
+      if (!$kunci) {
+         return view('guru.layouts.nilai', compact('mapels', 'tahun', 'kunci','mapel'));
+      }
+      $capaians = CapaianPembelajaran::where('mata_pelajaran_id', $id)
+         ->where('tahun_ajaran_id', $tahun->id)
+         ->get()
+         ->sortBy(function ($item) {
+            $order = [
+               'CP' => 1,
+               'PTS' => 2,
+               'PAS' => 3,
+            ];
+            $statusOrder = $order[$item->status];
+            return [$statusOrder, $item->tanggal];
+         });
       $siswas = Siswa::where('kelas_id', $kelasId)->get();
       $nilais = Nilai::whereIn('siswa_id', $siswas->pluck('id'))
          ->whereIn('capaian_pembelajaran_id', $capaians->pluck('id'))
          ->get();
 
-      $mapels = MataPelajaran::all();
-      $tahun = TahunAjaran::where('status', 'true')->first();
-
-      return view('guru.layouts.nilai', compact('siswas', 'mapels', 'capaians', 'mapel', 'tahun','nilais'));
+      return view('guru.layouts.nilai', compact('siswas', 'mapels', 'capaians', 'mapel', 'tahun', 'nilais','kunci'));
    }
-   public function guruEditNilai($id,$cpId)
+   public function guruEditNilai($id, $cpId)
    {
       $userId = Auth::id();
       $guru = Guru::where('user_id', $userId)->first();
@@ -52,8 +71,8 @@ class DashboardGuruController extends Controller
          ->get();
       $cp = CapaianPembelajaran::where('id', $cpId)->first();
       $mapels = MataPelajaran::all();
-      $tahun = TahunAjaran::where('status', 'true')->first();
+      $tahun = TahunAjaran::where('status', 1)->first();
 
-      return view('guru.layouts.edit-nilai', compact('siswas', 'mapels', 'mapel', 'tahun','nilais', 'cpId','kelas','cp'));
+      return view('guru.layouts.edit-nilai', compact('siswas', 'mapels', 'mapel', 'tahun', 'nilais', 'cpId', 'kelas', 'cp'));
    }
 }

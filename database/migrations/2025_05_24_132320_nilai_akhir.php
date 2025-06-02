@@ -11,11 +11,10 @@ return new class extends Migration
         Schema::create('nilai_akhir', function (Blueprint $table) {
             $table->id();
             $table->string('nilai_akhir');
+            $table->foreignId('siswa_id')->constrained('siswa')->onDelete('cascade');
             $table->foreignId('mata_pelajaran_id')->constrained('mata_pelajaran')->onDelete('cascade');;
             $table->foreignId('guru_id')->constrained('guru')->onDelete('cascade');;
             $table->string('keterangan')->nullable();
-            $table->boolean('status')->nullable(); //untuk mengunci nilai
-            $table->dateTime('konfirmasi')->nullable(); //untuk mengunci nilai
             $table->foreignId('tahun_ajaran_id')->constrained('tahun_ajaran')->onDelete('cascade');;
             $table->timestamps();
         });

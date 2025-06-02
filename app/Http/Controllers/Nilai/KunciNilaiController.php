@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Http\Controllers\Nilai;
+
+use App\Models\Guru;
+use App\Models\KunciNilai;
+use App\Models\TahunAjaran;
+use Illuminate\Http\Request;
+use App\Models\MataPelajaran;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+
+class KunciNilaiController extends Controller
+{
+    public function store($id)
+    {
+        $userId = Auth::id();
+        $guru = Guru::where('user_id', $userId)->first();
+        $mapel = MataPelajaran::where('id', $id)->first();
+        $tahun = TahunAjaran::where('status', 1)->first();
+
+        KunciNilai::create([
+            'guru_id' => $guru->id,
+            'mata_pelajaran_id' => $mapel->id,
+            'tahun_ajaran_id' => $tahun->id,
+            'is_locked' => 0,
+        ]);
+        return redirect()->back();
+    }
+    public function kunci($id)
+    {
+        $kunci = KunciNilai::where('id', $id)
+            ->first();
+        $kunci->update([
+            'is_locked' => 1,
+            'locked_at' => now(),
+        ]);
+        return redirect()->back()->with('success', 'Data Nilai berhasil dikunci.');
+    }
+}

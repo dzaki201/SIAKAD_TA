@@ -1,12 +1,12 @@
-<div id="tambah-capaian-pembelajaran-modal" tabindex="-1" aria-hidden="true"
+<div id="tambah-pts-pas-modal" tabindex="-1" aria-hidden="true"
     class="fixed inset-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0">
     <div class="relative w-full h-full max-w-2xl md:h-auto">
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Tambah Capaian Pembelajaran
+                    Tambah Penilaian Akhir Semester/Penilaian Akhir Semester
                 </h3>
-                <button type="button" data-modal-hide="tambah-capaian-pembelajaran-modal"
+                <button type="button" data-modal-hide="tambah-pts-pas-modal"
                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
                     <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
@@ -16,20 +16,26 @@
                 </button>
             </div>
             <div class="p-6 space-y-6">
-                <form action="{{ route('guru.cp.store') }}" method="POST">
+                <form action="{{ route('guru.tambah.pts-pas') }}" method="POST">
                     @csrf
                     <input type="hidden" name="mata_pelajaran_id" value="{{ $mapel->id }}">
+
                     <div class="mb-4">
-                        <label for="nama" class="block text-sm font-medium text-gray-700 dark:text-white">Nama
-                            Capaian</label>
-                        <input type="text" id="nama" name="nama"
+                        <label for="status"
+                            class="block text-sm font-medium text-gray-700 dark:text-white">Status</label>
+                        <select id="status" name="status"
                             class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white"
-                            placeholder="Nama capaian pembelajaran" required>
+                            required>
+                            <option value="">-- Pilih Status --</option>
+                            <option value="PTS">PTS</option>
+                            <option value="PAS">PAS</option>
+                        </select>
                     </div>
                     <div class="mb-4">
-                        <label for="tanggal" class="block mb-1 text-sm font-medium text-gray-700">Tanggal</label>
+                        <label for="tanggal"
+                            class="block mb-1 text-sm font-medium text-gray-700 dark:text-white">Tanggal</label>
                         <input type="date" id="tanggal" name="tanggal"
-                            class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
                             required>
                     </div>
                     <div class="flex justify-end">

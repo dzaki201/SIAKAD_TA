@@ -7,19 +7,32 @@
     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
         aria-labelledby="dropdownMenuIconButton-{{ $cp->id }}">
         <li>
-            <button type="button" data-modal-target="edit-capaian-pembelajaran-modal-{{ $cp->id }}"
-                data-modal-toggle="edit-capaian-pembelajaran-modal-{{ $cp->id }}"
-                class="w-full text-left block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                Edit Capaian Pembelajaran
-            </button>
+            @if ($cp->status == 'CP')
+                <button type="button" data-modal-target="edit-capaian-pembelajaran-modal-{{ $cp->id }}"
+                    data-modal-toggle="edit-capaian-pembelajaran-modal-{{ $cp->id }}"
+                    class="w-full text-left block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    Edit Capaian Pembelajaran
+                </button>
+            @elseif ($cp->status == 'PTS' || $cp->status == 'PAS')
+                <button type="button" data-modal-target="edit-pas-pts-modal-{{ $cp->id }}"
+                    data-modal-toggle="edit-pas-pts-modal-{{ $cp->id }}"
+                    class="w-full text-left block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    @if ($cp->status == 'PTS')
+                        Edit Penilaian Tengah Semester
+                    @elseif ($cp->status == 'PAS')
+                        Edit Penilaian Akhir Semester
+                    @endif
+                </button>
+            @endif
         </li>
         <li>
-            <a href="{{ route('guru.edit.nilai', ['id' => $mapel->id, 'cpId' => $cp->id]) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+            <a href="{{ route('guru.edit.nilai', ['id' => $mapel->id, 'cpId' => $cp->id]) }}"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                 Edit Nilai
             </a>
         </li>
         <li>
-             <button type="button" data-modal-target="hapus-capaian-pembelajaran-modal-{{ $cp->id }}"
+            <button type="button" data-modal-target="hapus-capaian-pembelajaran-modal-{{ $cp->id }}"
                 data-modal-toggle="hapus-capaian-pembelajaran-modal-{{ $cp->id }}"
                 class="w-full text-left block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                 Hapus
