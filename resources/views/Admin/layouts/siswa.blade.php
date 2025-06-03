@@ -4,8 +4,9 @@
 
 @section('content')
 
-
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg mb-6">
+        @include('admin.components.navbar-admin-siswa')
+
         <div class="mb-4">
             @include('components.alert')
             <button data-modal-target="tambah-siswa-modal" data-modal-toggle="tambah-siswa-modal"
@@ -79,13 +80,13 @@
                                 </div>
                             </td>
                         </tr>
-                        @include('Admin.partials.siswa.modaleditsiswa')
-                        @include('Admin.partials.siswa.modalhapussiswa')
+                        @include('Admin.partials.siswa.modal-edit-siswa')
+                        @include('Admin.partials.siswa.modal-hapus-siswa')
                     @endforeach
-                    
+
                 </tbody>
             </table>
         </div>
     </div>
-    @include('admin.partials.siswa.modaltambahsiswa')
+    @include('admin.partials.siswa.modal-tambah-siswa')
 @endsection
