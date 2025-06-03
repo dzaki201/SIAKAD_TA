@@ -7,7 +7,7 @@
                 @if (Auth::user() && Auth::user()->role === 'admin')
                     <li>
                         <a href="{{ route('admin.dashboard') }}"
-                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 dark:hover:bg-blue-300 group {{ request()->routeIs('admin.dashboard') ? 'bg-blue-700 dark:bg-blue-600' : '' }}">
+                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 dark:hover:bg-blue-500 group {{ request()->routeIs('admin.dashboard') ? 'bg-blue-700 dark:bg-blue-600' : '' }}">
                             <svg class="w-5 h-5 text-gray-200 transition duration-75 group-hover:text-white"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                 viewBox="0 0 22 21">
@@ -21,7 +21,7 @@
                     </li>
                     <li>
                         <a href="{{ route('admin.guru') }}"
-                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 dark:hover:bg-blue-500 group {{ request()->routeIs('admin.guru') ? 'bg-blue-700 dark:bg-blue-600' : '' }}">
+                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 dark:hover:bg-blue-500 group {{ request()->routeIs('admin.guru') || request()->routeIs('admin.plotting-guru') ? 'bg-blue-700 dark:bg-blue-600' : '' }}">
                             <svg class="shrink-0 w-5 h-5 text-gray-200 transition duration-75 group-hover:text-white"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                 viewBox="0 0 18 18">
@@ -74,7 +74,6 @@
                     <li>
                         <a href="{{ route('admin.kelas') }}"
                             class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 dark:hover:bg-blue-500 group {{ request()->routeIs('admin.kelas') ? 'bg-blue-700 dark:bg-blue-600' : '' }}">
-
                             <svg class="shrink-0 w-5 h-5 text-gray-200 transition duration-75 group-hover:text-white"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                 viewBox="0 0 18 20">

@@ -60,7 +60,8 @@
                 class="w-full min-w-[1000px] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 table-fixed">
                 <thead class="text-xs text-white text-center uppercase bg-blue-800 dark:bg-gray-700">
                     <tr>
-                        <th class="w-16 px-4 py-3 text-left border border-gray-300">No</th>
+                        <th class="w-10 px-4 py-3 text-left border border-gray-300">No</th>
+                        <th class="w-16 w-px-4 py-3  border border-gray-300">NIS</th>
                         <th class="w-60 w-px-4 py-3 border border-gray-300 break-words">Nama</th>
                         @foreach ($capaians as $cp)
                             <th
@@ -99,6 +100,7 @@
                         <tr
                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <td class="w-16 px-4 py-3 border border-gray-300">{{ $loop->iteration }}</td>
+                            <td class="w-60 px-4 py-3 border border-gray-300">{{ $siswa->nis }}</td>
                             <td class="w-60 px-4 py-3 border border-gray-300">{{ $siswa->nama }}</td>
                             @foreach ($capaians as $cp)
                                 @php

@@ -14,6 +14,7 @@ class KunciNilai extends Model
         'guru_id',
         'mata_pelajaran_id',
         'tahun_ajaran_id',
+        'kelas_id',
         'is_locked',
         'locked_at',
     ];
@@ -32,5 +33,9 @@ class KunciNilai extends Model
     public function tahunAjaran()
     {
         return $this->belongsTo(TahunAjaran::class);
+    }
+     public function kelas()
+    {
+        return $this->belongsTo(Kelas::class);
     }
 }

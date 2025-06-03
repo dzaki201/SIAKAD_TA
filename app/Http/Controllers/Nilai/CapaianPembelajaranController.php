@@ -30,7 +30,8 @@ class CapaianPembelajaranController extends Controller
         $isLocked = KunciNilai::where('guru_id', $guru->id)
             ->where('mata_pelajaran_id', $validatedData['mata_pelajaran_id'])
             ->where('tahun_ajaran_id', $tahunAjaran->id)
-            ->where('is_locked', true)
+            ->where('tahun_ajaran_id', $guru->kelas_id)
+            ->where('is_locked', 1)
             ->exists();
 
         if ($isLocked) {
@@ -92,7 +93,8 @@ class CapaianPembelajaranController extends Controller
         $isLocked = KunciNilai::where('guru_id', $guru->id)
             ->where('mata_pelajaran_id', $validatedData['mata_pelajaran_id'])
             ->where('tahun_ajaran_id', $tahunAjaran->id)
-            ->where('is_locked', true)
+            ->where('tahun_ajaran_id', $guru->kelas_id)
+            ->where('is_locked', 1)
             ->exists();
 
         if ($isLocked) {

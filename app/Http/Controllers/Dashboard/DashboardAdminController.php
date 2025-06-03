@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Ekstrakulikuler;
 use App\Models\Guru;
 use App\Models\Kelas;
+use App\Models\KelasMataPelajaran;
 use App\Models\MataPelajaran;
 use App\Models\OrangTua;
 use App\Models\Siswa;
@@ -19,27 +20,39 @@ class DashboardAdminController extends Controller
     {
         $guru = Guru::count();
         $siswa = Siswa::count();
-        return view('Admin.layouts.dashboard', compact('guru','siswa'));
+        return view('Admin.layouts.dashboard', compact('guru', 'siswa'));
     }
     public function adminGuru()
     {
         $gurus = Guru::all();
-        $mapels = MataPelajaran::doesntHave('guru')->get();
-        $kelases = Kelas::doesntHave('guru')->get();
         $users = User::where('role', 'guru')->whereDoesntHave('guru')->get();
-        return view('admin.layouts.guru', compact('gurus', 'mapels', 'kelases', 'users'));
+        return view('admin.layouts.guru', compact('gurus', 'users'));
+    }
+    public function adminPlottingGuruKelas()
+    {
+        $gurukelases = Guru::whereNotNull('kelas_id')->get();
+        $gurus = Guru::whereNull('kelas_id')->get();
+        $mapels = MataPelajaran::get();
+        $kelases = Kelas::doesntHave('guru')->get();
+
+        $users = User::where('role', 'guru')->whereDoesntHave('guru')->get();
+        return view('admin.layouts.guru.plotting-guru-kelas',  compact('gurus', 'mapels', 'kelases', 'users', 'gurukelases'));
+    }
+    public function adminPlottingGuruMapel()
+    {
+        $gurukelases = Guru::whereNotNull('mata_pelajaran_id')->get();
+        $gurus = Guru::whereNull('mata_pelajaran_id')->get();
+        $mapels = MataPelajaran::get();
+        $kelasmapels = KelasMataPelajaran::get();
+// dd($kelasmapels);
+        $users = User::where('role', 'guru')->whereDoesntHave('guru')->get();
+        return view('admin.layouts.guru.plotting-guru-mapel',  compact('gurus', 'mapels', 'kelasmapels', 'users', 'gurukelases'));
     }
     public function adminSiswa()
     {
         $siswas = Siswa::all();
         $kelases = Kelas::all();
         return view('admin.layouts.siswa', compact('siswas', 'kelases'));
-    }
-    public function adminOrangTua()
-    {
-        $orangtuas = OrangTua::all();
-        $siswas = Siswa::all();
-        return view('admin.layouts.orang-tua',compact('orangtuas','siswas'));
     }
     public function adminEditKelasSiswa(Request $request)
     {
@@ -49,7 +62,13 @@ class DashboardAdminController extends Controller
             $siswa->where('kelas_id', $request->filter_kelas);
         }
         $siswas = $siswa->get();
-        return view('admin.layouts.editkelassiswa', compact('siswas', 'kelases'));
+        return view('admin.layouts.siswa.edit-kelas-siswa', compact('siswas', 'kelases'));
+    }
+    public function adminOrangTua()
+    {
+        $orangtuas = OrangTua::all();
+        $siswas = Siswa::all();
+        return view('admin.layouts.orang-tua', compact('orangtuas', 'siswas'));
     }
     public function adminFilterEditKelasSiswa()
     {
@@ -61,7 +80,7 @@ class DashboardAdminController extends Controller
     {
         $kelases = Kelas::all();
         $mapels = MataPelajaran::all();
-        return view('admin.layouts.mata-pelajaran', compact('mapels','kelases'));
+        return view('admin.layouts.mata-pelajaran', compact('mapels', 'kelases'));
     }
     public function adminKelas()
     {

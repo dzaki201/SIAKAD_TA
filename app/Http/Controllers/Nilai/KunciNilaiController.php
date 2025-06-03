@@ -23,9 +23,10 @@ class KunciNilaiController extends Controller
             'guru_id' => $guru->id,
             'mata_pelajaran_id' => $mapel->id,
             'tahun_ajaran_id' => $tahun->id,
+            'kelas_id' => $guru->kelas_id,
             'is_locked' => 0,
         ]);
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Penilaian Baru berhasil dibuat.');;
     }
     public function kunci($id)
     {

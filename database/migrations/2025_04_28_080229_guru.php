@@ -15,7 +15,6 @@ return new class extends Migration
             $table->string('nip', 50)->unique();
             $table->foreignId('kelas_id')->nullable()->constrained('kelas')->onDelete('cascade');
             $table->foreignId('mata_pelajaran_id')->nullable()->constrained('mata_pelajaran')->onDelete('cascade');
-            $table->enum('status',['guru mata pelajaran','guru kelas']);
             $table->timestamps();
         });
     }

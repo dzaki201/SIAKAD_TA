@@ -16,7 +16,7 @@
                 </button>
             </div>
             <div class="p-6 space-y-6">
-                <form action="{{ route('guru.cp.update',['id' => $cp->id]) }}" method="POST">
+                <form action="{{ route('guru.cp.update', ['id' => $cp->id]) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="mb-4">
@@ -31,12 +31,16 @@
                             class="block mb-1 text-sm font-medium text-gray-700">Tanggal</label>
                         <input type="date" id="tanggal-{{ $cp->id }}" name="tanggal"
                             value="{{ $cp->tanggal }}"
-                            class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
                             required>
                     </div>
-                    <div class="flex justify-end">
+                    <div class="p-6 space-x-4 border-t border-gray-200 dark:border-gray-600 text-right">
                         <button type="submit"
-                            class="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700">Simpan</button>
+                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800">Simpan</button>
+                        <button data-modal-hide="edit-capaian-pembelajaran-modal-{{ $cp->id }}" type="button"
+                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800">
+                            Batal
+                        </button>
                     </div>
                 </form>
             </div>

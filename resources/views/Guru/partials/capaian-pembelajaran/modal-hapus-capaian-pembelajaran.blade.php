@@ -16,7 +16,7 @@
                     <span class="sr-only">Close</span>
                 </button>
             </div>
-            <div class="p-6 space-y-6 text-center">
+            <div class="p-6 space-y-6 text-center text-gray-900 dark:text-white">
                 <p>Apakah Anda yakin ingin menghapus capaian pembelajaran "{{ $cp->nama }}"?</p>
             </div>
             <div class="p-6 space-x-4 border-t border-gray-200 dark:border-gray-600 text-right">

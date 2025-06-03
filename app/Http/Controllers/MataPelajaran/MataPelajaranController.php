@@ -27,7 +27,7 @@ class MataPelajaranController extends Controller
     {
         $validatedData = $request->validate([
             'nama' => 'required|string',
-            'kelas_id' => 'required|array',
+            'kelas_id' => 'sometimes|array',
             'kelas_id.*' => 'exists:kelas,id',
         ]);
 
@@ -36,7 +36,11 @@ class MataPelajaranController extends Controller
             'nama' => $validatedData['nama'],
         ]);
 
-        $mapel->kelases()->sync($validatedData['kelas_id']);
+        if (empty($validatedData['kelas_id'])) {
+            $mapel->kelases()->sync([]); // hapus semua relasi kelas
+        } else {
+            $mapel->kelases()->sync($validatedData['kelas_id']);
+        }
         return redirect()->back()->with('success', 'Mata Pelajaran berhasil diperbaharui');
     }
 

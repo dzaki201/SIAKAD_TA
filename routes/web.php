@@ -3,7 +3,7 @@
 use App\Models\TahunAjaran;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\User\GuruController;
+use App\Http\Controllers\Guru\GuruController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Kelas\KelasController;
 use App\Http\Controllers\Nilai\NilaiController;
@@ -17,6 +17,7 @@ use App\Http\Controllers\Dashboard\DashboardAdminController;
 use App\Http\Controllers\Dashboard\DashboardOrangTuaController;
 use App\Http\Controllers\MataPelajaran\MataPelajaranController;
 use App\Http\Controllers\Ekstrakulikuler\EkstrakulikulerController;
+use App\Http\Controllers\Guru\PlottingGuruController;
 use App\Http\Controllers\Nilai\CapaianPembelajaranController;
 use App\Http\Controllers\Nilai\KunciNilaiController;
 
@@ -54,7 +55,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/admin-dashboard/{id}/update', [UserController::class, 'update'])->name('admin.dashboard.update');
 
     Route::get('/admin-guru', [DashboardAdminController::class, 'adminGuru'])->name('admin.guru');
+    Route::get('/admin-plotting-guru-kelas', [DashboardAdminController::class, 'adminPlottingGuruKelas'])->name('admin.guru-kelas');
+    Route::get('/admin-plotting-guru-mapel', [DashboardAdminController::class, 'adminPlottingGuruMapel'])->name('admin.guru-mapel');
     Route::post('/admin-guru', [GuruController::class, 'store'])->name('admin.guru.store');
+    Route::post('/admin-plotting-guru-kelas', [PlottingGuruController::class, 'plotKelas'])->name('admin.plotting.guru-kelas');
+    Route::post('/admin-plotting-guru-mapel', [PlottingGuruController::class, 'plotMapel'])->name('admin.plotting.guru-mapel');
+    Route::post('/admin-kelas-guru-mapel/{id}', [PlottingGuruController::class, 'kelasGuruMapel'])->name('admin.kelas-guru-mapel');
+    Route::post('/admin-edit-plotting-guru-kelas/{id}', [PlottingGuruController::class, 'editPlotKelas'])->name('admin.edit.plotting.guru-kelas');
+    Route::post('/admin-edit-plotting-guru-mapel/{id}', [PlottingGuruController::class, 'editPlotMapel'])->name('admin.edit.plotting.guru-mapel');
     Route::put('/admin-guru/{id}/update', [GuruController::class, 'update'])->name('admin.guru.update');
     Route::delete('/admin-guru/{id}', [GuruController::class, 'destroy'])->name('admin.guru.destroy');
 

@@ -6,14 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-
     public function up(): void
     {
         Schema::create('kunci_nilai', function (Blueprint $table) {
             $table->id();
             $table->foreignId('guru_id')->constrained('guru')->onDelete('cascade');
-            $table->foreignId('mata_pelajaran_id')->constrained('mata_pelajaran')->onDelete('cascade');;
-            $table->foreignId('tahun_ajaran_id')->constrained('tahun_ajaran');
+            $table->foreignId('mata_pelajaran_id')->constrained('mata_pelajaran')->onDelete('cascade');
+            $table->foreignId('tahun_ajaran_id')->constrained('tahun_ajaran')->onDelete('cascade');
+            $table->foreignId('kelas_id')->constrained('kelas')->onDelete('cascade');
             $table->boolean('is_locked')->default(false);
             $table->dateTime('locked_at')->nullable();
             $table->timestamps();
