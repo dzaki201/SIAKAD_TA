@@ -11,36 +11,18 @@ class TahunAjaranController extends Controller
     public function store()
     {
         $lastTahunAjaran = TahunAjaran::orderBy('id', 'desc')->first();
-
-        if (!$lastTahunAjaran) {
-            $currentYear = date('Y');
-            $nextYear = $currentYear + 1;
-            $tahunAjaranBaru = "{$currentYear}/{$nextYear}";
-            $semesterBaru = 'Ganjil';
-        } else {
-            $tahunTerakhir = $lastTahunAjaran->tahun;
-            $tahunSplit = explode('/', $tahunTerakhir);
-            $yearStart = (int)$tahunSplit[0];
-            $yearEnd   = (int)$tahunSplit[1];
-
-            if ($lastTahunAjaran->semester === 'Genap') {
-                $yearStart += 1;
-                $yearEnd   += 1;
-                $tahunAjaranBaru = "{$yearStart}/{$yearEnd}";
-                $semesterBaru = 'Ganjil';
-            } else {
-                $tahunAjaranBaru = $tahunTerakhir;
-                $semesterBaru = 'Genap';
-            }
-        }
+        [$tahunAjaranBaru, $semesterBaru] = $this->generateNextTahunAjaran($lastTahunAjaran);
         TahunAjaran::where('status', true)->update(['status' => false]);
+
         $tahunAjaran = new TahunAjaran();
-        $tahunAjaran->Tahun = $tahunAjaranBaru;
+        $tahunAjaran->tahun = $tahunAjaranBaru;
         $tahunAjaran->semester = $semesterBaru;
         $tahunAjaran->status = true;
         $tahunAjaran->save();
+
         return redirect()->back()->with('success', "Tahun Ajaran {$tahunAjaranBaru} Semester {$semesterBaru} berhasil dibuat.");
     }
+
     public function aktifkan($id)
     {
         TahunAjaran::where('status', true)->update(['status' => false]);
@@ -59,11 +41,32 @@ class TahunAjaranController extends Controller
 
         return redirect()->back()->with('success', 'Tahun ajaran dinonaktifkan.');
     }
-     public function destroy($id)
+    public function destroy($id)
     {
         $tahun = TahunAjaran::findOrFail($id);
         $tahun->delete();
 
         return redirect()->back()->with('success', 'Tahun ajaran berhasil dihapus.');
+    }
+    private function generateNextTahunAjaran($lastTahunAjaran)
+    {
+        if (!$lastTahunAjaran) {
+            $currentYear = date('Y');
+            $nextYear = $currentYear + 1;
+            return ["{$currentYear}/{$nextYear}", 'Ganjil'];
+        }
+
+        $tahunTerakhir = $lastTahunAjaran->tahun;
+        $tahunSplit = explode('/', $tahunTerakhir);
+        $yearStart = (int)$tahunSplit[0];
+        $yearEnd = (int)$tahunSplit[1];
+
+        if ($lastTahunAjaran->semester === 'Genap') {
+            $yearStart += 1;
+            $yearEnd += 1;
+            return ["{$yearStart}/{$yearEnd}", 'Ganjil'];
+        } else {
+            return [$tahunTerakhir, 'Genap'];
+        }
     }
 }
