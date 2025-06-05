@@ -17,6 +17,7 @@ class PlottingGuruController extends Controller
         ]);
 
         $guru = Guru::findOrFail($validatedData['guru_id']);
+        PlotGuruMapel::where('guru_id', $validatedData['guru_id'])->delete();
         if ($guru->mata_pelajaran_id) {
             $guru->mata_pelajaran_id = null;
         }
@@ -66,6 +67,7 @@ class PlottingGuruController extends Controller
         ]);
 
         $guru = Guru::findOrFail($id);
+        PlotGuruMapel::where('guru_id', $id)->delete();
         if ($guru->kelas_id) {
             $guru->kelas_id = null;
         }
