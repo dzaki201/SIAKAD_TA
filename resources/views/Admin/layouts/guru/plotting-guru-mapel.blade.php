@@ -43,8 +43,8 @@
                             <td class="px-6 py-4">
                                 Guru Mapel {{ $guru->mataPelajaran ? $guru->mataPelajaran->nama : '' }}
                                 @php
-                                    $filteredKelas = $kelasmapels->filter(function ($kelasmapel) use ($guru) {
-                                        return $kelasmapel->mata_pelajaran_id == $guru->mata_pelajaran_id;
+                                    $filteredKelas = $kelasgurumapels->filter(function ($kelasmapel) use ($guru) {
+                                        return $kelasmapel->guru_id == $guru->id;
                                     });
                                 @endphp
 

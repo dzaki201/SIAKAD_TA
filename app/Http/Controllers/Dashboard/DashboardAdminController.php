@@ -9,6 +9,7 @@ use App\Models\Kelas;
 use App\Models\KelasMataPelajaran;
 use App\Models\MataPelajaran;
 use App\Models\OrangTua;
+use App\Models\PlotGuruMapel;
 use App\Models\Siswa;
 use App\Models\TahunAjaran;
 use App\Models\User;
@@ -44,9 +45,10 @@ class DashboardAdminController extends Controller
         $gurus = Guru::whereNull('mata_pelajaran_id')->get();
         $mapels = MataPelajaran::get();
         $kelasmapels = KelasMataPelajaran::get();
-// dd($kelasmapels);
+        $kelasgurumapels = PlotGuruMapel::get();
+
         $users = User::where('role', 'guru')->whereDoesntHave('guru')->get();
-        return view('admin.layouts.guru.plotting-guru-mapel',  compact('gurus', 'mapels', 'kelasmapels', 'users', 'gurukelases'));
+        return view('admin.layouts.guru.plotting-guru-mapel',  compact('gurus', 'mapels', 'kelasmapels', 'kelasgurumapels', 'users', 'gurukelases'));
     }
     public function adminSiswa()
     {

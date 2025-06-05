@@ -30,6 +30,10 @@ class Guru extends Model
     {
         return $this->belongsTo(Kelas::class, 'kelas_id');
     }
+     public function kelasGuruMapel()
+    {
+        return $this->belongsToMany(Kelas::class, 'plot_guru_mapel', 'guru_id', 'kelas_id');
+    }
 
     // Relasi ke tabel mata pelajaran
     public function mataPelajaran()

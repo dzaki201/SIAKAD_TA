@@ -20,16 +20,23 @@
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 dark:text-white">Mata Pelajaran</label>
                         <input type="text" id="mata_pelajaran" readonly
-                            class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 dark:text-white" value="{{ $guru->mataPelajaran->nama }}">
+                            class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                            value="{{ $guru->mataPelajaran->nama }}">
                     </div>
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 dark:text-white">Pilih Kelas</label>
                         <div class="grid grid-cols-2 gap-2 mt-2">
                             @foreach ($kelasmapels as $kelas)
                                 @if ($kelas->mata_pelajaran_id == $guru->mata_pelajaran_id)
+                                    @php
+                                        $isChecked = $kelasgurumapels->contains(function ($item) use ($guru, $kelas) {
+                                            return $item->guru_id == $guru->id && $item->kelas_id == $kelas->kelas_id;
+                                        });
+                                    @endphp
                                     <label class="inline-flex items-center">
                                         <input type="checkbox" name="kelas_id[]" value="{{ $kelas->kelas_id }}"
-                                            class="text-blue-600 border-gray-300 rounded focus:ring-blue-500 dark:bg-gray-600 dark:border-gray-500">
+                                            class="text-blue-600 border-gray-300 rounded focus:ring-blue-500 dark:bg-gray-600 dark:border-gray-500"
+                                            {{ $isChecked ? 'checked' : '' }}>
                                         <span
                                             class="ml-2 text-gray-700 dark:text-white">{{ $kelas->kelas->nama }}</span>
                                     </label>
@@ -37,6 +44,7 @@
                             @endforeach
                         </div>
                     </div>
+
                     <div class="text-right border-t border-gray-200 dark:border-gray-600 pt-4 space-x-4">
                         <button type="submit"
                             class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800">Simpan</button>

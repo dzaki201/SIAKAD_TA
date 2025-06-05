@@ -76,13 +76,12 @@ class PlottingGuruController extends Controller
 
     public function kelasGuruMapel(Request $request, $id)
     {
-
         $request->validate([
             'kelas_id'  => 'required|array',
             'kelas_id.*' => 'exists:kelas,id',
         ]);
 
-        PlotGuruMapel::where('guru_id', $request->guru_id)->delete();
+        PlotGuruMapel::where('guru_id', $id)->delete();
         $data = collect($request->kelas_id)->map(function ($kelasId) use ($id) {
             return [
                 'guru_id'   => $id,
