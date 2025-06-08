@@ -90,7 +90,7 @@ class NilaiAkhirController extends Controller
                 'mata_pelajaran_id' => $id,
                 'tahun_ajaran_id' => $tahunAjaran->id,
                 'nilai_akhir' => $nilaiAkhir,
-                'keterangan' => 'Generated otomatis',
+                'keterangan' => null,
             ];
         });
 
@@ -119,5 +119,31 @@ class NilaiAkhirController extends Controller
         }
 
         return redirect()->back()->with('success', 'Nilai akhir berhasil dihitung.');
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            'mapel_id' => 'required|exists:mata_pelajaran,id',
+            'keterangan' => 'required|array',
+            'keterangan*' => 'nullable|string'
+        ]);
+
+        $guru = Guru::where('user_id', Auth::id())->first();
+        $kelasId = $guru->kelas_id;
+        $mapelId = $request->mapel_id;
+
+        $keteranganInput = collect($request->keterangan);
+        $siswaIds = Siswa::where('kelas_id', $kelasId)->pluck('id');
+
+        $siswaIds->each(function ($siswaId) use ($keteranganInput, $mapelId) {
+            $keterangan = $keteranganInput->get($siswaId); // akses berdasarkan siswa_id
+            NilaiAkhir::where('siswa_id', $siswaId)
+                ->where('mata_pelajaran_id', $mapelId)
+                ->update(['keterangan' => $keterangan]);
+        });
+
+
+        return redirect()->route('guru.nilai', $mapelId)->with('success', 'Keterangan Nilai Akhir berhasil diperbarui.');
     }
 }

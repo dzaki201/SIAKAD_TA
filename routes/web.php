@@ -76,9 +76,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/admin-siswa/{id}', [SiswaController::class, 'destroy'])->name('admin.siswa.destroy');
 
     Route::get('/admin-orang-tua', [DashboardAdminController::class, 'adminOrangTua'])->name('admin.orang-tua');
-    Route::post('/admin-orang-tua',[OrangTuaController::class, 'store'])->name('admin.orang-tua.store');
-    Route::put('/admin-orang-tua/{id}/update',[OrangTuaController::class, 'update'])->name('admin.orang-tua.update');
-    Route::delete('/admin-orang-tua/{id}',[OrangTuaController::class, 'destroy'])->name('admin.orang-tua.destroy');
+    Route::post('/admin-orang-tua', [OrangTuaController::class, 'store'])->name('admin.orang-tua.store');
+    Route::put('/admin-orang-tua/{id}/update', [OrangTuaController::class, 'update'])->name('admin.orang-tua.update');
+    Route::delete('/admin-orang-tua/{id}', [OrangTuaController::class, 'destroy'])->name('admin.orang-tua.destroy');
 
     Route::get('/admin-kelas', [DashboardAdminController::class, 'adminKelas'])->name('admin.kelas');
     Route::post('/admin-kelas', [KelasController::class, 'store'])->name('admin.kelas.store');
@@ -100,7 +100,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/admin-ekstrakulikuler', [EkstrakulikulerController::class, 'store'])->name('admin.ekskul.store');
     Route::put('/admin-ekstrakulikuler/{id}/update', [EkstrakulikulerController::class, 'update'])->name('admin.ekskul.update');
     Route::delete('/admin-ekstrakulikuler/{id}', [EkstrakulikulerController::class, 'destroy'])->name('admin.ekskul.destroy');
-
 });
 
 Route::middleware(['auth', 'role:guru'])->group(function () {
@@ -111,7 +110,7 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
     Route::put('/guru-capaian-pembelajaran/{id}/update', [CapaianPembelajaranController::class, 'update'])->name('guru.cp.update');
     Route::put('/guru-pts-pas/{id}/update', [CapaianPembelajaranController::class, 'updatePtsPas'])->name('guru.update.pts-pas');
     Route::delete('/guru-capaian-pembelajaran/{id}', [CapaianPembelajaranController::class, 'destroy'])->name('guru.cp.destroy');
-    
+
     Route::get('/guru-nilai/{id}', [DashboardGuruController::class, 'guruNilai'])->name('guru.nilai');
     Route::get('/guru-edit-nilai/{id}/{cpId}', [DashboardGuruController::class, 'gurueditNilai'])->name('guru.edit.nilai');
     Route::post('/guru-nilai-update', [NilaiController::class, 'update'])->name('guru.nilai.update');
@@ -119,7 +118,9 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
     Route::get('/guru-kunci-nilai/{id}', [KunciNilaiController::class, 'store'])->name('guru.kunci-nilai.store');
     Route::post('/guru-nilai-kunci/{id}', [KunciNilaiController::class, 'kunci'])->name('guru.kunci-nilai');
 
+    Route::get('/guru-edit-nilai-akhir/{id}', [DashboardGuruController::class, 'gurueditNilaiAkhir'])->name('guru.edit.nilai-akhir');
     Route::get('/guru-nilai-akhir/{id}', [NilaiAkhirController::class, 'store'])->name('guru.nilai-akhir.store');
+    Route::post('/guru-nilai-akhir-update', [NilaiAkhirController::class, 'update'])->name('guru.nilai-akhir.update');
 });
 
 Route::middleware(['auth', 'role:orang_tua'])->group(function () {
