@@ -20,6 +20,8 @@ use App\Http\Controllers\Ekstrakulikuler\EkstrakulikulerController;
 use App\Http\Controllers\Guru\PlottingGuruController;
 use App\Http\Controllers\Nilai\CapaianPembelajaranController;
 use App\Http\Controllers\Nilai\KunciNilaiController;
+use App\Http\Controllers\Nilai\NilaiAkhirController;
+use App\Models\NilaiAkhir;
 
 /*
 |--------------------------------------------------------------------------
@@ -116,6 +118,8 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
 
     Route::get('/guru-kunci-nilai/{id}', [KunciNilaiController::class, 'store'])->name('guru.kunci-nilai.store');
     Route::post('/guru-nilai-kunci/{id}', [KunciNilaiController::class, 'kunci'])->name('guru.kunci-nilai');
+
+    Route::get('/guru-nilai-akhir/{id}', [NilaiAkhirController::class, 'store'])->name('guru.nilai-akhir.store');
 });
 
 Route::middleware(['auth', 'role:orang_tua'])->group(function () {

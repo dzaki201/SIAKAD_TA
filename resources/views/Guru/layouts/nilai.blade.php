@@ -93,6 +93,12 @@
                             @include('guru.partials.capaian-pembelajaran.modal-edit-pts-pas')
                             @include('guru.partials.capaian-pembelajaran.modal-hapus-capaian-pembelajaran')
                         @endforeach
+                        @if ($nilaiakhirs && $nilaiakhirs->where('mata_pelajaran_id', $mapel->id)->isNotEmpty())
+                            <th class="w-24 w-px-4 py-3 border border-gray-300 text-center break-words ">
+                                Nilai Akhir
+                            </th>
+                        @else
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -113,6 +119,16 @@
                                     {{ $nilai ? $nilai->nilai : '-' }}
                                 </td>
                             @endforeach
+                            @if ($nilaiakhirs && $nilaiakhirs->where('mata_pelajaran_id', $mapel->id)->isNotEmpty())
+                                @php
+                                    $nilaiAkhirSiswa = $nilaiakhirs->where('siswa_id', $siswa->id)->first();
+                                @endphp
+                                <td class="w-24 px-4 py-3 border border-gray-300 text-center">
+                                    {{ $nilaiAkhirSiswa ? $nilaiAkhirSiswa->nilai_akhir : '-' }}
+                                </td>
+                            @else
+                            @endif
+
                         </tr>
                     @endforeach
                 </tbody>

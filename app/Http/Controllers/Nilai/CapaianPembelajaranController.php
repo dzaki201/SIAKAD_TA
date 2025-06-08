@@ -27,7 +27,7 @@ class CapaianPembelajaranController extends Controller
         $kelasId = $guru->kelas_id;
         $tahunAjaran = TahunAjaran::where('status', '1')->first();
         if ($this->isNilaiLocked($guru->id, $validatedData['mata_pelajaran_id'], $tahunAjaran->id, $kelasId)) {
-            return redirect()->back()->with('error', 'Data nilai untuk mata pelajaran ini sudah dikunci dan tidak bisa ditambahkan.');
+            return redirect()->back()->with('errors', 'Data nilai untuk mata pelajaran ini sudah dikunci dan tidak bisa ditambahkan.');
         }
         $validatedData['status'] = 'CP';
         $validatedData['guru_id'] = $guru->id;
@@ -71,7 +71,7 @@ class CapaianPembelajaranController extends Controller
         $kelasId = $guru->kelas_id;
         $tahunAjaran = TahunAjaran::where('status', '1')->firstOrFail();
         if ($this->isNilaiLocked($guru->id, $validatedData['mata_pelajaran_id'], $tahunAjaran->id, $kelasId)) {
-            return redirect()->back()->with('error', 'Data nilai untuk mata pelajaran ini sudah dikunci dan tidak bisa ditambahkan.');
+            return redirect()->back()->with('errors', 'Data nilai untuk mata pelajaran ini sudah dikunci dan tidak bisa ditambahkan.');
         }
 
         $mapel = MataPelajaran::findOrFail($validatedData['mata_pelajaran_id']);

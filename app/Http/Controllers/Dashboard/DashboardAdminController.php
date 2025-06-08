@@ -26,7 +26,14 @@ class DashboardAdminController extends Controller
     public function adminGuru()
     {
         $gurus = Guru::all();
-        $users = User::where('role', 'guru')->whereDoesntHave('guru')->get();
+        $users = User::where(function ($query) {
+            $query->whereNull('role')
+                ->orWhere('role', '');
+        })
+            ->orWhereIn('role', ['guru_kelas', 'guru_mapel'])
+            ->whereNotIn('id', Guru::pluck('user_id'))
+            ->get();
+
         return view('admin.layouts.guru', compact('gurus', 'users'));
     }
     public function adminPlottingGuruKelas()

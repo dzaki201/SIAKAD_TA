@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\MataPelajaran;
 use App\Models\CapaianPembelajaran;
 use App\Http\Controllers\Controller;
+use App\Models\NilaiAkhir;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardGuruController extends Controller
@@ -55,8 +56,9 @@ class DashboardGuruController extends Controller
       $nilais = Nilai::whereIn('siswa_id', $siswas->pluck('id'))
          ->whereIn('capaian_pembelajaran_id', $capaians->pluck('id'))
          ->get();
-
-      return view('guru.layouts.nilai', compact('siswas', 'mapels', 'capaians', 'mapel', 'tahun', 'nilais','kunci'));
+      $nilaiakhirs = NilaiAkhir::whereIn('siswa_id', $siswas->pluck('id'))
+      ->where('mata_pelajaran_id', $mapel->id)->get();
+      return view('guru.layouts.nilai', compact('siswas', 'mapels', 'capaians', 'mapel', 'tahun', 'nilais', 'nilaiakhirs', 'kunci'));
    }
    public function guruEditNilai($id, $cpId)
    {

@@ -6,6 +6,7 @@ use App\Models\Guru;
 use Illuminate\Http\Request;
 use App\Models\PlotGuruMapel;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 
 class PlottingGuruController extends Controller
 {
@@ -17,6 +18,12 @@ class PlottingGuruController extends Controller
         ]);
 
         $guru = Guru::findOrFail($validatedData['guru_id']);
+        $userId = $guru->user_id;
+        $user = User::findOrFail($userId);
+        if ($user->role !== 'guru_kelas') {
+            $user->role = 'guru_kelas';
+            $user->save();
+        }
         PlotGuruMapel::where('guru_id', $validatedData['guru_id'])->delete();
         if ($guru->mata_pelajaran_id) {
             $guru->mata_pelajaran_id = null;
