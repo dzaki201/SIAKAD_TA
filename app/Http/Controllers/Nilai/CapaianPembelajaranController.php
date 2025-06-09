@@ -74,6 +74,28 @@ class CapaianPembelajaranController extends Controller
             return redirect()->back()->with('errors', 'Data nilai untuk mata pelajaran ini sudah dikunci dan tidak bisa ditambahkan.');
         }
 
+        if ($validatedData['status'] == 'PTS') {
+            $cekPts = CapaianPembelajaran::where('guru_id', $guru->id)
+                ->where('mata_pelajaran_id', $validatedData['mata_pelajaran_id'])
+                ->where('tahun_ajaran_id', $tahunAjaran->id)
+                ->where('status', 'PTS')
+                ->exists();
+            if ($cekPts) {
+                return redirect()->back()->with('errors', 'Anda sudah membuat PTS untuk mata pelajaran ini.');
+            }
+        };
+        if ($validatedData['status'] == 'PAS') {
+            $cekPts = CapaianPembelajaran::where('guru_id', $guru->id)
+                ->where('mata_pelajaran_id', $validatedData['mata_pelajaran_id'])
+                ->where('tahun_ajaran_id', $tahunAjaran->id)
+                ->where('status', 'PAS')
+                ->exists();
+            if ($cekPts) {
+                return redirect()->back()->with('errors', 'Anda sudah membuat PAS untuk mata pelajaran ini.');
+            }
+        };
+        
+
         $mapel = MataPelajaran::findOrFail($validatedData['mata_pelajaran_id']);
         $validatedData['nama'] = $validatedData['status'] . ' ' . $mapel->nama;
         $validatedData['guru_id'] = $guru->id;

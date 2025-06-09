@@ -89,7 +89,8 @@ class DashboardAdminController extends Controller
     {
         $kelases = Kelas::all();
         $mapels = MataPelajaran::all();
-        return view('admin.layouts.mata-pelajaran', compact('mapels', 'kelases'));
+        $kelasMapels = KelasMataPelajaran::get();
+        return view('admin.layouts.mata-pelajaran', compact('mapels', 'kelases', 'kelasMapels'));
     }
     public function adminKelas()
     {

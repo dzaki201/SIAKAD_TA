@@ -28,10 +28,20 @@ class NilaiController extends Controller
 
         $nilaiInput = collect($request->nilai);
         $siswaIds = Siswa::where('kelas_id', $kelasId)->pluck('id');
-        $siswaIds->values()->map(function ($siswaId, $index) use ($nilaiInput, $cpId) {
-            Nilai::where('siswa_id', $siswaId)
-                ->where('capaian_pembelajaran_id', $cpId)
-                ->update(['nilai' => $nilaiInput[$index]]);
+        $tahunAjaran = TahunAjaran::where('status', '1')->firstOrFail();
+
+        $siswaIds->values()->map(function ($siswaId, $index) use ($nilaiInput, $cpId, $guru, $tahunAjaran) {
+            Nilai::updateOrCreate(
+                [
+                    'siswa_id' => $siswaId,
+                    'capaian_pembelajaran_id' => $cpId,
+                    'guru_id' => $guru->id,
+                    'tahun_ajaran_id' => $tahunAjaran->id
+                ],
+                [
+                    'nilai' => $nilaiInput[$index]
+                ]
+            );
         });
 
         return redirect()->route('guru.nilai', $mapelId)->with('success', 'Nilai berhasil diperbarui.');

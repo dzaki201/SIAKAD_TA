@@ -61,7 +61,7 @@
                 <thead class="text-xs text-white text-center uppercase bg-blue-800 dark:bg-gray-700">
                     <tr>
                         <th class="w-10 px-4 py-3 text-left border border-gray-300">No</th>
-                        <th class="w-16 w-px-4 py-3  border border-gray-300">NIS</th>
+                        <th class="w-20 w-px-4 py-3  border border-gray-300">NIS</th>
                         <th class="w-60 w-px-4 py-3 border border-gray-300 break-words">Nama</th>
                         @foreach ($capaians as $cp)
                             <th
@@ -95,7 +95,7 @@
                             @include('guru.partials.capaian-pembelajaran.modal-hapus-capaian-pembelajaran')
                         @endforeach
                         @if ($nilaiakhirs && $nilaiakhirs->where('mata_pelajaran_id', $mapel->id)->isNotEmpty())
-                            <th class="w-24 w-px-4 py-3 border border-gray-300 text-center break-words ">
+                            <th class="w-32 w-px-4 py-3 border border-gray-300 text-center">
                                 Nilai Akhir
                                 @if (!$kunci->is_locked)
                                     <button id="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots"
@@ -109,7 +109,7 @@
                                     </button>
                                 @endif
                             </th>
-                            <th class="w-24 w-px-4 py-3 border border-gray-300 text-center break-words ">
+                            <th class="w-60 px-4 py-3 border border-gray-300 text-center break-words ">
                                 Keterangan
                             </th>
                         @else
@@ -121,7 +121,7 @@
                         <tr
                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <td class="w-16 px-4 py-3 border border-gray-300">{{ $loop->iteration }}</td>
-                            <td class="w-60 px-4 py-3 border border-gray-300">{{ $siswa->nis }}</td>
+                            <td class="w-20 px-4 py-3 border border-gray-300">{{ $siswa->nis }}</td>
                             <td class="w-60 px-4 py-3 border border-gray-300">{{ $siswa->nama }}</td>
                             @foreach ($capaians as $cp)
                                 @php
@@ -138,10 +138,10 @@
                                 @php
                                     $nilaiAkhirSiswa = $nilaiakhirs->where('siswa_id', $siswa->id)->first();
                                 @endphp
-                                <td class="w-24 px-4 py-3 border border-gray-300 text-center">
+                                <td class="w-32 px-4 py-3 border border-gray-300 text-center">
                                     {{ $nilaiAkhirSiswa ? $nilaiAkhirSiswa->nilai_akhir : '-' }}
                                 </td>
-                                <td class="w-80 px-4 py-3 border border-gray-300 text-center">
+                                <td class="w-auto px-4 py-3 border border-gray-300 text-center">
                                     {{ $nilaiAkhirSiswa ? $nilaiAkhirSiswa->keterangan : '-' }}
                                 </td>
                             @else

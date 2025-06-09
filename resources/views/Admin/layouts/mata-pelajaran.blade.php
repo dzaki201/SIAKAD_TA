@@ -24,6 +24,9 @@
                             Nama Mata Pelajaran
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            kelas
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             Aksi
                         </th>
                     </tr>
@@ -37,6 +40,18 @@
                             </td>
                             <td class="px-6 py-4">
                                 {{ $mapel->nama }}
+                            </td>
+                            <td class="px-6 py-4">
+                                  @php
+                                    $filteredKelas = $kelasMapels->filter(function ($kelasmapel) use ($mapel) {
+                                        return $kelasmapel->mata_pelajaran_id == $mapel->id;
+                                    });
+                                @endphp
+                                @if ($filteredKelas)
+                                    @foreach ($filteredKelas as $kelasmapel)
+                                        {{ $kelasmapel->kelas->nama }}{{ $loop->last ? '' : ', ' }}
+                                    @endforeach
+                                @endif
                             </td>
                             <td class="px-6 py-4 ">
                                 <button data-modal-target="edit-mapel-modal-{{ $mapel->id }}"
