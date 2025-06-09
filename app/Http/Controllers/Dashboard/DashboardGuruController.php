@@ -27,7 +27,6 @@ class DashboardGuruController extends Controller
       })->get();
       return view('Guru.layouts.dashboard', compact('mapels'));
    }
-
    public function guruNilai($id)
    {
       $userId = Auth::id();

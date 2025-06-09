@@ -21,7 +21,9 @@ class DatabaseSeeder extends Seeder
             SiswaSeeder::class,
             OrangTuaSeeder::class,
             TahunAjaranSeeder::class,
-            EkstrakulikulerSeeder::class
+            EkstrakulikulerSeeder::class,
+            KelasMataPelajaranSeeder::class,
+            PlotGuruMapelSeeder::class
         ]);
     }
 }

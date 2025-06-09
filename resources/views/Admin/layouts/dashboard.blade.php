@@ -43,6 +43,6 @@
         </div>
     </div>
 
-    @include('admin.partials.admin.editakunadmin')
+    @include('admin.partials.user.modal-edit-akun')
 
 @endsection

@@ -10,20 +10,43 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function update (Request $request, string $id){
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'username' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6',
+            'role' => 'nullable'
+        ]);
+
+        $validatedData['password'] = Hash::make($validatedData['password']);
+        User::create($validatedData);
+        return redirect()->back()->with('success', 'Akun berhasil dibuat');
+    }
+
+    public function update(Request $request, string $id)
+    {
         $validatedData = $request->validate([
             'username' => 'required',
             'email' => 'required|email',
             'password' => 'nullable',
+            'role' => 'nullable',
         ]);
-        $validatedData['role'] = $request->role;
         if ($request->filled('password')) {
             $validatedData['password'] = Hash::make($request->password);
+        } else {
+            unset($validatedData['password']);
         }
-        $user = User::findOrFail($id);
 
+        $user = User::findOrFail($id);
         $user->update($validatedData);
-        
-        return redirect()->back()->with('success','Akun Berhasil di Update');
+        return redirect()->back()->with('success', 'Akun Berhasil di Update');
+    }
+    public function destroy(string $id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->back()->with('success', 'Akun berhasil dihapus');
     }
 }

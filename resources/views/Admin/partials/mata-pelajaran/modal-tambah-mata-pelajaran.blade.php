@@ -26,7 +26,7 @@
                             class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white"
                             required>
                     </div>
-                    <div class="grid grid-cols-5 gap-4 max-h-72 overflow-y-auto border p-4 rounded">
+                    <div class="mb-4 grid grid-cols-5 gap-4 max-h-72 overflow-y-auto border p-4 rounded">
                         @foreach ($kelases as $kelas)
                             <label class="inline-flex items-center space-x-2">
                                 <input type="checkbox" name="kelas_id[]" value="{{ $kelas->id }}"
@@ -35,6 +35,16 @@
                                 <span class="text-gray-700 dark:text-white">{{ $kelas->nama }}</span>
                             </label>
                         @endforeach
+                    </div>
+                    <div class="mb-4">
+                        <label for="status"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
+                        <select name="status" id="status"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                            <option value="">pilih status mapel</option>
+                            <option value="umum">Umum</option>
+                            <option value="khusus">Khusus</option>
+                        </select>
                     </div>
                     <div class="p-6 space-x-4 border-t border-gray-200 dark:border-gray-600 text-right">
                         <button type="submit"

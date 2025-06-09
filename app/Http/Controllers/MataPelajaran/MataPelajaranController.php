@@ -12,12 +12,14 @@ class MataPelajaranController extends Controller
     {
         $validatedData = $request->validate([
             'nama' => 'required|string',
+            'status' => 'required|string',
             'kelas_id' => 'required|array',
             'kelas_id.*' => 'exists:kelas,id',
         ]);
 
         $mataPelajaran = MataPelajaran::create([
             'nama' => $validatedData['nama'],
+            'status' => $validatedData['status'],
         ]);
 
         $mataPelajaran->kelases()->attach($validatedData['kelas_id']);
@@ -27,6 +29,7 @@ class MataPelajaranController extends Controller
     {
         $validatedData = $request->validate([
             'nama' => 'required|string',
+            'status' => 'required|string',
             'kelas_id' => 'sometimes|array',
             'kelas_id.*' => 'exists:kelas,id',
         ]);
@@ -34,6 +37,7 @@ class MataPelajaranController extends Controller
         $mapel = MataPelajaran::findOrFail($id);
         $mapel->update([
             'nama' => $validatedData['nama'],
+            'status' => $validatedData['status'],
         ]);
 
         if (empty($validatedData['kelas_id'])) {

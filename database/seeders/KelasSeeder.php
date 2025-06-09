@@ -15,6 +15,10 @@ class KelasSeeder extends Seeder
             ['nama' => '1B', 'created_at' => now(), 'updated_at' => now()],
             ['nama' => '2A', 'created_at' => now(), 'updated_at' => now()],
             ['nama' => '2B', 'created_at' => now(), 'updated_at' => now()],
+            ['nama' => '3A', 'created_at' => now(), 'updated_at' => now()],
+            ['nama' => '3B', 'created_at' => now(), 'updated_at' => now()],
+            ['nama' => '4A', 'created_at' => now(), 'updated_at' => now()],
+            ['nama' => '4B', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }

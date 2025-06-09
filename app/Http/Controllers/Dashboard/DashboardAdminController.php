@@ -23,6 +23,11 @@ class DashboardAdminController extends Controller
         $siswa = Siswa::count();
         return view('Admin.layouts.dashboard', compact('guru', 'siswa'));
     }
+    public function adminUser()
+    {
+        $users = User::get();
+        return view('admin.layouts.user', compact('users'));
+    }
     public function adminGuru()
     {
         $gurus = Guru::all();

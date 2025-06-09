@@ -13,16 +13,31 @@ class MataPelajaranSeeder extends Seeder
         MataPelajaran::insert([
             [
                 'nama' => 'Matematika',
+                'status' => 'umum',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
                 'nama' => 'Bahasa Indonesia',
+                'status' => 'umum',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
-                'nama' => 'Agama',
+                'nama' => 'PPKN',
+                'status' => 'umum',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'nama' => 'Seni Rupa',
+                'status' => 'khusus',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'nama' => 'Seni Musik',
+                'status' => 'umum',
                 'created_at' => now(),
                 'updated_at' => now()
             ],

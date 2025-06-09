@@ -13,6 +13,7 @@ class MataPelajaran extends Model
 
     protected $fillable = [
         'nama',
+        'status',
     ];
 
     public function guru()
