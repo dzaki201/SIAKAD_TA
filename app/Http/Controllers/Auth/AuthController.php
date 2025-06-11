@@ -12,11 +12,13 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    public function register(){
+    public function register()
+    {
         return view('auth.register');
     }
 
-    public function registerSave(Request $request){
+    public function registerSave(Request $request)
+    {
         Validator::make($request->all(), [
             'username' => 'required',
             'email' => 'required|email',
@@ -29,16 +31,18 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'role' => 'orang_tua'
         ]);
-        
+
         return redirect()->route('login');
     }
 
-    public function login(){
+    public function login()
+    {
         return view('auth.login');
     }
 
-    public function loginAction(Request $request){
-        Validator::make($request->all(),[
+    public function loginAction(Request $request)
+    {
+        Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required',
         ])->validate();
@@ -47,7 +51,7 @@ class AuthController extends Controller
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed')
             ]);
-        } 
+        }
 
         $request->session()->regenerate();
         $user = Auth::user();
@@ -56,18 +60,22 @@ class AuthController extends Controller
             return redirect()->route('admin.dashboard');
         } elseif ($user->role == 'guru') {
             return redirect()->route('guru.dashboard');
+        } elseif ($user->role == 'guru_mapel') {
+            return redirect()->route('guru-mapel.dashboard');
+        } elseif ($user->role == 'kepsek') {
+            return redirect()->route('kepsek.dashboard');
         } elseif ($user->role == 'orang_tua') {
             return redirect()->route('orang-tua.dashboard');
         } else {
             // Kalau role tidak terdaftar, redirect ke halaman utama atau logout
             return redirect('/');
         }
-        
     }
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         Auth::guard('web')->logout();
         $request->session()->invalidate();
- 
+
         return redirect()->route('login');
     }
 }
