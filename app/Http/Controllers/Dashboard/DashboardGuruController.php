@@ -6,13 +6,14 @@ use App\Models\Guru;
 use App\Models\Kelas;
 use App\Models\Nilai;
 use App\Models\Siswa;
+use App\Models\Absensi;
 use App\Models\KunciNilai;
+use App\Models\NilaiAkhir;
 use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
 use App\Models\MataPelajaran;
 use App\Models\CapaianPembelajaran;
 use App\Http\Controllers\Controller;
-use App\Models\NilaiAkhir;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardGuruController extends Controller
@@ -102,5 +103,39 @@ class DashboardGuruController extends Controller
       $tahun = TahunAjaran::where('status', 1)->first();
 
       return view('guru.layouts.edit-nilai-akhir', compact('siswas', 'mapels', 'mapel', 'tahun', 'nilaiakhirs', 'kelas'));
+   }
+   public function guruAbsensi()
+   {
+      $userId = Auth::id();
+      $guru = Guru::where('user_id', $userId)->first();
+      $kelasId = $guru->kelas_id;
+      $tahun = TahunAjaran::where('status', 1)->first();
+
+      $siswas = Siswa::with(['absensi' => function ($query) use ($tahun) {
+         $query->where('tahun_ajaran_id', $tahun->id);
+      }])->where('kelas_id', $kelasId)->get();
+
+      $mapels = MataPelajaran::whereHas('kelases', function ($query) use ($kelasId) {
+         $query->where('kelas_id', $kelasId);
+      })->get();
+      $tahuns = TahunAjaran::get();
+      return view('Guru.layouts.absensi', compact('mapels', 'siswas', 'tahun', 'tahuns'));
+   }
+   public function guruAbsensiSearch(Request $request)
+   {
+      $userId = Auth::id();
+      $guru = Guru::where('user_id', $userId)->first();
+      $kelasId = $guru->kelas_id;
+      $tahun = TahunAjaran::where('id', $request->tahun)->first();
+
+      $siswas = Siswa::with(['absensi' => function ($query) use ($request) {
+         $query->where('tahun_ajaran_id', $request->tahun);
+      }])->where('kelas_id', $kelasId)->get();
+
+      $mapels = MataPelajaran::whereHas('kelases', function ($query) use ($kelasId) {
+         $query->where('kelas_id', $kelasId);
+      })->get();
+      $tahuns = TahunAjaran::get();
+      return view('Guru.layouts.absensi', compact('mapels', 'siswas', 'tahun', 'tahuns'));
    }
 }

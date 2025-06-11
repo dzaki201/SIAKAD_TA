@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\NilaiAkhir;
 use App\Models\TahunAjaran;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
@@ -8,20 +9,20 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Kelas\KelasController;
 use App\Http\Controllers\Nilai\NilaiController;
 use App\Http\Controllers\Siswa\SiswaController;
+use App\Http\Controllers\Absensi\AbsensiController;
+use App\Http\Controllers\Nilai\KunciNilaiController;
+use App\Http\Controllers\Nilai\NilaiAkhirController;
+use App\Http\Controllers\Guru\PlottingGuruController;
 use App\Http\Controllers\OrangTua\OrangTuaController;
 use App\Http\Controllers\Ekstrakulikuler\Ekstrakulikuler;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\Dashboard\DashboardGuruController;
 use App\Http\Controllers\TahunAjaran\TahunAjaranController;
 use App\Http\Controllers\Dashboard\DashboardAdminController;
+use App\Http\Controllers\Nilai\CapaianPembelajaranController;
 use App\Http\Controllers\Dashboard\DashboardOrangTuaController;
 use App\Http\Controllers\MataPelajaran\MataPelajaranController;
 use App\Http\Controllers\Ekstrakulikuler\EkstrakulikulerController;
-use App\Http\Controllers\Guru\PlottingGuruController;
-use App\Http\Controllers\Nilai\CapaianPembelajaranController;
-use App\Http\Controllers\Nilai\KunciNilaiController;
-use App\Http\Controllers\Nilai\NilaiAkhirController;
-use App\Models\NilaiAkhir;
 
 /*
 |--------------------------------------------------------------------------
@@ -125,6 +126,12 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
     Route::get('/guru-edit-nilai-akhir/{id}', [DashboardGuruController::class, 'gurueditNilaiAkhir'])->name('guru.edit.nilai-akhir');
     Route::get('/guru-nilai-akhir/{id}', [NilaiAkhirController::class, 'store'])->name('guru.nilai-akhir.store');
     Route::post('/guru-nilai-akhir-update', [NilaiAkhirController::class, 'update'])->name('guru.nilai-akhir.update');
+
+    Route::get('/guru-absensi', [DashboardGuruController::class, 'guruAbsensi'])->name('guru.absensi');
+    Route::get('/guru-absensi-search', [DashboardGuruController::class, 'guruAbsensiSearch'])->name('guru.absensi.search');
+    Route::get('/guru-absensi/{id}', [AbsensiController::class, 'store'])->name('guru.absensi.store');
+    Route::put('/guru-absensi{id}/update', [AbsensiController::class, 'update'])->name('guru.absensi.update');
+
 });
 
 Route::middleware(['auth', 'role:orang_tua'])->group(function () {
