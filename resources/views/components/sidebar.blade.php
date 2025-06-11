@@ -176,7 +176,7 @@
                     </li>
                     <li>
                         <a href="{{ route('guru.absensi') }}"
-                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 dark:hover:bg-blue-500 group {{ request()->routeIs('admin.ekskul') ? 'bg-blue-700 dark:bg-blue-600' : '' }}">
+                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 dark:hover:bg-blue-500 group {{ request()->routeIs('guru.absensi') ? 'bg-blue-700 dark:bg-blue-600' : '' }}">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 20" fill="currentColor"
                                 class="size-5 text-gray-200 transition duration-75 group-hover:text-white">
                                 <path fill-rule="evenodd"
@@ -190,7 +190,7 @@
                     </li>
                     <li>
                         <a href="{{ route('guru.ekskul') }}"
-                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 dark:hover:bg-blue-500 group {{ request()->routeIs('admin.ekskul') ? 'bg-blue-700 dark:bg-blue-600' : '' }}">
+                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 dark:hover:bg-blue-500 group {{ request()->routeIs('guru.ekskul') ? 'bg-blue-700 dark:bg-blue-600' : '' }}">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 20" fill="currentColor"
                                 class="size-5 text-gray-200 transition duration-75 group-hover:text-white">
                                 <path fill-rule="evenodd"
