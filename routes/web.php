@@ -23,6 +23,8 @@ use App\Http\Controllers\Nilai\CapaianPembelajaranController;
 use App\Http\Controllers\Dashboard\DashboardOrangTuaController;
 use App\Http\Controllers\MataPelajaran\MataPelajaranController;
 use App\Http\Controllers\Ekstrakulikuler\EkstrakulikulerController;
+use App\Http\Controllers\Ekstrakulikuler\SiswaEkstrakulikulerController;
+use App\Models\SiswaEkstrakulikuler;
 
 /*
 |--------------------------------------------------------------------------
@@ -131,7 +133,11 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
     Route::get('/guru-absensi-search', [DashboardGuruController::class, 'guruAbsensiSearch'])->name('guru.absensi.search');
     Route::get('/guru-absensi/{id}', [AbsensiController::class, 'store'])->name('guru.absensi.store');
     Route::put('/guru-absensi{id}/update', [AbsensiController::class, 'update'])->name('guru.absensi.update');
-
+    
+    Route::get('/guru-ekskul', [DashboardGuruController::class, 'guruEkskul'])->name('guru.ekskul');
+    Route::post('/guru-ekskul', [SiswaEkstrakulikulerController::class, 'store'])->name('guru.ekskul.store');
+    Route::put('/guru-ekskul/{id}/update', [SiswaEkstrakulikulerController::class, 'update'])->name('guru.ekskul.update');
+    Route::delete('/guru-ekskul/{id}', [SiswaEkstrakulikulerController::class, 'destroy'])->name('guru.ekskul.destroy');
 });
 
 Route::middleware(['auth', 'role:orang_tua'])->group(function () {

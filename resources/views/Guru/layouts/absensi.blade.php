@@ -3,6 +3,7 @@
 @section('title', 'Dashboard Guru')
 
 @section('content')
+    @include('components.alert')
     <div class="flex justify-between items-center mt-4 mb-4">
         <div></div>
         <form action="{{ route('guru.absensi.search') }}" method="GET" class="flex items-center gap-2">
@@ -48,11 +49,11 @@
                     <tr>
                         <th class="w-12 px-4 py-3 text-left border border-gray-300">No</th>
                         <th class="w-px-4 py-3  border border-gray-300">NIS</th>
-                        <th class="w-px-4 py-3 border border-gray-300 break-words">Nama</th>
-                        <th class="w-px-4 py-3 border border-gray-300 break-words">Ijin</th>
-                        <th class="w-px-4 py-3 border border-gray-300 break-words">Sakit</th>
-                        <th class="w-px-4 py-3 border border-gray-300 break-words">Tanpa Keterangan (alpa)</th>
-                        <th class="w-px-4 py-3 border border-gray-300 break-words">Aksi</th>
+                        <th class="w-px-4 py-3 border border-gray-300">Nama</th>
+                        <th class="w-px-4 py-3 border border-gray-300">Ijin</th>
+                        <th class="w-px-4 py-3 border border-gray-300">Sakit</th>
+                        <th class="w-px-4 py-3 border border-gray-300">Tanpa Keterangan (alpa)</th>
+                        <th class="w-px-4 py-3 border border-gray-300">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
