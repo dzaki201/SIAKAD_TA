@@ -135,6 +135,7 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
     Route::put('/guru-absensi{id}/update', [AbsensiController::class, 'update'])->name('guru.absensi.update');
     
     Route::get('/guru-ekskul', [DashboardGuruController::class, 'guruEkskul'])->name('guru.ekskul');
+    Route::get('/guru-ekskul-search', [DashboardGuruController::class, 'guruEkskulSearch'])->name('guru.ekskul.search');
     Route::post('/guru-ekskul', [SiswaEkstrakulikulerController::class, 'store'])->name('guru.ekskul.store');
     Route::put('/guru-ekskul/{id}/update', [SiswaEkstrakulikulerController::class, 'update'])->name('guru.ekskul.update');
     Route::delete('/guru-ekskul/{id}', [SiswaEkstrakulikulerController::class, 'destroy'])->name('guru.ekskul.destroy');

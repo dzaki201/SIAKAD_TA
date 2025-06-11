@@ -18,6 +18,7 @@
             <div class="p-6 space-y-6">
                 <form action="{{ route('guru.ekskul.store') }}" method="POST">
                     @csrf
+                    <input type="hidden" name="tahun_ajaran_id" value="{{ $tahun->id }}">
                     <div class="mb-4">
                         <label for="Nama"
                             class="block mb-1 text-sm font-medium text-gray-700 dark:text-white">Nama</label>

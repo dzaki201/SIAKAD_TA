@@ -4,6 +4,27 @@
 
 @section('content')
     @include('components.alert')
+    <div class="flex justify-between items-center mt-4 mb-4">
+        <div></div>
+        <form action="{{ route('guru.ekskul.search') }}" method="GET" class="flex items-center gap-2">
+            <div>
+                <select name="tahun" id="tahun"
+                    class="border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-800 dark:border-gray-600 dark:text-white">
+                    <option value="">Pilih Tahun</option>
+                    </option>
+                    @foreach ($tahuns as $item)
+                        <option value="{{ $item->id }}" {{ isset($tahun) && $item->id == $tahun->id ? 'selected' : '' }}>
+                            Semester {{ $item->semester }} - {{ $item->tahun }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <button type="submit"
+                class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 focus:ring-2 focus:ring-blue-500">
+                Search
+            </button>
+        </form>
+    </div>
     <div class="overflow-x-auto w-auto rounded-lg border p-4 bg-white dark:bg-gray-800 shadow">
         <table class="w-full min-w-[1000px] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 table-fixed">
             <thead class="text-xs text-white text-center uppercase bg-blue-800 dark:bg-gray-700">

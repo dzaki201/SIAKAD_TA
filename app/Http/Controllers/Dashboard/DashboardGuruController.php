@@ -149,13 +149,31 @@ class DashboardGuruController extends Controller
 
       $siswas = Siswa::with(['siswaekskul' => function ($query) use ($tahun) {
          $query->where('tahun_ajaran_id', $tahun->id)
-         ->with('ekskul');
+            ->with('ekskul');
       }])->where('kelas_id', $kelasId)->get();
       $mapels = MataPelajaran::whereHas('kelases', function ($query) use ($kelasId) {
          $query->where('kelas_id', $kelasId);
       })->get();
       $tahuns = TahunAjaran::get();
       $ekskuls = Ekstrakulikuler::get();
-      return view('guru.layouts.ekskul',  compact('mapels', 'siswas', 'tahun', 'tahuns','ekskuls'));
+      return view('guru.layouts.ekskul',  compact('mapels', 'siswas', 'tahun', 'tahuns', 'ekskuls'));
+   }
+   public function guruEkskulSearch(Request $request)
+   {
+      $userId = Auth::id();
+      $guru = Guru::where('user_id', $userId)->first();
+      $kelasId = $guru->kelas_id;
+      $tahun = TahunAjaran::where('id', $request->tahun)->first();
+
+      $siswas = Siswa::with(['siswaekskul' => function ($query) use ($request) {
+         $query->where('tahun_ajaran_id', $request->tahun)
+            ->with('ekskul');
+      }])->where('kelas_id', $kelasId)->get();
+      $mapels = MataPelajaran::whereHas('kelases', function ($query) use ($kelasId) {
+         $query->where('kelas_id', $kelasId);
+      })->get();
+      $tahuns = TahunAjaran::get();
+      $ekskuls = Ekstrakulikuler::get();
+      return view('guru.layouts.ekskul',  compact('mapels', 'siswas', 'tahun', 'tahuns', 'ekskuls'));
    }
 }

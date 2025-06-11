@@ -12,11 +12,10 @@ class SiswaEkstrakulikulerController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'ekstrakulikuler_id' => 'required|string',
-            'siswa_id' => 'required|string'
+            'ekstrakulikuler_id' => 'required|exists:ekstrakulikuler,id',
+            'siswa_id' => 'required|string',
+            'tahun_ajaran_id' => 'required|exists:tahun_ajaran,id',
         ]);
-        $tahun = TahunAjaran::where('status', 1)->first();
-        $validatedData['tahun_ajaran_id'] = $tahun->id;
 
         $cekEkskul = SiswaEkstrakulikuler::where('siswa_id', $validatedData['siswa_id'])
             ->where('ekstrakulikuler_id', $validatedData['ekstrakulikuler_id'])
