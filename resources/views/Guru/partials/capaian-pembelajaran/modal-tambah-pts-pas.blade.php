@@ -19,7 +19,7 @@
                 <form action="{{ route('guru.tambah.pts-pas') }}" method="POST">
                     @csrf
                     <input type="hidden" name="mata_pelajaran_id" value="{{ $mapel->id }}">
-
+                    <input type="hidden" name="kelas_id" value="{{ $kelas->id }}">
                     <div class="mb-4">
                         <label for="status"
                             class="block text-sm font-medium text-gray-700 dark:text-white">Status</label>

@@ -3,6 +3,9 @@
     <div
         class="px-4 py-2 text-sm font-semibold text-gray-800 border-b border-gray-200 dark:text-gray-100 dark:border-gray-600 break-words">
         {{ $cp->nama }}
+        @if ($cp->status == 'PTS' || $cp->status == 'PAS')
+            <br>{{ \Carbon\Carbon::parse($cp->tanggal)->translatedFormat('d F Y') }}
+        @endif
     </div>
     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
         aria-labelledby="dropdownMenuIconButton-{{ $cp->id }}">
@@ -25,12 +28,21 @@
                 </button>
             @endif
         </li>
-        <li>
+        @if (Auth::user() && Auth::user()->role === 'guru')
+         <li>
             <a href="{{ route('guru.edit.nilai', ['id' => $mapel->id, 'cpId' => $cp->id]) }}"
                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                 Edit Nilai
             </a>
         </li>
+        @elseif (Auth::user() && Auth::user()->role === 'guru_mapel')
+        <li>
+            <a href="{{ route('guru-mapel.edit.nilai', ['id' => $kelas->id, 'cpId' => $cp->id]) }}"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+            Edit Nilai Mapel  {{ $kelas->nama }}
+            </a>
+        </li>
+        @endif
         <li>
             <button type="button" data-modal-target="hapus-capaian-pembelajaran-modal-{{ $cp->id }}"
                 data-modal-toggle="hapus-capaian-pembelajaran-modal-{{ $cp->id }}"

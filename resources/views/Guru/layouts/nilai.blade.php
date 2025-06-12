@@ -5,42 +5,46 @@
 @section('content')
     @include('components.alert')
     <div class="flex justify-between items-center mt-4 mb-4">
-        <div class="flex">
-            @if ($kunci == null)
-            @else
-                @if (!$kunci->is_locked)
-                    <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
-                        class="ml-4 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
-                        type="button">Tambah Penilaian <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m1 1 4 4 4-4" />
-                        </svg>
-                    </button>
-                    <button data-modal-target="kunci-nilai-modal-{{ $kunci->id }}"
-                        data-modal-toggle="kunci-nilai-modal-{{ $kunci->id }}"
-                        class="ml-4 text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800">
-                        <svg class="w-5 h-5 text-white mr-2" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                            viewBox="0 0 24 24" aria-hidden="true">
-                            <path fill-rule="evenodd"
-                                d="M8 10V7a4 4 0 1 1 8 0v3h1a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h1Zm2-3a2 2 0 1 1 4 0v3h-4V7Zm2 6a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0v-3a1 1 0 0 1 1-1Z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        Kunci Nilai
-                    </button>
-                    @include('guru.partials.kunci-nilai.modal-kunci-nilai')
-                @else
-                    <span class="text-base font-semibold text-gray-800 dark:text-gray-300">
-                        Nilai telah dikunci pada {{ \Carbon\Carbon::parse($kunci->locked_at)->format('d M Y H:i') }}
-                    </span>
-                @endif
-            @endif
+        <div class="pr-2">
+            <span class="text-base font-semibold text-gray-800 dark:text-gray-300">
+                Mata Pelajaran {{ $mapel->nama }}
         </div>
         <div class="pr-2">
             <span class="text-base font-semibold text-gray-800 dark:text-gray-300">
                 Semester {{ $tahun->semester }} - Tahun Ajaran {{ $tahun->tahun }}
             </span>
         </div>
+    </div>
+    <div class="flex items-center mt-4 mb-4">
+        @if ($kunci == null)
+        @else
+            @if (!$kunci->is_locked)
+                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+                    class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
+                    type="button">Tambah Penilaian <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 4 4 4-4" />
+                    </svg>
+                </button>
+                <button data-modal-target="kunci-nilai-modal-{{ $kunci->id }}"
+                    data-modal-toggle="kunci-nilai-modal-{{ $kunci->id }}"
+                    class="ml-4 text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800">
+                    <svg class="w-5 h-5 text-white mr-2" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                            d="M8 10V7a4 4 0 1 1 8 0v3h1a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h1Zm2-3a2 2 0 1 1 4 0v3h-4V7Zm2 6a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0v-3a1 1 0 0 1 1-1Z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    Kunci Nilai
+                </button>
+                @include('guru.partials.kunci-nilai.modal-kunci-nilai')
+            @else
+                <span class="text-base font-semibold text-gray-800 dark:text-gray-300">
+                    Nilai telah dikunci pada {{ \Carbon\Carbon::parse($kunci->locked_at)->format('d M Y H:i') }}
+                </span>
+            @endif
+        @endif
     </div>
     <div class="overflow-x-auto w-auto rounded-lg border p-4 bg-white dark:bg-gray-800 shadow">
         @if ($kunci == null)
@@ -120,7 +124,7 @@
                     @foreach ($siswas as $siswa)
                         <tr
                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <td class="w-16 px-4 py-3 border border-gray-300">{{ $loop->iteration }}</td>
+                            <td class="w-10 px-4 py-3 border border-gray-300">{{ $loop->iteration }}</td>
                             <td class="w-20 px-4 py-3 border border-gray-300">{{ $siswa->nis }}</td>
                             <td class="w-60 px-4 py-3 border border-gray-300">{{ $siswa->nama }}</td>
                             @foreach ($capaians as $cp)
@@ -146,7 +150,6 @@
                                 </td>
                             @else
                             @endif
-
                         </tr>
                     @endforeach
                 </tbody>

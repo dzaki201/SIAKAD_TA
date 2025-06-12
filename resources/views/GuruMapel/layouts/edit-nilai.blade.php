@@ -1,14 +1,13 @@
-@extends('Guru.main-guru')
+@extends('GuruMapel.main-guru-mapel')
 
-@section('title', 'Dashboard Guru')
+@section('title', 'Dashboard Guru Mapel')
 
 @section('content')
 
     <div class="flex items-center justify-between mt-4 mb-4">
         <div>
-            <h2 class="text-xl font-bold text-gray-800 dark:text-white">Edit Nilai</h2>
+            <h2 class="text-xl font-bold text-gray-800 dark:text-white">Tambah Keterangan Nilai Akhir</h2>
             <p class="text-sm text-gray-600 dark:text-gray-400">
-                Capaian Kompetensi: <span class="font-medium">{{ $cp->nama }}/{{ $cp->tanggal }}</span><br>
                 Kelas: <span class="font-medium">{{ $kelas->nama }}</span><br>
                 Mata Pelajaran: <span class="font-medium">{{ $mapel->nama }}</span>
             </p>
@@ -26,7 +25,6 @@
             <input type="hidden" name="cp_id" value="{{ $cpId }}">
             <input type="hidden" name="mapel_id" value="{{ $mapel->id }}">
             <input type="hidden" name="kelas_id" value="{{ $kelas->id }}">
-            
             <div class="overflow-x-auto rounded-lg">
                 <table
                     class="w-full min-w-[1000px] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 table-fixed">
@@ -70,7 +68,7 @@
                         Simpan Nilai
                     </button>
                 </div>
-            </div>  
+            </div>
         </form>
     </div>
 @endsection

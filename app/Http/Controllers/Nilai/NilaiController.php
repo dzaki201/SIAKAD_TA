@@ -17,17 +17,17 @@ class NilaiController extends Controller
         $request->validate([
             'cp_id' => 'required|exists:capaian_pembelajaran,id',
             'mapel_id' => 'required|exists:mata_pelajaran,id',
+            'kelas_id' => 'required|exists:kelas,id',
             'nilai' => 'required|array',
             'nilai.*' => 'nullable|numeric|min:0|max:100'
         ]);
 
         $cpId = $request->cp_id;
         $guru = Guru::where('user_id', Auth::id())->first();
-        $kelasId = $guru->kelas_id;
         $mapelId = $request->mapel_id;
-
+        $kelasId = $request->kelas_id;
         $nilaiInput = collect($request->nilai);
-        $siswaIds = Siswa::where('kelas_id', $kelasId)->pluck('id');
+        $siswaIds = Siswa::where('kelas_id', $request->kelas_id)->pluck('id');
         $tahunAjaran = TahunAjaran::where('status', '1')->firstOrFail();
 
         $siswaIds->values()->map(function ($siswaId, $index) use ($nilaiInput, $cpId, $guru, $tahunAjaran) {
@@ -43,7 +43,13 @@ class NilaiController extends Controller
                 ]
             );
         });
+        $role = Auth::user()->role;
+        if ($role === 'guru') {
+            return redirect()->route('guru.nilai', $mapelId)->with('success', 'Nilai berhasil diperbarui.');
+        } elseif ($role === 'guru_mapel') {
+            return redirect()->route('guru-mapel.nilai', $kelasId)->with('success', 'Nilai berhasil diperbarui.');
+        }
 
-        return redirect()->route('guru.nilai', $mapelId)->with('success', 'Nilai berhasil diperbarui.');
+        // return redirect()->route('guru.nilai', $mapelId)->with('success', 'Nilai berhasil diperbarui.');
     }
 }

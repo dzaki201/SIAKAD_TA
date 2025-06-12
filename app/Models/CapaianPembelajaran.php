@@ -14,6 +14,7 @@ class CapaianPembelajaran extends Model
         'nama',
         'mata_pelajaran_id',
         'guru_id',
+        'kelas_id',
         'tanggal',
         'tahun_ajaran_id',
         'status'
@@ -30,6 +31,10 @@ class CapaianPembelajaran extends Model
     public function tahunAjaran()
     {
         return $this->belongsTo(TahunAjaran::class);
+    }
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'kelas_id');
     }
    
 }

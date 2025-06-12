@@ -1,10 +1,10 @@
 <div id="tambah-capaian-pembelajaran-modal" tabindex="-1" aria-hidden="true"
-    class="fixed inset-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0">
+    class="fixed inset-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto justify-center items-center">
     <div class="relative w-full h-full max-w-2xl md:h-auto">
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <div class=" bg-white rounded-lg shadow dark:bg-gray-700">
             <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Tambah Capaian Pembelajaran
+                    Tambah Capaian Pembelajaran {{ $kelas->nama }}
                 </h3>
                 <button type="button" data-modal-hide="tambah-capaian-pembelajaran-modal"
                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
@@ -19,6 +19,7 @@
                 <form action="{{ route('guru.cp.store') }}" method="POST">
                     @csrf
                     <input type="hidden" name="mata_pelajaran_id" value="{{ $mapel->id }}">
+                    <input type="hidden" name="kelas_id" value="{{ $kelas->id }}">
                     <div class="mb-4">
                         <label for="nama" class="block text-sm font-medium text-gray-700 dark:text-white">Nama
                             Capaian</label>

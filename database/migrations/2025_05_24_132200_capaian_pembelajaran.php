@@ -13,6 +13,7 @@ return new class extends Migration
             $table->string('nama');
             $table->foreignId('mata_pelajaran_id')->constrained('mata_pelajaran')->onDelete('cascade');;
             $table->foreignId('guru_id')->constrained('guru')->onDelete('cascade');
+            $table->foreignId('kelas_id')->constrained('kelas')->onDelete('cascade');
             $table->date('tanggal');
             $table->foreignId('tahun_ajaran_id')->constrained('tahun_ajaran')->onDelete('cascade');
             $table->enum('status', ['CP', 'PTS', 'PAS']);

@@ -20,13 +20,14 @@ class CapaianPembelajaranController extends Controller
         $validatedData = $request->validate([
             'nama' => 'required|string|max:255',
             'mata_pelajaran_id' => 'required|exists:mata_pelajaran,id',
+            'kelas_id' => 'required|exists:kelas,id',
             'tanggal' => 'required|date'
         ]);
 
         $guru = Guru::where('user_id', Auth::id())->first();
-        $kelasId = $guru->kelas_id;
+
         $tahunAjaran = TahunAjaran::where('status', '1')->first();
-        if ($this->isNilaiLocked($guru->id, $validatedData['mata_pelajaran_id'], $tahunAjaran->id, $kelasId)) {
+        if ($this->isNilaiLocked($guru->id, $validatedData['mata_pelajaran_id'], $tahunAjaran->id, $validatedData)) {
             return redirect()->back()->with('errors', 'Data nilai untuk mata pelajaran ini sudah dikunci dan tidak bisa ditambahkan.');
         }
         $validatedData['status'] = 'CP';
@@ -34,7 +35,7 @@ class CapaianPembelajaranController extends Controller
         $validatedData['tahun_ajaran_id'] = $tahunAjaran->id;
 
         $capaian = CapaianPembelajaran::create($validatedData);
-        $siswaIds = Siswa::where('kelas_id', $kelasId)->pluck('id');
+        $siswaIds = Siswa::where('kelas_id',$validatedData['kelas_id'])->pluck('id');
         $dataNilai = $this->buatDataNilai($siswaIds, $capaian, $tahunAjaran, $guru);
         Nilai::insert($dataNilai);
         return redirect()->back()->with('success', 'Capaian Pembelajaran berhasil ditambahkan.');
@@ -63,14 +64,15 @@ class CapaianPembelajaranController extends Controller
     {
         $validatedData = $request->validate([
             'mata_pelajaran_id' => 'required|exists:mata_pelajaran,id',
+            'kelas_id' => 'required|exists:kelas,id',
             'tanggal' => 'required|date',
             'status' => 'required|in:PTS,PAS',
         ]);
 
         $guru = Guru::where('user_id', Auth::id())->firstOrFail();
-        $kelasId = $guru->kelas_id;
+        
         $tahunAjaran = TahunAjaran::where('status', '1')->firstOrFail();
-        if ($this->isNilaiLocked($guru->id, $validatedData['mata_pelajaran_id'], $tahunAjaran->id, $kelasId)) {
+        if ($this->isNilaiLocked($guru->id, $validatedData['mata_pelajaran_id'], $tahunAjaran->id, $validatedData)) {
             return redirect()->back()->with('errors', 'Data nilai untuk mata pelajaran ini sudah dikunci dan tidak bisa ditambahkan.');
         }
 
@@ -94,7 +96,7 @@ class CapaianPembelajaranController extends Controller
                 return redirect()->back()->with('errors', 'Anda sudah membuat PAS untuk mata pelajaran ini.');
             }
         };
-        
+
 
         $mapel = MataPelajaran::findOrFail($validatedData['mata_pelajaran_id']);
         $validatedData['nama'] = $validatedData['status'] . ' ' . $mapel->nama;
@@ -102,7 +104,7 @@ class CapaianPembelajaranController extends Controller
         $validatedData['tahun_ajaran_id'] = $tahunAjaran->id;
 
         $capaian = CapaianPembelajaran::create($validatedData);
-        $siswaIds = Siswa::where('kelas_id', $kelasId)->pluck('id');
+        $siswaIds = Siswa::where('kelas_id', $validatedData['kelas_id'])->pluck('id');
         $dataNilai = $this->buatDataNilai($siswaIds, $capaian, $tahunAjaran, $guru);
         Nilai::insert($dataNilai);
         return redirect()->back()->with('success', 'Capaian Pembelajaran berhasil ditambahkan.');
@@ -121,12 +123,12 @@ class CapaianPembelajaranController extends Controller
             : 'Data PAS berhasil diperbarui.';
         return redirect()->back()->with('success', $message);
     }
-    private function isNilaiLocked($guruId, $mataPelajaranId, $tahunAjaranId, $kelasId)
+    private function isNilaiLocked($guruId, $mataPelajaranId, $tahunAjaranId, $validatedData)
     {
         return KunciNilai::where('guru_id', $guruId)
             ->where('mata_pelajaran_id', $mataPelajaranId)
             ->where('tahun_ajaran_id', $tahunAjaranId)
-            ->where('kelas_id', $kelasId)
+            ->where('kelas_id', $validatedData['kelas_id'])
             ->where('is_locked', 1)
             ->exists();
     }
