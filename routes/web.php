@@ -114,14 +114,11 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
     Route::get('/guru-dashboard', [DashboardGuruController::class, 'guruIndex'])->name('guru.dashboard');
 
     Route::get('/guru-nilai/{id}', [DashboardGuruController::class, 'guruNilai'])->name('guru.nilai');
-    Route::get('/guru-edit-nilai/{id}/{cpId}', [DashboardGuruController::class, 'gurueditNilai'])->name('guru.edit.nilai');
+    Route::get('/guru-edit-nilai/{id}/{cpId}', [DashboardGuruController::class, 'guruEditNilai'])->name('guru.edit.nilai');
+    Route::get('/guru-edit-nilai-akhir/{id}/{kelasId}', [DashboardGuruController::class, 'guruEditNilaiAkhir'])->name('guru.edit.nilai-akhir');
 
     Route::get('/guru-kunci-nilai/{id}', [KunciNilaiController::class, 'store'])->name('guru.kunci-nilai.store');
     Route::post('/guru-nilai-kunci/{id}', [KunciNilaiController::class, 'kunci'])->name('guru.kunci-nilai');
-
-    Route::get('/guru-edit-nilai-akhir/{id}', [DashboardGuruController::class, 'gurueditNilaiAkhir'])->name('guru.edit.nilai-akhir');
-    Route::get('/guru-nilai-akhir/{id}', [NilaiAkhirController::class, 'store'])->name('guru.nilai-akhir.store');
-    Route::post('/guru-nilai-akhir-update', [NilaiAkhirController::class, 'update'])->name('guru.nilai-akhir.update');
 
     Route::get('/guru-absensi', [DashboardGuruController::class, 'guruAbsensi'])->name('guru.absensi');
     Route::get('/guru-absensi-search', [DashboardGuruController::class, 'guruAbsensiSearch'])->name('guru.absensi.search');
@@ -139,6 +136,7 @@ Route::middleware(['auth', 'role:guru_mapel'])->group(function () {
 
     Route::get('/guru-mapel-nilai/{id}', [DashboardGuruMapelController::class, 'guruMapelNilai'])->name('guru-mapel.nilai');
     Route::get('/guru-mapel-edit-nilai/{id}/{cpId}', [DashboardGuruMapelController::class, 'guruMapelEditNilai'])->name('guru-mapel.edit.nilai');
+    Route::get('/guru-mapel-edit-nilai-akhir/{id}/{kelasId}', [DashboardGuruMapelController::class, 'guruMapelEditNilaiAkhir'])->name('guru-mapel.edit.nilai-akhir');
 });
 
 Route::middleware(['auth', 'role:orang_tua'])->group(function () {
@@ -151,5 +149,7 @@ Route::middleware(['auth', 'role:guru,guru_mapel'])->group(function () {
     Route::put('/guru-pts-pas/{id}/update', [CapaianPembelajaranController::class, 'updatePtsPas'])->name('guru.update.pts-pas');
     Route::delete('/guru-capaian-pembelajaran/{id}', [CapaianPembelajaranController::class, 'destroy'])->name('guru.cp.destroy');
 
+    Route::get('/guru-nilai-akhir/{id}/{kelasId}', [NilaiAkhirController::class, 'store'])->name('guru.nilai-akhir.store');
+    Route::post('/guru-nilai-akhir-update', [NilaiAkhirController::class, 'update'])->name('guru.nilai-akhir.update');
     Route::post('/guru-nilai-update', [NilaiController::class, 'update'])->name('guru.nilai.update');
 });

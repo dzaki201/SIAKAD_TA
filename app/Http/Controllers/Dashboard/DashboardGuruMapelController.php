@@ -6,6 +6,7 @@ use App\Models\Guru;
 use App\Models\Kelas;
 use App\Models\Nilai;
 use App\Models\Siswa;
+use App\Models\NilaiAkhir;
 use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
 use App\Models\MataPelajaran;
@@ -52,8 +53,11 @@ class DashboardGuruMapelController extends Controller
             ->whereIn('capaian_pembelajaran_id', $capaians->pluck('id'))
             ->where('tahun_ajaran_id', $tahun->id)
             ->get();
-        //  dd($siswas);
-        return view('GuruMapel.layouts.nilai', compact('kelases', 'siswas', 'mapel', 'tahun', 'capaians', 'kelas', 'nilais'));
+        $nilaiakhirs = NilaiAkhir::whereIn('siswa_id', $siswas->pluck('id'))
+            ->where('tahun_ajaran_id', $tahun->id)
+            ->where('mata_pelajaran_id', $mapel->id)->get();
+
+        return view('GuruMapel.layouts.nilai', compact('kelases', 'siswas', 'mapel', 'tahun', 'capaians', 'kelas', 'nilais', 'nilaiakhirs'));
     }
     public function guruMapelEditNilai($id, $cpId)
     {
@@ -71,6 +75,23 @@ class DashboardGuruMapelController extends Controller
             ->where('tahun_ajaran_id', $tahun->id)
             ->get();
 
-        return view('GuruMapel.layouts.edit-nilai', compact('siswas', 'kelases', 'tahun', 'nilais', 'cpId', 'kelas','mapel', 'cp'));
+        return view('GuruMapel.layouts.edit-nilai', compact('siswas', 'kelases', 'tahun', 'nilais', 'cpId', 'kelas', 'mapel', 'cp'));
+    }
+
+    public function guruMapelEditNilaiAkhir($id, $kelasId)
+    {
+        $userId = Auth::id();
+        $guru = Guru::where('user_id', $userId)->first();
+        $kelasmapel = PlotGuruMapel::where('guru_id', $guru->id)->pluck('kelas_id');
+        $kelases = Kelas::whereIn('id', $kelasmapel)->get();
+        $kelas = Kelas::where('id', $kelasId)->first();
+        $mapel = MataPelajaran::where('id', $id)->first();
+        $tahun = TahunAjaran::where('status', 1)->first();
+        $siswas = Siswa::where('kelas_id', $kelasId)->get();
+        $nilaiakhirs = NilaiAkhir::whereIn('siswa_id', $siswas->pluck('id'))
+            ->where('tahun_ajaran_id', $tahun->id)
+            ->where('mata_pelajaran_id', $mapel->id)->get();
+
+        return view('guruMapel.layouts.edit-nilai-akhir', compact('siswas', 'mapel', 'tahun', 'nilaiakhirs', 'kelas', 'kelases'));
     }
 }

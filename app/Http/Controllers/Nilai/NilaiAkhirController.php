@@ -15,10 +15,9 @@ use Illuminate\Support\Facades\Auth;
 
 class NilaiAkhirController extends Controller
 {
-    public function store($id)
+    public function store($id, $kelasId)
     {
         $guru = Guru::where('user_id', Auth::id())->firstOrFail();
-        $kelasId = $guru->kelas_id;
         $tahunAjaran = TahunAjaran::where('status', '1')->firstOrFail();
         // Cek apakah nilai untuk mapel ini sudah dikunci
         $isLocked = KunciNilai::where('guru_id', $guru->id)
@@ -33,7 +32,12 @@ class NilaiAkhirController extends Controller
         }
 
         $siswaIds = Siswa::where('kelas_id', $kelasId)->pluck('id');
-        $cpIds = CapaianPembelajaran::whereIn('status', ['CP', 'PTS', 'PAS'])->pluck('id');
+        $cpIds = CapaianPembelajaran::whereIn('status', ['CP', 'PTS', 'PAS'])
+            ->where('mata_pelajaran_id', $id)
+            ->where('tahun_ajaran_id', $tahunAjaran->id)
+            ->where('guru_id', $guru->id)
+            ->where('kelas_id', $kelasId)
+            ->pluck('id');
 
         // Ambil kombinasi nilai yang sudah ada
         $existing = Nilai::whereIn('siswa_id', $siswaIds)
@@ -48,9 +52,8 @@ class NilaiAkhirController extends Controller
             $pts = $items->where('capaianPembelajaran.status', 'PTS')->pluck('nilai');
             $pas = $items->where('capaianPembelajaran.status', 'PAS')->pluck('nilai');
 
-            // Hitung rata-rata CP
+            // Hitung rata-rata
             $rataCp = $cp->count() ? $cp->avg() : 0;
-
             $nilaiPts = $pts->first() ?? 0;
             $nilaiPas = $pas->first() ?? 0;
 
@@ -90,24 +93,29 @@ class NilaiAkhirController extends Controller
     {
         $request->validate([
             'mapel_id' => 'required|exists:mata_pelajaran,id',
+            'kelas_id' => 'required|exists:kelas,id',
             'keterangan' => 'required|array',
             'keterangan*' => 'nullable|string'
         ]);
 
-        $guru = Guru::where('user_id', Auth::id())->first();
-        $kelasId = $guru->kelas_id;
+        $kelasId = $request->kelas_id;
         $mapelId = $request->mapel_id;
 
         $keteranganInput = collect($request->keterangan);
         $siswaIds = Siswa::where('kelas_id', $kelasId)->pluck('id');
-
+        // dd($kelasId);
         $siswaIds->map(function ($siswaId) use ($keteranganInput, $mapelId) {
-            $keterangan = $keteranganInput->get($siswaId); 
+            $keterangan = $keteranganInput->get($siswaId);
             NilaiAkhir::where('siswa_id', $siswaId)
                 ->where('mata_pelajaran_id', $mapelId)
                 ->update(['keterangan' => $keterangan]);
         });
 
-        return redirect()->route('guru.nilai', $mapelId)->with('success', 'Keterangan Nilai Akhir berhasil diperbarui.');
+        $role = Auth::user()->role;
+        if ($role === 'guru') {
+            return redirect()->route('guru.nilai', $mapelId)->with('success', 'Nilai berhasil diperbarui.');
+        } elseif ($role === 'guru_mapel') {
+            return redirect()->route('guru-mapel.nilai', $kelasId)->with('success', 'Nilai berhasil diperbarui.');
+        }
     }
 }

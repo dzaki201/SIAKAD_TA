@@ -162,14 +162,21 @@
                         </button>
                         {{-- Dropdown --}}
                         <ul id="dropdown-nilai"
-                            class="{{ request()->routeIs('guru.nilai', 'guru.edit.nilai') ? 'block' : 'hidden' }} space-y-2 ">
+                            class="{{ request()->routeIs('guru.nilai', 'guru.edit.nilai', 'guru.edit.nilai-akhir') ? 'block' : 'hidden' }} space-y-2 ">
                             @foreach ($mapels as $mapel)
                                 <li>
                                     <a href="{{ route('guru.nilai', ['id' => $mapel->id]) }}"
                                         class="flex items-center w-full p-2 pl-11 text-white rounded-lg transition duration-75 group hover:bg-blue-800 dark:hover:bg-blue-500 
-                {{ (request()->routeIs('guru.nilai') && request()->route('id') == $mapel->id) || (request()->routeIs('guru.edit.nilai') && request()->route('id') == $mapel->id) ? 'bg-blue-700 dark:bg-blue-600' : '' }}">
-                                        {{ $mapel->nama }}
-                                    </a>
+                                        {{ (request()->routeIs('guru.nilai') && request()->route('id') == $mapel->id) ||
+                                        (request()->routeIs('guru.edit.nilai') &&
+                                            request()->route('id') == $mapel->id &&
+                                            request()->route('cpId') == $cp->id) ||
+                                        (request()->routeIs('guru.edit.nilai-akhir') &&
+                                            request()->route('id') == $mapel->id &&
+                                            request()->route('kelasId') == $kelas->id)
+                                            ? 'bg-blue-700 dark:bg-blue-600'
+                                            : '' }}">
+                                        {{ $mapel->nama }} </a>
                                 </li>
                             @endforeach
                         </ul>
@@ -236,11 +243,16 @@
                         </button>
                         {{-- Dropdown --}}
                         <ul id="dropdown-nilai2"
-                            class="{{ request()->routeIs('guru-mapel.nilai') ? 'block' : 'hidden' }} space-y-2 ">
+                            class="{{ request()->routeIs('guru-mapel.nilai', 'guru-mapel.edit.nilai', 'guru-mapel.edit.nilai-akhir') ? 'block' : 'hidden' }} space-y-2 ">
                             @foreach ($kelases as $kelas)
                                 <li>
                                     <a href="{{ route('guru-mapel.nilai', ['id' => $kelas->id]) }}"
-                                        class="flex items-center w-full p-2 pl-11 text-white rounded-lg transition duration-75 group hover:bg-blue-800 dark:hover:bg-blue-500 ">
+                                        class="flex items-center w-full p-2 pl-11 text-white rounded-lg transition duration-75 group
+                                        {{ (request()->routeIs('guru-mapel.nilai') && request()->route('id') == $kelas->id) ||
+                                        (request()->routeIs('guru-mapel.edit.nilai') && request()->route('id') == $kelas->id) ||
+                                        (request()->routeIs('guru-mapel.edit.nilai-akhir') && request()->route('kelasId') == $kelas->id)
+                                            ? 'bg-blue-800 dark:bg-blue-500'
+                                            : '' }}">
                                         Kelas {{ $kelas->nama }}
                                     </a>
                                 </li>
