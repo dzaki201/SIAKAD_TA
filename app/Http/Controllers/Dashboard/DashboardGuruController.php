@@ -43,11 +43,12 @@ class DashboardGuruController extends Controller
       })->get();
       $kunci = KunciNilai::where('guru_id', $guru->id)
          ->where('mata_pelajaran_id', $id)
+         ->where('kelas_id', $kelasId)
          ->where('tahun_ajaran_id', $tahun->id)
          ->first();
 
       if (!$kunci) {
-         return view('guru.layouts.nilai', compact('mapels', 'tahun', 'kunci', 'mapel'));
+         return view('guru.layouts.nilai', compact('mapels', 'tahun', 'kunci', 'mapel','kelas'));
       }
       $siswas = Siswa::where('kelas_id', $kelasId)->get();
       $capaians = CapaianPembelajaran::where('mata_pelajaran_id', $id)

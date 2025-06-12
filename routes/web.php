@@ -117,9 +117,6 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
     Route::get('/guru-edit-nilai/{id}/{cpId}', [DashboardGuruController::class, 'guruEditNilai'])->name('guru.edit.nilai');
     Route::get('/guru-edit-nilai-akhir/{id}/{kelasId}', [DashboardGuruController::class, 'guruEditNilaiAkhir'])->name('guru.edit.nilai-akhir');
 
-    Route::get('/guru-kunci-nilai/{id}', [KunciNilaiController::class, 'store'])->name('guru.kunci-nilai.store');
-    Route::post('/guru-nilai-kunci/{id}', [KunciNilaiController::class, 'kunci'])->name('guru.kunci-nilai');
-
     Route::get('/guru-absensi', [DashboardGuruController::class, 'guruAbsensi'])->name('guru.absensi');
     Route::get('/guru-absensi-search', [DashboardGuruController::class, 'guruAbsensiSearch'])->name('guru.absensi.search');
     Route::get('/guru-absensi/{id}', [AbsensiController::class, 'store'])->name('guru.absensi.store');
@@ -152,4 +149,7 @@ Route::middleware(['auth', 'role:guru,guru_mapel'])->group(function () {
     Route::get('/guru-nilai-akhir/{id}/{kelasId}', [NilaiAkhirController::class, 'store'])->name('guru.nilai-akhir.store');
     Route::post('/guru-nilai-akhir-update', [NilaiAkhirController::class, 'update'])->name('guru.nilai-akhir.update');
     Route::post('/guru-nilai-update', [NilaiController::class, 'update'])->name('guru.nilai.update');
+    
+    Route::get('/guru-kunci-nilai/{id}/{kelasId}', [KunciNilaiController::class, 'store'])->name('guru.kunci-nilai.store');
+    Route::post('/guru-nilai-kunci/{id}', [KunciNilaiController::class, 'kunci'])->name('guru.kunci-nilai');
 });

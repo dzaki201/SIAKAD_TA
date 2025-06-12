@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class KunciNilaiController extends Controller
 {
-    public function store($id)
+    public function store($id, $kelasId)
     {
         $userId = Auth::id();
         $guru = Guru::where('user_id', $userId)->first();
@@ -23,7 +23,7 @@ class KunciNilaiController extends Controller
             'guru_id' => $guru->id,
             'mata_pelajaran_id' => $mapel->id,
             'tahun_ajaran_id' => $tahun->id,
-            'kelas_id' => $guru->kelas_id,
+            'kelas_id' => $kelasId,
             'is_locked' => 0,
         ]);
         return redirect()->back()->with('success', 'Penilaian Baru berhasil dibuat.');;

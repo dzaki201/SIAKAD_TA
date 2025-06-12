@@ -6,6 +6,7 @@ use App\Models\Guru;
 use App\Models\Kelas;
 use App\Models\Nilai;
 use App\Models\Siswa;
+use App\Models\KunciNilai;
 use App\Models\NilaiAkhir;
 use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
@@ -34,6 +35,15 @@ class DashboardGuruMapelController extends Controller
         $kelas = Kelas::where('id', $id)->first();
         $tahun = TahunAjaran::where('status', 1)->first();
         $mapel = MataPelajaran::where('id', $guru->mata_pelajaran_id)->first();
+        $kunci = KunciNilai::where('guru_id', $guru->id)
+            ->where('mata_pelajaran_id', $mapel->id)
+            ->where('kelas_id', $kelas->id)
+            ->where('tahun_ajaran_id', $tahun->id)
+            ->first();
+            
+        if (!$kunci) {
+            return view('guru.layouts.nilai', compact('tahun', 'kunci', 'mapel', 'kelas', 'kelases'));
+        }
         $siswas = Siswa::where('kelas_id', $id)->get();
         $capaians = CapaianPembelajaran::where('mata_pelajaran_id', $mapel->id)
             ->where('kelas_id', $id)
@@ -57,7 +67,7 @@ class DashboardGuruMapelController extends Controller
             ->where('tahun_ajaran_id', $tahun->id)
             ->where('mata_pelajaran_id', $mapel->id)->get();
 
-        return view('GuruMapel.layouts.nilai', compact('kelases', 'siswas', 'mapel', 'tahun', 'capaians', 'kelas', 'nilais', 'nilaiakhirs'));
+        return view('GuruMapel.layouts.nilai', compact('kelases', 'siswas', 'mapel', 'tahun', 'capaians', 'kelas', 'nilais', 'nilaiakhirs','kunci'));
     }
     public function guruMapelEditNilai($id, $cpId)
     {
@@ -67,9 +77,10 @@ class DashboardGuruMapelController extends Controller
         $kelases = Kelas::whereIn('id', $kelasmapel)->get();
         $kelas = Kelas::where('id', $id)->first();
         $mapel = MataPelajaran::where('id', $guru->mata_pelajaran_id)->first();
+        $tahun = TahunAjaran::where('status', 1)->first();
+
         $siswas = Siswa::where('kelas_id', $id)->get();
         $cp = CapaianPembelajaran::where('id', $cpId)->first();
-        $tahun = TahunAjaran::where('status', 1)->first();
         $nilais = Nilai::whereIn('siswa_id', $siswas->pluck('id'))
             ->where('capaian_pembelajaran_id', $cpId)
             ->where('tahun_ajaran_id', $tahun->id)

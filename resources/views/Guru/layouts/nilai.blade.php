@@ -49,7 +49,7 @@
     <div class="overflow-x-auto w-auto rounded-lg border p-4 bg-white dark:bg-gray-800 shadow">
         @if ($kunci == null)
             <div class="flex justify-center items-center h-[500px]">
-                <a href="{{ route('guru.kunci-nilai.store', ['id' => $mapel->id]) }}">
+                <a href="{{ route('guru.kunci-nilai.store', ['id' => $mapel->id, 'kelasId' => $kelas->id]) }}">
                     <button class="bg-blue-600 text-white rounded-full p-6 hover:bg-blue-700 focus:outline-none">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
