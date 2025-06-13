@@ -35,7 +35,7 @@ class CapaianPembelajaranController extends Controller
         $validatedData['tahun_ajaran_id'] = $tahunAjaran->id;
 
         $capaian = CapaianPembelajaran::create($validatedData);
-        $siswaIds = Siswa::where('kelas_id',$validatedData['kelas_id'])->pluck('id');
+        $siswaIds = Siswa::where('kelas_id', $validatedData['kelas_id'])->pluck('id');
         $dataNilai = $this->buatDataNilai($siswaIds, $capaian, $tahunAjaran, $guru);
         Nilai::insert($dataNilai);
         return redirect()->back()->with('success', 'Capaian Pembelajaran berhasil ditambahkan.');
@@ -70,7 +70,7 @@ class CapaianPembelajaranController extends Controller
         ]);
 
         $guru = Guru::where('user_id', Auth::id())->firstOrFail();
-        
+
         $tahunAjaran = TahunAjaran::where('status', '1')->firstOrFail();
         if ($this->isNilaiLocked($guru->id, $validatedData['mata_pelajaran_id'], $tahunAjaran->id, $validatedData)) {
             return redirect()->back()->with('errors', 'Data nilai untuk mata pelajaran ini sudah dikunci dan tidak bisa ditambahkan.');
@@ -79,6 +79,7 @@ class CapaianPembelajaranController extends Controller
         if ($validatedData['status'] == 'PTS') {
             $cekPts = CapaianPembelajaran::where('guru_id', $guru->id)
                 ->where('mata_pelajaran_id', $validatedData['mata_pelajaran_id'])
+                ->where('kelas_id', $validatedData['kelas_id'])
                 ->where('tahun_ajaran_id', $tahunAjaran->id)
                 ->where('status', 'PTS')
                 ->exists();
@@ -89,6 +90,7 @@ class CapaianPembelajaranController extends Controller
         if ($validatedData['status'] == 'PAS') {
             $cekPts = CapaianPembelajaran::where('guru_id', $guru->id)
                 ->where('mata_pelajaran_id', $validatedData['mata_pelajaran_id'])
+                ->where('kelas_id', $validatedData['kelas_id'])
                 ->where('tahun_ajaran_id', $tahunAjaran->id)
                 ->where('status', 'PAS')
                 ->exists();

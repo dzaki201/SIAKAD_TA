@@ -39,7 +39,7 @@
         <li>
             <a href="{{ route('guru-mapel.edit.nilai', ['id' => $kelas->id, 'cpId' => $cp->id]) }}"
                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-            Edit Nilai Mapel  {{ $kelas->nama }}
+            Edit Nilai 
             </a>
         </li>
         @endif

@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use Database\Seeders\CapaianPembelajaranSeeder;
 use Illuminate\Database\Seeder;
 use Database\Seeders\OrangTuaSeeder;
 
@@ -23,7 +25,9 @@ class DatabaseSeeder extends Seeder
             TahunAjaranSeeder::class,
             EkstrakulikulerSeeder::class,
             KelasMataPelajaranSeeder::class,
-            PlotGuruMapelSeeder::class
+            PlotGuruMapelSeeder::class,
+            CapaianPembelajaranSeeder::class,
+            NilaiSeeder::class,
         ]);
     }
 }

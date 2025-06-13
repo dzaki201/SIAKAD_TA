@@ -128,6 +128,7 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
     Route::put('/guru-ekskul/{id}/update', [SiswaEkstrakulikulerController::class, 'update'])->name('guru.ekskul.update');
     Route::delete('/guru-ekskul/{id}', [SiswaEkstrakulikulerController::class, 'destroy'])->name('guru.ekskul.destroy');
 });
+
 Route::middleware(['auth', 'role:guru_mapel'])->group(function () {
     Route::get('/guru-mapel-dashboard', [DashboardGuruMapelController::class, 'guruMapelIndex'])->name('guru-mapel.dashboard');
 
@@ -139,6 +140,7 @@ Route::middleware(['auth', 'role:guru_mapel'])->group(function () {
 Route::middleware(['auth', 'role:orang_tua'])->group(function () {
     Route::get('/orang-tua-dashboard', [DashboardOrangTuaController::class, 'OrangTuaIndex'])->name('orang-tua.dashboard');
 });
+
 Route::middleware(['auth', 'role:guru,guru_mapel'])->group(function () {
     Route::post('/guru-capaian-pembelajaran', [CapaianPembelajaranController::class, 'store'])->name('guru.cp.store');
     Route::post('/guru-pts-pas', [CapaianPembelajaranController::class, 'tambahPtsPas'])->name('guru.tambah.pts-pas');
@@ -149,7 +151,7 @@ Route::middleware(['auth', 'role:guru,guru_mapel'])->group(function () {
     Route::get('/guru-nilai-akhir/{id}/{kelasId}', [NilaiAkhirController::class, 'store'])->name('guru.nilai-akhir.store');
     Route::post('/guru-nilai-akhir-update', [NilaiAkhirController::class, 'update'])->name('guru.nilai-akhir.update');
     Route::post('/guru-nilai-update', [NilaiController::class, 'update'])->name('guru.nilai.update');
-    
+
     Route::get('/guru-kunci-nilai/{id}/{kelasId}', [KunciNilaiController::class, 'store'])->name('guru.kunci-nilai.store');
     Route::post('/guru-nilai-kunci/{id}', [KunciNilaiController::class, 'kunci'])->name('guru.kunci-nilai');
 });

@@ -24,7 +24,42 @@ class DashboardGuruMapelController extends Controller
         $guru = Guru::where('user_id', $userId)->first();
         $kelasmapel = PlotGuruMapel::where('guru_id', $guru->id)->pluck('kelas_id');
         $kelases = Kelas::whereIn('id', $kelasmapel)->get();
-        return view('GuruMapel.layouts.dashboard', compact('kelases'));
+
+        $siswas = Siswa::whereIn('kelas_id', $kelasmapel)->get();
+        $jumlahSiswa = $siswas->groupBy('kelas_id')->map(function ($items) {
+            return $items->count();
+        });
+        $mapel = MataPelajaran::where('id', $guru->mata_pelajaran_id)->first();
+
+        $siswaIds = Siswa::whereIn('kelas_id', $kelasmapel)->pluck('id');
+        $rataNilai = NilaiAkhir::whereIn('siswa_id', $siswaIds)
+            ->where('guru_id', $guru->id)
+            ->where('mata_pelajaran_id', $guru->mata_pelajaran_id)
+            ->get()
+            ->groupBy(['siswa.kelas_id', 'tahun_ajaran_id'])
+            ->map(function ($byTahunAjaran, $kelasId) {
+                $kelas = Kelas::find($kelasId);
+                return [
+                    'kelas' => $kelas->nama,
+                    'data' => $byTahunAjaran->map(function ($items, $tahunAjaranId) {
+                        $tahunAjaran = TahunAjaran::find($tahunAjaranId);
+                        $label = "Semester {$tahunAjaran->semester} - {$tahunAjaran->tahun}";
+                        return [
+                            'label' => $label,
+                            'rata_rata' => $items->avg('nilai_akhir')
+                        ];
+                    })->values()
+                ];
+            })->values();
+
+        $labels = $rataNilai->pluck('data')
+            ->flatten(1)
+            ->pluck('label')
+            ->unique()
+            ->values();
+        $kelaslabels = $rataNilai->pluck('kelas')->unique()->values();
+        // dd($kelaslabels);
+        return view('GuruMapel.layouts.dashboard', compact('kelases', 'jumlahSiswa', 'mapel', 'rataNilai', 'labels','kelaslabels'));
     }
     public function guruMapelNilai($id)
     {
@@ -40,7 +75,7 @@ class DashboardGuruMapelController extends Controller
             ->where('kelas_id', $kelas->id)
             ->where('tahun_ajaran_id', $tahun->id)
             ->first();
-            
+
         if (!$kunci) {
             return view('guru.layouts.nilai', compact('tahun', 'kunci', 'mapel', 'kelas', 'kelases'));
         }
@@ -67,7 +102,7 @@ class DashboardGuruMapelController extends Controller
             ->where('tahun_ajaran_id', $tahun->id)
             ->where('mata_pelajaran_id', $mapel->id)->get();
 
-        return view('GuruMapel.layouts.nilai', compact('kelases', 'siswas', 'mapel', 'tahun', 'capaians', 'kelas', 'nilais', 'nilaiakhirs','kunci'));
+        return view('GuruMapel.layouts.nilai', compact('kelases', 'siswas', 'mapel', 'tahun', 'capaians', 'kelas', 'nilais', 'nilaiakhirs', 'kunci'));
     }
     public function guruMapelEditNilai($id, $cpId)
     {

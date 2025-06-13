@@ -60,7 +60,7 @@ class NilaiAkhirController extends Controller
             // Hitung nilai akhir
             $nilaiAkhir = (0.6 * $rataCp) + (0.2 * $nilaiPts) + (0.2 * $nilaiPas);
 
-            return  round($nilaiAkhir, 2);
+            return  round($nilaiAkhir, 3);
         });
 
         $nilaiAkhir = $hasilAkhir->map(function ($nilaiAkhir, $siswaId) use ($guru, $id, $tahunAjaran) {

@@ -86,21 +86,25 @@ class PlottingGuruController extends Controller
     public function kelasGuruMapel(Request $request, $id)
     {
         $request->validate([
-            'kelas_id'  => 'required|array',
+            'kelas_id'   => 'nullable|array',
             'kelas_id.*' => 'exists:kelas,id',
         ]);
 
         PlotGuruMapel::where('guru_id', $id)->delete();
-        $data = collect($request->kelas_id)->map(function ($kelasId) use ($id) {
-            return [
-                'guru_id'   => $id,
-                'kelas_id'  => $kelasId,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
-        })->toArray();
 
-        PlotGuruMapel::insert($data);
+        if ($request->filled('kelas_id')) {
+            $data = collect($request->kelas_id)->map(function ($kelasId) use ($id) {
+                return [
+                    'guru_id'   => $id,
+                    'kelas_id'  => $kelasId,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+            })->toArray();
+
+            PlotGuruMapel::insert($data);
+        }
+
         return redirect()->back()->with('success', 'Plotting guru mapel ke kelas berhasil disimpan.');
     }
 }
