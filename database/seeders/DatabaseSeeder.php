@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\SiswaEkstrakulikuler;
 use Database\Seeders\CapaianPembelajaranSeeder;
 use Illuminate\Database\Seeder;
 use Database\Seeders\OrangTuaSeeder;
@@ -28,6 +29,8 @@ class DatabaseSeeder extends Seeder
             PlotGuruMapelSeeder::class,
             CapaianPembelajaranSeeder::class,
             NilaiSeeder::class,
+            SiswaEkstrakulikulerSeeder::class,
+            AbsensiSeeder::class,
         ]);
     }
 }

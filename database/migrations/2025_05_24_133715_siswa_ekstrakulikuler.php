@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('siswa_id')->constrained('siswa');
             $table->foreignId('ekstrakulikuler_id')->constrained('ekstrakulikuler')->onDelete('cascade');;
-            $table->string('nilai')->nullable();
+            $table->string('keterangan')->nullable();
             $table->foreignId('tahun_ajaran_id')->constrained('tahun_ajaran')->onDelete('cascade');;
             $table->timestamps();
         });
