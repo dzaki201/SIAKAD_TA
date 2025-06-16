@@ -38,6 +38,7 @@
                     </svg>
                     Kunci Nilai
                 </button>
+                <a href="{{ route('guru.rapor') }}">rapot</a>   
                 @include('guru.partials.kunci-nilai.modal-kunci-nilai')
             @else
                 <span class="text-base font-semibold text-gray-800 dark:text-gray-300">

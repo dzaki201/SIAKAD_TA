@@ -1,5 +1,4 @@
 <div>
-    <!-- Success Modal -->
     @if (session('success'))
         <div id="successModal" tabindex="-1" aria-hidden="true"
             class="fixed inset-0 z-50 flex items-center justify-center w-full h-full overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
@@ -24,8 +23,6 @@
             </div>
         </div>
     @endif
-
-    <!-- Error Modal -->
     @if (session('errors'))
         <div id="errorModal" tabindex="-1" aria-hidden="true"
             class="fixed inset-0 z-50 flex items-center justify-center w-full h-full overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
@@ -50,5 +47,4 @@
             </div>
         </div>
     @endif
-
 </div>
