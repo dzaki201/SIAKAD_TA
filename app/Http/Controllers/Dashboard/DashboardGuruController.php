@@ -20,6 +20,7 @@ use App\Models\PlotGuruMapel;
 use App\Models\SiswaEkstrakulikuler;
 use Database\Seeders\SiswaSeeder;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Browsershot\Browsershot;
 
 class DashboardGuruController extends Controller
 {
@@ -30,7 +31,8 @@ class DashboardGuruController extends Controller
       $kelasId = $guru->kelas_id;
       $mapels = MataPelajaran::whereHas('kelases', function ($query) use ($kelasId) {
          $query->where('kelas_id', $kelasId);
-      })->get();
+      })->where('status', 'umum')
+         ->get();
       return view('Guru.layouts.dashboard', compact('mapels'));
    }
    public function guruNilai($id)
@@ -43,7 +45,8 @@ class DashboardGuruController extends Controller
       $tahun = TahunAjaran::where('status', 1)->first();
       $mapels = MataPelajaran::whereHas('kelases', function ($query) use ($kelasId) {
          $query->where('kelas_id', $kelasId);
-      })->get();
+      })->where('status', 'umum')
+         ->get();
       $kunci = KunciNilai::where('guru_id', $guru->id)
          ->where('mata_pelajaran_id', $id)
          ->where('kelas_id', $kelasId)
@@ -87,7 +90,8 @@ class DashboardGuruController extends Controller
       $siswas = Siswa::where('kelas_id', $kelasId)->get();
       $mapels = MataPelajaran::whereHas('kelases', function ($query) use ($kelasId) {
          $query->where('kelas_id', $kelasId);
-      })->get();
+      })->where('status', 'umum')
+         ->get();
       $cp = CapaianPembelajaran::where('id', $cpId)->first();
       $tahun = TahunAjaran::where('status', 1)->first();
       $nilais = Nilai::whereIn('siswa_id', $siswas->pluck('id'))
@@ -110,7 +114,8 @@ class DashboardGuruController extends Controller
          ->where('mata_pelajaran_id', $mapel->id)->get();
       $mapels = MataPelajaran::whereHas('kelases', function ($query) use ($kelasId) {
          $query->where('kelas_id', $kelasId);
-      })->get();
+      })->where('status', 'umum')
+         ->get();
 
       return view('guru.layouts.edit-nilai-akhir', compact('siswas', 'mapels', 'mapel', 'tahun', 'nilaiakhirs', 'kelas'));
    }
@@ -127,7 +132,8 @@ class DashboardGuruController extends Controller
 
       $mapels = MataPelajaran::whereHas('kelases', function ($query) use ($kelasId) {
          $query->where('kelas_id', $kelasId);
-      })->get();
+      })->where('status', 'umum')
+         ->get();
       $tahuns = TahunAjaran::get();
       return view('guru.layouts.absensi', compact('mapels', 'siswas', 'tahun', 'tahuns'));
    }
@@ -144,7 +150,8 @@ class DashboardGuruController extends Controller
 
       $mapels = MataPelajaran::whereHas('kelases', function ($query) use ($kelasId) {
          $query->where('kelas_id', $kelasId);
-      })->get();
+      })->where('status', 'umum')
+         ->get();
       $tahuns = TahunAjaran::get();
       return view('guru.layouts.absensi', compact('mapels', 'siswas', 'tahun', 'tahuns'));
    }
@@ -161,7 +168,8 @@ class DashboardGuruController extends Controller
       }])->where('kelas_id', $kelasId)->get();
       $mapels = MataPelajaran::whereHas('kelases', function ($query) use ($kelasId) {
          $query->where('kelas_id', $kelasId);
-      })->get();
+      })->where('status', 'umum')
+         ->get();
       $tahuns = TahunAjaran::get();
       $ekskuls = Ekstrakulikuler::get();
       return view('guru.layouts.ekskul',  compact('mapels', 'siswas', 'tahun', 'tahuns', 'ekskuls'));
@@ -179,7 +187,8 @@ class DashboardGuruController extends Controller
       }])->where('kelas_id', $kelasId)->get();
       $mapels = MataPelajaran::whereHas('kelases', function ($query) use ($kelasId) {
          $query->where('kelas_id', $kelasId);
-      })->get();
+      })->where('status', 'umum')
+         ->get();
       $tahuns = TahunAjaran::get();
       $ekskuls = Ekstrakulikuler::get();
       return view('guru.layouts.ekskul',  compact('mapels', 'siswas', 'tahun', 'tahuns', 'ekskuls'));
@@ -216,7 +225,13 @@ class DashboardGuruController extends Controller
          ->where('tahun_ajaran_id', $tahun->id)
          ->get();
 
-      // dd($absensi);
-      return view('guru.layouts.rapor', compact('siswas', 'guru', 'tahun', 'mapels', 'nilaiakhirs', 'ekskuls', 'absensi'));
+      $template = view('guru.layouts.rapor', compact('siswas', 'guru', 'tahun', 'mapels', 'nilaiakhirs', 'ekskuls', 'absensi'))->render();
+
+      $outputPath = public_path('rapor_siswa_kelas_' . $guru->kelas->nama . '.pdf');
+      Browsershot::html($template)
+         ->showBackground()
+         ->save($outputPath);
+
+      return response()->download($outputPath);
    }
 }

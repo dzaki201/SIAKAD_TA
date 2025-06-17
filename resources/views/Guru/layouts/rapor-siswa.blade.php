@@ -15,7 +15,6 @@
 </head>
 
 <body class="p-8">
-    @foreach ($siswas as $siswa)
         <div class="text-center mb-6">
             <h2 class="text-2xl font-bold">RAPOR DAN PROFIL PESERTA DIDIK</h2>
         </div>
@@ -164,8 +163,6 @@
                 <p>Sri Sugihartini, S.Pd</p>
             </div>
         </div>
-        <div style="page-break-before: always;"></div>
-    @endforeach
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </body>
 
