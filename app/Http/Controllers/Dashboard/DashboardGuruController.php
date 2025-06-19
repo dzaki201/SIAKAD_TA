@@ -58,17 +58,17 @@ class DashboardGuruController extends Controller
          ];
       });
 
-      // dd($nilaiPerSiswa);
       return view('Guru.layouts.dashboard', compact('mapels', 'tahuns', 'tahun', 'siswas', 'progresNilai', 'nilaiPerSiswa'));
    }
-   public function guruNilai($id)
+   public function guruNilai($id, Request $request)
    {
       $userId = Auth::id();
       $guru = Guru::where('user_id', $userId)->first();
       $kelasId = $guru->kelas_id;
       $kelas = Kelas::where('id', $kelasId)->first();
       $mapel = MataPelajaran::where('id', $id)->first();
-      $tahun = TahunAjaran::where('status', 1)->first();
+      $tahun = TahunAjaran::where('id', $request->tahun_id)->first() ?? TahunAjaran::where('status', 1)->first();
+      $tahuns = TahunAjaran::get();
       $mapels = MataPelajaran::whereHas('kelases', function ($query) use ($kelasId) {
          $query->where('kelas_id', $kelasId);
       })->where('status', 'umum')
@@ -80,7 +80,7 @@ class DashboardGuruController extends Controller
          ->first();
 
       if (!$kunci) {
-         return view('guru.layouts.nilai', compact('mapels', 'tahun', 'kunci', 'mapel', 'kelas'));
+         return view('guru.layouts.nilai', compact('mapels', 'tahun', 'tahuns', 'kunci', 'mapel', 'kelas'));
       }
       $siswas = Siswa::where('kelas_id', $kelasId)->get();
       $capaians = CapaianPembelajaran::where('mata_pelajaran_id', $id)
@@ -104,7 +104,7 @@ class DashboardGuruController extends Controller
       $nilaiakhirs = NilaiAkhir::whereIn('siswa_id', $siswas->pluck('id'))
          ->where('tahun_ajaran_id', $tahun->id)
          ->where('mata_pelajaran_id', $mapel->id)->get();
-      return view('guru.layouts.nilai', compact('siswas', 'mapels', 'capaians', 'mapel', 'tahun', 'nilais', 'nilaiakhirs', 'kunci', 'kelas'));
+      return view('guru.layouts.nilai', compact('siswas', 'mapels', 'capaians', 'mapel', 'tahun', 'tahuns', 'nilais', 'nilaiakhirs', 'kunci', 'kelas'));
    }
    public function guruEditNilai($id, $cpId)
    {
