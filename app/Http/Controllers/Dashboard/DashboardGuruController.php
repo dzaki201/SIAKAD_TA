@@ -29,6 +29,7 @@ class DashboardGuruController extends Controller
       $userId = Auth::id();
       $guru = Guru::where('user_id', $userId)->first();
       $kelasId = $guru->kelas_id;
+      $kelas = Kelas::where('id', $kelasId)->first();
       $siswas = Siswa::where('kelas_id', $kelasId)->get();
       $tahuns = TahunAjaran::get();
       $tahun = TahunAjaran::where('id', $request->tahun_id)->first() ?? TahunAjaran::where('status', 1)->first();
@@ -58,7 +59,7 @@ class DashboardGuruController extends Controller
          ];
       });
 
-      return view('Guru.layouts.dashboard', compact('mapels', 'tahuns', 'tahun', 'siswas', 'progresNilai', 'nilaiPerSiswa'));
+      return view('Guru.layouts.dashboard', compact('mapels', 'tahuns', 'tahun', 'siswas', 'progresNilai', 'nilaiPerSiswa', 'kelas'));
    }
    public function guruNilai($id, Request $request)
    {
@@ -163,7 +164,7 @@ class DashboardGuruController extends Controller
       $tahuns = TahunAjaran::get();
       return view('guru.layouts.absensi', compact('mapels', 'siswas', 'tahun', 'tahuns'));
    }
-   
+
    public function guruEkskul(Request $request)
    {
       $userId = Auth::id();
@@ -207,7 +208,7 @@ class DashboardGuruController extends Controller
 
       $tahunText = str_replace('/', '-', $tahun->tahun);
       $fileName = 'Rapor_Siswa_Kelas_' .  $guru->kelas->nama . '_Semester_' . $tahun->semester . '_' . $tahunText . '.pdf';
-      
+
       $outputPath = public_path($fileName);
       Browsershot::html($template)
          ->showBackground()

@@ -3,9 +3,9 @@
 @section('title', 'Dashboard Guru')
 
 @section('content')
-    {{-- <div class="pt-5 flex space-x-4">
+    <div class="mb-6 pt-5 flex space-x-4">
         <div
-            class="max-w-2xl w-full h-48 p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 flex items-center space-x-6">
+            class=" w-full p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 flex items-center space-x-6">
             <div class="shrink-0">
                 <img class="w-24 h-24 rounded-full object-cover" src="https://randomuser.me/api/portraits/men/32.jpg"
                     alt="Profile Photo">
@@ -23,10 +23,17 @@
         <div
             class="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-8 dark:bg-gray-800 dark:border-gray-700">
             <div class="mb-4">
-                <h5 class="text-xl font-bold text-gray-900 dark:text-white">Data Statistik</h5>
+                <h5 class="text-xl font-bold text-gray-900 dark:text-white">Kelas : {{ $kelas->nama }}</h5>
             </div>
+            <ul class="space-y-2">
+                @foreach ($mapels as $mapel)
+                    <li class="flex justify-between text-gray-700 dark:text-gray-300">
+                        <span>{{ $loop->iteration }}. {{ $mapel->nama }}</span>
+                    </li>
+                @endforeach
+            </ul>
         </div>
-    </div> --}}
+    </div>
     @include('components.alert')
     <div class="overflow-x-auto w-auto rounded-lg border p-4 bg-white dark:bg-gray-800 shadow">
 
