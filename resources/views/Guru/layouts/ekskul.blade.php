@@ -6,9 +6,9 @@
     @include('components.alert')
     <div class="flex justify-between items-center mt-4 mb-4">
         <div></div>
-        <form action="{{ route('guru.ekskul.search') }}" method="GET" class="flex items-center gap-2">
+        <form action="{{ route('guru.ekskul') }}" method="GET" class="flex items-center gap-2">
             <div>
-                <select name="tahun" id="tahun"
+                <select name="tahun_id" id="tahun"
                     class="border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-800 dark:border-gray-600 dark:text-white">
                     <option value="">Pilih Tahun</option>
                     </option>
@@ -25,7 +25,13 @@
             </button>
         </form>
     </div>
+    @php
+        $no = 1;
+        $tahunAktif = $tahuns->firstWhere('status', 1);
+    @endphp
     <div class="overflow-x-auto w-auto rounded-lg border p-4 bg-white dark:bg-gray-800 shadow">
+        {{-- @if ($tahun->id == $tahunAktif->id) --}}
+
         <table class="w-full min-w-[1000px] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 table-fixed">
             <thead class="text-xs text-white text-center uppercase bg-blue-800 dark:bg-gray-700">
                 <tr>
@@ -34,10 +40,11 @@
                     <th class="w-px-4 py-3 border border-gray-300 ">Nama</th>
                     <th class="w-px-4 py-3 border border-gray-300 ">Ekskul</th>
                     <th class="w-px-4 py-3 border border-gray-300 ">Keterangan</th>
-                    <th class="w-px-4 py-3 border border-gray-300 " colspan="2">Aksi</th>
+                    @if ($tahun->id == $tahunAktif->id)
+                        <th class="w-px-4 py-3 border border-gray-300 " colspan="2">Aksi</th>
+                    @endif
                 </tr>
             </thead>
-            @php $no = 1; @endphp
             <tbody>
                 @foreach ($siswas as $siswa)
                     @php $rowspan = $siswa->siswaekskul->count() ?: 1; @endphp
@@ -52,23 +59,27 @@
                                 <td class="w-px-4 py-3  border border-gray-300 text-center" rowspan="{{ $rowspan }}">
                                     {{ $siswa->nama }}</td>
                             @endif
-                            <td class="w-px-4 py-3  border border-gray-300 text-center">{{ $ekskul->ekskul->nama ?? '-' }}
-                            </td>
-                            <td class="w-px-4 py-3  border border-gray-300 text-center">{{ $ekskul->keterangan ?? '-' }}
+                            <td class="w-px-4 py-3  border border-gray-300 text-center">
+                                {{ $ekskul->ekskul->nama ?? '-' }}
                             </td>
                             <td class="w-px-4 py-3  border border-gray-300 text-center">
-                                <button data-modal-target="edit-ekskul-modal-{{ $ekskul->id }}"
-                                    data-modal-toggle="edit-ekskul-modal-{{ $ekskul->id }}"
-                                    class="inline-flex items-center bg-yellow-500 text-white p-2 rounded-lg hover:bg-yellow-600">
-                                    Edit Nilai 
-                                </button>
-                                <button data-modal-target="hapus-ekskul-modal-{{ $ekskul->id }}"
-                                    data-modal-toggle="hapus-ekskul-modal-{{ $ekskul->id }}"
-                                    class="inline-flex items-center bg-red-500 text-white p-2 rounded-lg hover:bg-red-600">
-                                    Hapus Ekskul
-                                </button>
+                                {{ $ekskul->keterangan ?? '-' }}
                             </td>
-                            @if ($ekskulIndex == 0)
+                            @if ($tahun->id == $tahunAktif->id)
+                                <td class="w-px-4 py-3  border border-gray-300 text-center">
+                                    <button data-modal-target="edit-ekskul-modal-{{ $ekskul->id }}"
+                                        data-modal-toggle="edit-ekskul-modal-{{ $ekskul->id }}"
+                                        class="inline-flex items-center bg-yellow-500 text-white p-2 rounded-lg hover:bg-yellow-600">
+                                        Edit Nilai
+                                    </button>
+                                    <button data-modal-target="hapus-ekskul-modal-{{ $ekskul->id }}"
+                                        data-modal-toggle="hapus-ekskul-modal-{{ $ekskul->id }}"
+                                        class="inline-flex items-center bg-red-500 text-white p-2 rounded-lg hover:bg-red-600">
+                                        Hapus Ekskul
+                                    </button>
+                                </td>
+                            @endif
+                            @if ($ekskulIndex == 0 && $tahun->id == $tahunAktif->id)
                                 <td class="w-px-4 py-3  border border-gray-300 text-center" rowspan="{{ $rowspan }}">
                                     <button data-modal-target="tambah-ekskul-modal-{{ $siswa->id }}"
                                         data-modal-toggle="tambah-ekskul-modal-{{ $siswa->id }}"
@@ -104,5 +115,12 @@
                 @endforeach
             </tbody>
         </table>
+        {{-- @else
+                <div class="flex justify-center items-center h-[500px]">
+                    <span class="ml-4 text-lg font-semibold text-gray-700 dark:text-white">Tidak ada data absensi di
+                        semester
+                        {{ $tahun->semester }} - {{ $tahun->tahun }} </span>
+                </div>
+            @endif --}}
     </div>
 @endsection

@@ -118,17 +118,16 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
     Route::get('/guru-edit-nilai-akhir/{id}/{kelasId}', [DashboardGuruController::class, 'guruEditNilaiAkhir'])->name('guru.edit.nilai-akhir');
 
     Route::get('/guru-absensi', [DashboardGuruController::class, 'guruAbsensi'])->name('guru.absensi');
-    Route::get('/guru-absensi-search', [DashboardGuruController::class, 'guruAbsensiSearch'])->name('guru.absensi.search');
     Route::get('/guru-absensi/{id}', [AbsensiController::class, 'store'])->name('guru.absensi.store');
     Route::put('/guru-absensi{id}/update', [AbsensiController::class, 'update'])->name('guru.absensi.update');
 
     Route::get('/guru-ekskul', [DashboardGuruController::class, 'guruEkskul'])->name('guru.ekskul');
-    Route::get('/guru-ekskul-search', [DashboardGuruController::class, 'guruEkskulSearch'])->name('guru.ekskul.search');
     Route::post('/guru-ekskul', [SiswaEkstrakulikulerController::class, 'store'])->name('guru.ekskul.store');
     Route::put('/guru-ekskul/{id}/update', [SiswaEkstrakulikulerController::class, 'update'])->name('guru.ekskul.update');
     Route::delete('/guru-ekskul/{id}', [SiswaEkstrakulikulerController::class, 'destroy'])->name('guru.ekskul.destroy');
 
     route::get('/guru-rapor', [DashboardGuruController::class, 'guruRapor'])->name('guru.rapor');
+    route::get('/guru-rapor/{id}', [DashboardGuruController::class, 'guruRaporSiswa'])->name('guru.rapor-siswa');
 });
 
 Route::middleware(['auth', 'role:guru_mapel'])->group(function () {

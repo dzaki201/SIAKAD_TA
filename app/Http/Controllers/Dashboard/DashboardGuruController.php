@@ -24,16 +24,42 @@ use Spatie\Browsershot\Browsershot;
 
 class DashboardGuruController extends Controller
 {
-   public function guruIndex()
+   public function guruIndex(Request $request)
    {
       $userId = Auth::id();
       $guru = Guru::where('user_id', $userId)->first();
       $kelasId = $guru->kelas_id;
+      $siswas = Siswa::where('kelas_id', $kelasId)->get();
+      $tahuns = TahunAjaran::get();
+      $tahun = TahunAjaran::where('id', $request->tahun_id)->first() ?? TahunAjaran::where('status', 1)->first();
+
       $mapels = MataPelajaran::whereHas('kelases', function ($query) use ($kelasId) {
          $query->where('kelas_id', $kelasId);
       })->where('status', 'umum')
          ->get();
-      return view('Guru.layouts.dashboard', compact('mapels'));
+      $mapelsiswa = MataPelajaran::whereHas('kelases', function ($query) use ($kelasId) {
+         $query->where('kelas_id', $kelasId);
+      })
+         ->get();
+      $totalMapel = $mapelsiswa->count();
+      $nilaiPerSiswa = NilaiAkhir::selectRaw('siswa_id, COUNT(DISTINCT mata_pelajaran_id) as jumlah_nilai')
+         ->whereIn('siswa_id', $siswas->pluck('id'))
+         ->where('tahun_ajaran_id', $tahun->id)
+         ->groupBy('siswa_id')
+         ->pluck('jumlah_nilai', 'siswa_id');
+      $progresNilai = $siswas->map(function ($siswa) use ($nilaiPerSiswa, $totalMapel, $tahun) {
+         $mapelNilaiAda = $nilaiPerSiswa->get($siswa->id, 0);
+         $persen = $totalMapel > 0 ? round(($mapelNilaiAda / $totalMapel) * 100, 2) : 0;
+
+         return [
+            'siswa_id' => $siswa->id,
+            'tahun_id' => $tahun->id,
+            'persen' => $persen
+         ];
+      });
+
+      // dd($nilaiPerSiswa);
+      return view('Guru.layouts.dashboard', compact('mapels', 'tahuns', 'tahun', 'siswas', 'progresNilai', 'nilaiPerSiswa'));
    }
    public function guruNilai($id)
    {
@@ -119,12 +145,12 @@ class DashboardGuruController extends Controller
 
       return view('guru.layouts.edit-nilai-akhir', compact('siswas', 'mapels', 'mapel', 'tahun', 'nilaiakhirs', 'kelas'));
    }
-   public function guruAbsensi()
+   public function guruAbsensi(Request $request)
    {
       $userId = Auth::id();
       $guru = Guru::where('user_id', $userId)->first();
       $kelasId = $guru->kelas_id;
-      $tahun = TahunAjaran::where('status', 1)->first();
+      $tahun = TahunAjaran::where('id', $request->tahun_id)->first() ?? TahunAjaran::where('status', 1)->first();
 
       $siswas = Siswa::with(['absensi' => function ($query) use ($tahun) {
          $query->where('tahun_ajaran_id', $tahun->id);
@@ -137,30 +163,13 @@ class DashboardGuruController extends Controller
       $tahuns = TahunAjaran::get();
       return view('guru.layouts.absensi', compact('mapels', 'siswas', 'tahun', 'tahuns'));
    }
-   public function guruAbsensiSearch(Request $request)
+   
+   public function guruEkskul(Request $request)
    {
       $userId = Auth::id();
       $guru = Guru::where('user_id', $userId)->first();
       $kelasId = $guru->kelas_id;
-      $tahun = TahunAjaran::where('id', $request->tahun)->first();
-
-      $siswas = Siswa::with(['absensi' => function ($query) use ($request) {
-         $query->where('tahun_ajaran_id', $request->tahun);
-      }])->where('kelas_id', $kelasId)->get();
-
-      $mapels = MataPelajaran::whereHas('kelases', function ($query) use ($kelasId) {
-         $query->where('kelas_id', $kelasId);
-      })->where('status', 'umum')
-         ->get();
-      $tahuns = TahunAjaran::get();
-      return view('guru.layouts.absensi', compact('mapels', 'siswas', 'tahun', 'tahuns'));
-   }
-   public function guruEkskul()
-   {
-      $userId = Auth::id();
-      $guru = Guru::where('user_id', $userId)->first();
-      $kelasId = $guru->kelas_id;
-      $tahun = TahunAjaran::where('status', 1)->first();
+      $tahun = TahunAjaran::where('id', $request->tahun_id)->first() ?? TahunAjaran::where('status', 1)->first();
 
       $siswas = Siswa::with(['siswaekskul' => function ($query) use ($tahun) {
          $query->where('tahun_ajaran_id', $tahun->id)
@@ -174,44 +183,13 @@ class DashboardGuruController extends Controller
       $ekskuls = Ekstrakulikuler::get();
       return view('guru.layouts.ekskul',  compact('mapels', 'siswas', 'tahun', 'tahuns', 'ekskuls'));
    }
-   public function guruEkskulSearch(Request $request)
-   {
-      $userId = Auth::id();
-      $guru = Guru::where('user_id', $userId)->first();
-      $kelasId = $guru->kelas_id;
-      $tahun = TahunAjaran::where('id', $request->tahun)->first();
-
-      $siswas = Siswa::with(['siswaekskul' => function ($query) use ($request) {
-         $query->where('tahun_ajaran_id', $request->tahun)
-            ->with('ekskul');
-      }])->where('kelas_id', $kelasId)->get();
-      $mapels = MataPelajaran::whereHas('kelases', function ($query) use ($kelasId) {
-         $query->where('kelas_id', $kelasId);
-      })->where('status', 'umum')
-         ->get();
-      $tahuns = TahunAjaran::get();
-      $ekskuls = Ekstrakulikuler::get();
-      return view('guru.layouts.ekskul',  compact('mapels', 'siswas', 'tahun', 'tahuns', 'ekskuls'));
-   }
-   public function guruRapor()
+   public function guruRapor(Request $request)
    {
       $userId = Auth::id();
       $guru = Guru::where('user_id', $userId)->first();
       $siswas = Siswa::where('kelas_id', $guru->kelas_id)->get();
-      $tahun = TahunAjaran::where('status', 1)->first();
-
-
-      // $plotGuruMapel = PlotGuruMapel::where('kelas_id', $guru->kelas_id)->pluck('guru_id');
-      // $guruMapel = Guru::where('id', $plotGuruMapel)->pluck('id');
-      // $capaians = CapaianPembelajaran::where(function ($query) use ($guru, $guruMapel) {
-      //    $query->where('guru_id', $guru->id)
-      //       ->orWhereIn('guru_id', $guruMapel);
-      // })
-      //    ->where('tahun_ajaran_id', $tahun->id)
-      //    ->where('kelas_id', $guru->kelas_id)
-      //    ->where('status', 'CP')
-      //    ->get();
-      $kelasMapel = KelasMataPelajaran::where('kelas_id', $guru->id)->pluck('mata_pelajaran_id');
+      $tahun = TahunAjaran::where('id', $request->tahun_id)->first() ?? TahunAjaran::where('status', 1)->first();
+      $kelasMapel = KelasMataPelajaran::where('kelas_id', $guru->kelas_id)->pluck('mata_pelajaran_id');
       $mapels = MataPelajaran::whereIn('id', $kelasMapel)->get();
 
       $nilaiakhirs = NilaiAkhir::whereIn('siswa_id', $siswas->pluck('id'))
@@ -227,11 +205,46 @@ class DashboardGuruController extends Controller
 
       $template = view('guru.layouts.rapor', compact('siswas', 'guru', 'tahun', 'mapels', 'nilaiakhirs', 'ekskuls', 'absensi'))->render();
 
-      $outputPath = public_path('rapor_siswa_kelas_' . $guru->kelas->nama . '.pdf');
+      $tahunText = str_replace('/', '-', $tahun->tahun);
+      $fileName = 'Rapor_Siswa_Kelas_' .  $guru->kelas->nama . '_Semester_' . $tahun->semester . '_' . $tahunText . '.pdf';
+      
+      $outputPath = public_path($fileName);
       Browsershot::html($template)
          ->showBackground()
          ->save($outputPath);
 
-      return response()->download($outputPath);
+      return response()->download($outputPath, $fileName);
+   }
+
+   public function guruRaporSiswa($id, Request $request)
+   {
+      $siswa = Siswa::where('id', $id)->first();
+      $guru = Guru::where('kelas_id', $siswa->kelas->id)->first();
+      $tahun = TahunAjaran::where('id', $request->tahun_id)->first() ?? TahunAjaran::where('status', 1)->first();
+      $kelasMapel = KelasMataPelajaran::where('kelas_id', $siswa->kelas_id)->pluck('mata_pelajaran_id');
+      $mapels = MataPelajaran::whereIn('id', $kelasMapel)->get();
+
+      $nilaiakhirs = NilaiAkhir::where('siswa_id', $siswa->id)
+         ->where('tahun_ajaran_id', $tahun->id)
+         ->get();
+
+      $ekskuls = SiswaEkstrakulikuler::where('siswa_id', $siswa->id)
+         ->where('tahun_ajaran_id', $tahun->id)
+         ->get();
+      $absensi = Absensi::where('siswa_id', $siswa->id)
+         ->where('tahun_ajaran_id', $tahun->id)
+         ->get();
+
+      $template = view('guru.layouts.rapor-siswa', compact('siswa', 'guru', 'tahun', 'mapels', 'nilaiakhirs', 'ekskuls', 'absensi'))->render();
+
+      $tahunText = str_replace('/', '-', $tahun->tahun);
+      $fileName = ('Rapor_' . $siswa->nama . '_Semester_' . $tahun->semester . '_' . $tahunText . '.pdf');
+
+      $outputPath = public_path($fileName);
+      Browsershot::html($template)
+         ->showBackground()
+         ->save($outputPath);
+
+      return response()->download($outputPath, $fileName);
    }
 }

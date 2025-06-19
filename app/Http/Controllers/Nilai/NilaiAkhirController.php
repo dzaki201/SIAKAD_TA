@@ -75,6 +75,9 @@ class NilaiAkhirController extends Controller
                 'updated_at' => now(),
             ];
         })->values()->all();
+        if (count($nilaiAkhir) == 0) {
+            return redirect()->back()->with('errors', 'Tidak ada data nilai untuk dihitung.');
+        }
 
         // Cek dan hapus dulu nilai_akhirs yang existing untuk siswa-siswa ini
         NilaiAkhir::whereIn('siswa_id', $siswaIds)
