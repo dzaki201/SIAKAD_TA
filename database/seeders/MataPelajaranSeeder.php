@@ -37,7 +37,7 @@ class MataPelajaranSeeder extends Seeder
             ],
             [
                 'nama' => 'Seni Musik',
-                'status' => 'umum',
+                'status' => 'khusus',
                 'created_at' => now(),
                 'updated_at' => now()
             ],

@@ -13,6 +13,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('nama', 100);
             $table->string('nip', 50)->unique();
+            $table->string('alamat');
+            $table->string('no_hp', 20);
             $table->foreignId('kelas_id')->nullable()->constrained('kelas')->onDelete('cascade');
             $table->foreignId('mata_pelajaran_id')->nullable()->constrained('mata_pelajaran')->onDelete('cascade');
             $table->timestamps();

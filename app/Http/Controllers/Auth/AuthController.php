@@ -12,28 +12,26 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    public function register()
-    {
-        return view('auth.register');
-    }
+    // public function register()
+    // {
+    //     return view('auth.register');
+    // }
 
-    public function registerSave(Request $request)
-    {
-        Validator::make($request->all(), [
-            'username' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|confirmed',
-        ])->validate();
+    // public function registerSave(Request $request)
+    // {
+    //     Validator::make($request->all(), [
+    //         'email' => 'required|email',
+    //         'password' => 'required|confirmed',
+    //     ])->validate();
 
-        User::create([
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'orang_tua'
-        ]);
+    //     User::create([
+    //         'email' => $request->email,
+    //         'password' => Hash::make($request->password),
+    //         'role' => 'orang_tua'
+    //     ]);
 
-        return redirect()->route('login');
-    }
+    //     return redirect()->route('login');
+    // }
 
     public function login()
     {

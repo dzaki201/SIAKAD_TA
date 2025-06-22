@@ -14,6 +14,8 @@ class GuruController extends Controller
             'user_id' => 'required|exists:users,id',
             'nama' => 'required|string|max:100',
             'nip' => 'required|string|max:50',
+            'alamat' => 'required|string',
+            'no_hp' => 'nullable|string|max:20',
         ]);
         Guru::create($validatedData);
         return redirect()->route('admin.guru')->with('success', 'Data guru berhasil disimpan.');
@@ -25,6 +27,8 @@ class GuruController extends Controller
             'user_id' => 'required|exists:users,id',
             'nama' => 'required|string|max:100',
             'nip' => 'nullable|string|max:50',
+            'alamat' => 'required|string',
+            'no_hp' => 'nullable|string|max:20',
         ]);
         $guru = Guru::findOrFail($id);
         $guru->update($validatedData);

@@ -22,14 +22,6 @@
                     @csrf
                     @method('PUT')
                     <div class="grid gap-4 mb-4 grid-cols-1">
-                        <input type="hidden" name="role" value="admin">
-                        <div>
-                            <label for="username"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-                            <input type="text" name="username" id="username"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
-                                value="{{ $user->username }}" required>
-                        </div>
                         <div>
                             <label for="email"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>

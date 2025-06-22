@@ -21,9 +21,6 @@
                             No
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Username
-                        </th>
-                        <th scope="col" class="px-6 py-3">
                             email
                         </th>
                         <th scope="col" class="px-6 py-3">
@@ -40,9 +37,6 @@
                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-blue-100 dark:hover:bg-gray-600">
                             <td class="px-6 py-4">
                                 {{ $loop->iteration }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $user->username }}
                             </td>
                             <td class="px-6 py-4">
                                 {{ $user->email }}

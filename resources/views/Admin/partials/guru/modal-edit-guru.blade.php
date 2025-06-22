@@ -20,75 +20,52 @@
                 <form action="{{ route('admin.guru.update', ['id' => $guru->id]) }}" method="POST">
                     @csrf
                     @method('PUT')
-                    <div class="mb-4">
-                        <label for="user_id"
-                            class="block text-sm font-medium text-gray-700 dark:text-white">User</label>
-                        <select id="user_id" name="user_id"
-                            class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                            <option value="">Pilih User</option>
-                            <option value="{{ $guru->user_id }}" selected>
-                                {{ $guru->user->username }}
-                            </option>
-                            @foreach ($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->username }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="nama" class="block text-sm font-medium text-gray-700 dark:text-white">Nama
-                            Guru</label>
-                        <input type="text" id="nama" name="nama"
-                            class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white"
-                            value="{{ $guru->nama }}" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="nip"
-                            class="block text-sm font-medium text-gray-700 dark:text-white">NIP</label>
-                        <input type="text" id="nip" name="nip"
-                            class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white"
-                            value="{{ $guru->nip }}" placeholder="Opsional" maxlength="50" required>
-                    </div>
-
-                    {{-- <div class="mb-4">
-                        <label for="kelas_id"
-                            class="block text-sm font-medium text-gray-700 dark:text-white">Kelas</label>
-                        <select id="kelas_id" name="kelas_id"
-                            class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                            <option value="">-</option>
-                            @if ($guru->kelas_id)
-                                <option value="{{ $guru->kelas_id }}" selected>
-                                    {{ $guru->kelas->nama }}
+                    <div class="flex item-center mb-4">
+                        <div class="w-full mr-4">
+                            <label for="user_id"
+                                class="block text-sm font-medium text-gray-700 dark:text-white">User</label>
+                            <select id="user_id" name="user_id"
+                                class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                                <option value="">Pilih User</option>
+                                <option value="{{ $guru->user_id }}" selected>
+                                    {{ $guru->user->email }}
                                 </option>
-                            @endif
-                            @foreach ($kelases as $kelas)
-                                <option value="{{ $kelas->id }}">
-                                    {{ $kelas->nama }}
-                                </option>
-                            @endforeach
-                        </select>
+                                @foreach ($users as $user)
+                                    <option value="{{ $user->id }}">{{ $user->email }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="w-full">
+                            <label for="nama" class="block text-sm font-medium text-gray-700 dark:text-white">Nama
+                                Guru</label>
+                            <input type="text" id="nama" name="nama"
+                                class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                                value="{{ $guru->nama }}" required>
+                        </div>
                     </div>
-
-                    <div class="mb-4">
-                        <label for="mata_pelajaran_id"
-                            class="block text-sm font-medium text-gray-700 dark:text-white">Mata Pelajaran</label>
-                        <select id="mata_pelajaran_id" name="mata_pelajaran_id"
-                            class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                            <option value="">Pilih Mata Pelajaran Jika Guru Mata Pelajaran</option>
-                            <option value="">-</option>
-                            @if ($guru->mata_pelajaran_id)
-                            <option value="{{ $guru->mata_pelajaran_id }}" selected>
-                                {{ $guru->mataPelajaran->nama }}
-                            </option>
-                            @endif
-                            @foreach ($mapels as $mapel)
-                                <option value="{{ $mapel->id }}">
-                                    {{ $mapel->nama }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div> --}}
+                    <div class="flex item-center mb-4">
+                        <div class="w-full mr-4">
+                            <label for="nip"
+                                class="block text-sm font-medium text-gray-700 dark:text-white">NIP</label>
+                            <input type="text" id="nip" name="nip"
+                                class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                                value="{{ $guru->nip }}" placeholder="Opsional" maxlength="50" required>
+                        </div>
+                        <div class="w-full">
+                            <label for="no_hp" class="block text-sm font-medium text-gray-700 dark:text-white">Nomor
+                                HP</label>
+                            <input type="text" id="no_hp" name="no_hp"
+                                class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                                value="{{ $guru->no_hp }}">
+                        </div>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label for="alamat"
+                            class="block text-sm font-medium text-gray-700 dark:text-white">Alamat</label>
+                        <textarea id="alamat" name="alamat" rows="3"
+                            class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                            {{ $guru->alamat }}</textarea>
+                    </div>
                     <div class="p-6 space-x-4 border-t border-gray-200 dark:border-gray-600 text-right">
                         <button type="submit"
                             class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800">Perbaharui</button>

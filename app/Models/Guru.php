@@ -15,6 +15,8 @@ class Guru extends Model
         'user_id',
         'nama',
         'nip',
+        'alamat',
+        'no_hp',
         'kelas_id',
         'mata_pelajaran_id',
     ];

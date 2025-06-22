@@ -13,7 +13,6 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'username' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
             'role' => 'nullable'
@@ -27,7 +26,6 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         $validatedData = $request->validate([
-            'username' => 'required',
             'email' => 'required|email',
             'password' => 'nullable',
             'role' => 'nullable',

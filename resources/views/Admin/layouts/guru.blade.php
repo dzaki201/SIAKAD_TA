@@ -19,9 +19,11 @@
                 <thead class="text-xs text-white uppercase bg-blue-800 dark:bg-gray-700">
                     <tr>
                         <th scope="col" class="px-6 py-3">No</th>
-                        <th scope="col" class="px-6 py-3">Username</th>
-                        <th scope="col" class="px-6 py-3">Nip</th>
+                        <th scope="col" class="px-6 py-3">Email</th>
                         <th scope="col" class="px-6 py-3">Nama Guru</th>
+                        <th scope="col" class="px-6 py-3">Nip</th>
+                        <th scope="col" class="px-6 py-3">Alamat</th>
+                        <th scope="col" class="px-6 py-3">No HP</th>
                         <th scope="col" class="px-6 py-3">Aksi</th>
                     </tr>
                 </thead>
@@ -30,9 +32,11 @@
                         <tr
                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-blue-100 dark:hover:bg-gray-600">
                             <td class="px-6 py-4">{{ $loop->iteration }}</td>
-                            <td class="px-6 py-4">{{ $guru->user->username }}</td>
-                            <td class="px-6 py-4">{{ $guru->nip }}</td>
+                            <td class="px-6 py-4">{{ $guru->user->email }}</td>
                             <td class="px-6 py-4">{{ $guru->nama }}</td>
+                            <td class="px-6 py-4">{{ $guru->nip }}</td>
+                            <td class="px-6 py-4">{{ $guru->alamat }}</td>
+                            <td class="px-6 py-4">{{ $guru->no_hp }}</td>
                             <td class="px-6 py-4">
                                 <button data-modal-target="edit-guru-modal-{{ $guru->id }}"
                                     data-modal-toggle="edit-guru-modal-{{ $guru->id }}"

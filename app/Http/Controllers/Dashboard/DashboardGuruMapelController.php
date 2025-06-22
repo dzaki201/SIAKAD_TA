@@ -69,6 +69,7 @@ class DashboardGuruMapelController extends Controller
         $kelases = Kelas::whereIn('id', $kelasmapel)->get();
         $kelas = Kelas::where('id', $id)->first();
         $tahun = TahunAjaran::where('status', 1)->first();
+        $tahuns = TahunAjaran::get();
         $mapel = MataPelajaran::where('id', $guru->mata_pelajaran_id)->first();
         $kunci = KunciNilai::where('guru_id', $guru->id)
             ->where('mata_pelajaran_id', $mapel->id)
@@ -77,7 +78,7 @@ class DashboardGuruMapelController extends Controller
             ->first();
 
         if (!$kunci) {
-            return view('guru.layouts.nilai', compact('tahun', 'kunci', 'mapel', 'kelas', 'kelases'));
+            return view('guru.layouts.nilai', compact('tahun', 'tahuns','kunci', 'mapel', 'kelas', 'kelases'));
         }
         $siswas = Siswa::where('kelas_id', $id)->get();
         $capaians = CapaianPembelajaran::where('mata_pelajaran_id', $mapel->id)
@@ -102,7 +103,7 @@ class DashboardGuruMapelController extends Controller
             ->where('tahun_ajaran_id', $tahun->id)
             ->where('mata_pelajaran_id', $mapel->id)->get();
 
-        return view('GuruMapel.layouts.nilai', compact('kelases', 'siswas', 'mapel', 'tahun', 'capaians', 'kelas', 'nilais', 'nilaiakhirs', 'kunci'));
+        return view('GuruMapel.layouts.nilai', compact('kelases', 'siswas', 'mapel', 'tahun', 'capaians', 'kelas', 'nilais', 'nilaiakhirs', 'kunci', 'tahuns'));
     }
     public function guruMapelEditNilai($id, $cpId)
     {

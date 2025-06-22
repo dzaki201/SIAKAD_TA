@@ -63,11 +63,11 @@
                     class="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 w-full">Login</button>
             </form>
             <!-- Sign up  Link -->
-            <div class="mt-6 text-center">
+            {{-- <div class="mt-6 text-center">
                 <span>belum punya akun?
                     <a href="{{ route('register') }}" class="text-blue-500 hover:underline">Register disini</a>
                 </span>
-            </div>
+            </div> --}}
         </div>
     </div>
 </body>

@@ -32,13 +32,11 @@ class DashboardAdminController extends Controller
     {
         $gurus = Guru::all();
         $users = User::where(function ($query) {
-            $query->whereNull('role')
-                ->orWhere('role', '');
+            $query->whereNull('role');
         })
-            ->orWhereIn('role', ['guru_kelas', 'guru_mapel'])
+            ->orWhereIn('role', ['guru', 'guru_mapel'])
             ->whereNotIn('id', Guru::pluck('user_id'))
             ->get();
-
         return view('admin.layouts.guru', compact('gurus', 'users'));
     }
     public function adminPlottingGuruKelas()
@@ -55,7 +53,7 @@ class DashboardAdminController extends Controller
     {
         $gurukelases = Guru::whereNotNull('mata_pelajaran_id')->get();
         $gurus = Guru::whereNull('mata_pelajaran_id')->get();
-        $mapels = MataPelajaran::get();
+        $mapels = MataPelajaran::where('status', 'khusus')->get();
         $kelasmapels = KelasMataPelajaran::get();
         $kelasgurumapels = PlotGuruMapel::get();
 
