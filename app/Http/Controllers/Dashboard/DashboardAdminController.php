@@ -7,6 +7,7 @@ use App\Models\Ekstrakulikuler;
 use App\Models\Guru;
 use App\Models\Kelas;
 use App\Models\KelasMataPelajaran;
+use App\Models\KepalaSekolah;
 use App\Models\MataPelajaran;
 use App\Models\OrangTua;
 use App\Models\PlotGuruMapel;
@@ -27,6 +28,14 @@ class DashboardAdminController extends Controller
     {
         $users = User::get();
         return view('admin.layouts.user', compact('users'));
+    }
+    public function adminKepsek()
+    {
+        $kepseks = KepalaSekolah::all();
+        $users = User::where('role', 'kepsek')
+            ->whereNotIn('id', KepalaSekolah::pluck('user_id'))
+            ->get();
+        return view('admin.layouts.kepala-sekolah', compact('kepseks', 'users'));
     }
     public function adminGuru()
     {
@@ -78,9 +87,13 @@ class DashboardAdminController extends Controller
     }
     public function adminOrangTua()
     {
+        $userIds = OrangTua::whereNotNull('user_id')->pluck('user_id');
+        $users = User::where('role', 'orang_tua')
+            ->whereNotIn('id', $userIds)
+            ->get();
         $orangtuas = OrangTua::all();
         $siswas = Siswa::all();
-        return view('admin.layouts.orang-tua', compact('orangtuas', 'siswas'));
+        return view('admin.layouts.orang-tua', compact('orangtuas', 'siswas', 'users'));
     }
     public function adminFilterEditKelasSiswa()
     {

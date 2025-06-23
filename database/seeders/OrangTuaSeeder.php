@@ -12,6 +12,7 @@ class OrangTuaSeeder extends Seeder
     {
         OrangTua::insert([
             [
+                'user_id' => 8,
                 'siswa_id' => 1,
                 'status' => 'ayah',
                 'nama' => 'Bapak Andi',
@@ -23,6 +24,7 @@ class OrangTuaSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'user_id' => null,
                 'siswa_id' => 1,
                 'status' => 'ibu',
                 'nama' => 'Ibu Sari',
@@ -34,6 +36,7 @@ class OrangTuaSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'user_id' => 9,
                 'siswa_id' => 2,
                 'status' => 'ayah',
                 'nama' => 'Bapak Budi',
@@ -45,6 +48,7 @@ class OrangTuaSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'user_id' => null,
                 'siswa_id' => 2,
                 'status' => 'ibu',
                 'nama' => 'Ibu Nina',
@@ -56,6 +60,7 @@ class OrangTuaSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'user_id' => 10,
                 'siswa_id' => 3,
                 'status' => 'wali',
                 'nama' => 'Pak Joko',

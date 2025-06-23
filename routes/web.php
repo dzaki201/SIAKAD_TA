@@ -2,6 +2,7 @@
 
 use App\Models\NilaiAkhir;
 use App\Models\TahunAjaran;
+use App\Models\KepalaSekolah;
 use App\Models\SiswaEkstrakulikuler;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\TahunAjaran\TahunAjaranController;
 use App\Http\Controllers\Dashboard\DashboardAdminController;
 use App\Http\Controllers\Nilai\CapaianPembelajaranController;
 use App\Http\Controllers\Dashboard\DashboardOrangTuaController;
+use App\Http\Controllers\KepalaSekolah\KepalaSekolahController;
 use App\Http\Controllers\MataPelajaran\MataPelajaranController;
 use App\Http\Controllers\Dashboard\DashboardGuruMapelController;
 use App\Http\Controllers\Ekstrakulikuler\EkstrakulikulerController;
@@ -63,6 +65,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/admin-user', [UserController::class, 'store'])->name('admin.user.store');
     Route::put('/admin-user/{id}/update', [UserController::class, 'update'])->name('admin.user.update');
     Route::delete('/admin-user/{id}', [UserController::class, 'destroy'])->name('admin.user.destroy');
+
+    Route::get('/admin-kepsek', [DashboardAdminController::class, 'adminKepsek'])->name('admin.kepsek');
+    Route::post('/admin-kepsek', [KepalaSekolahController::class, 'store'])->name('admin.kepsek.store');
+    Route::put('/admin-kepsek/{id}/update', [KepalaSekolahController::class, 'update'])->name('admin.kepsek.update');
+    Route::delete('/admin-kepsek/{id}', [KepalaSekolahController::class, 'destroy'])->name('admin.kepsek.destroy');
 
     Route::get('/admin-guru', [DashboardAdminController::class, 'adminGuru'])->name('admin.guru');
     Route::get('/admin-plotting-guru-kelas', [DashboardAdminController::class, 'adminPlottingGuruKelas'])->name('admin.guru-kelas');

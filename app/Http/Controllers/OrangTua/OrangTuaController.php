@@ -11,6 +11,7 @@ class OrangTuaController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+            'user_id' => 'nullabel|exists:users,id',
             'siswa_id' => 'required|exists:siswa,id',
             'status' => 'required|in:ayah,ibu,wali',
             'nik' => 'required|string|max:20',
@@ -27,6 +28,7 @@ class OrangTuaController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
+            'user_id' => 'nullable|exists:users,id',
             'siswa_id' => 'required|exists:siswa,id',
             'status' => 'required|in:ayah,ibu,wali',
             'nik' => 'required|string|max:20',
@@ -41,7 +43,7 @@ class OrangTuaController extends Controller
 
         return redirect()->back()->with('success', 'Data Orang Tua berhasil diperbarui.');
     }
-     public function destroy($id)
+    public function destroy($id)
     {
         $orangTua = OrangTua::findOrFail($id);
         $orangTua->delete();

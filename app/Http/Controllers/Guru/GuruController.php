@@ -18,11 +18,10 @@ class GuruController extends Controller
             'no_hp' => 'nullable|string|max:20',
         ]);
         Guru::create($validatedData);
-        return redirect()->route('admin.guru')->with('success', 'Data guru berhasil disimpan.');
+        return redirect()->back()->with('success', 'Data guru berhasil disimpan.');
     }
     public function update(Request $request, $id)
     {
-        // Validasi data
         $validatedData = $request->validate([
             'user_id' => 'required|exists:users,id',
             'nama' => 'required|string|max:100',
@@ -40,5 +39,4 @@ class GuruController extends Controller
         $guru->delete();
         return redirect()->back()->with('success', 'Data guru berhasil dihapus.');
     }
-    
 }

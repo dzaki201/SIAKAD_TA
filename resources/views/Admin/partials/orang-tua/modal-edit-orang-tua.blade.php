@@ -17,11 +17,28 @@
                 </button>
             </div>
             <div class="p-6 space-y-6">
-                <form action="{{ route('admin.orang-tua.update', $ortu->id) }}" method="POST"
-                    class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                <form action="{{ route('admin.orang-tua.update', $ortu->id) }}" method="POST">
                     @csrf
                     @method('PUT')
-                    <div class="flex flex-col md:flex-row md:space-x-4">
+                    <div class="flex space-x-4">
+                        <div class="w-full">
+                            <label for="user_id"
+                                class="block text-sm font-medium text-gray-700 dark:text-white">Siswa</label>
+                            <select id="user_id" name="user_id"
+                                class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                                <option value="">Pilih user</option>
+                                @if ($ortu->user_id)
+                                    <option value="{{ $ortu->user_id }}" selected>
+                                        {{ $ortu->user->email }}
+                                    </option>
+                                @endif
+                                @foreach ($users as $user)
+                                    <option value="{{ $user->id }}">
+                                        {{ $user->email }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="w-full">
                             <label for="siswa_id"
                                 class="block text-sm font-medium text-gray-700 dark:text-white">Siswa</label>
@@ -35,6 +52,8 @@
                                 @endforeach
                             </select>
                         </div>
+                    </div>
+                    <div class="flex space-x-4">
                         <div class="w-full">
                             <label for="status"
                                 class="block text-sm font-medium text-gray-700 dark:text-white">Status</label>
@@ -46,22 +65,20 @@
                                 <option value="wali" {{ $ortu->status == 'wali' ? 'selected' : '' }}>Wali</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="flex flex-col md:flex-row md:space-x-4">
                         <div class="w-full">
                             <label for="nik"
                                 class="block text-sm font-medium text-gray-700 dark:text-white">NIK</label>
                             <input type="text" id="nik" name="nik" value="{{ $ortu->nik }}" required
                                 class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                         </div>
+                    </div>
+                    <div class="flex space-x-4">
                         <div class="w-full">
                             <label for="nama" class="block text-sm font-medium text-gray-700 dark:text-white">Nama
                                 Lengkap</label>
                             <input type="text" id="nama" name="nama" value="{{ $ortu->nama }}" required
                                 class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                         </div>
-                    </div>
-                    <div class="flex flex-col md:flex-row md:space-x-4">
                         <div class="w-full">
                             <label for="pekerjaan"
                                 class="block text-sm font-medium text-gray-700 dark:text-white">Pekerjaan</label>
@@ -69,7 +86,9 @@
                                 required
                                 class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                         </div>
-                        <div class="w-full">
+                    </div>
+                    <div class="flex space-x-4">
+                        <div class="w-1/2 pr-2">
                             <label for="no_hp" class="block text-sm font-medium text-gray-700 dark:text-white">Nomor
                                 HP</label>
                             <input type="text" id="no_hp" name="no_hp" value="{{ $ortu->no_hp }}"

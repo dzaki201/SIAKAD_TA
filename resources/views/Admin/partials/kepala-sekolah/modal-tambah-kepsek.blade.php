@@ -1,14 +1,14 @@
-<div id="tambah-guru-modal" tabindex="-1" aria-hidden="true"
+<div id="tambah-kepsek-modal" tabindex="-1" aria-hidden="true"
     class="fixed inset-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0">
     <div class="relative w-full h-full max-w-2xl md:h-auto">
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Tambah Guru
+                    Tambah Kepala Sekolah
                 </h3>
                 <button type="button"
                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                    data-modal-hide="tambah-guru-modal">
+                    data-modal-hide="tambah-kepsek-modal">
                     <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
                             d="M11.293 4.707a1 1 0 0 1 0 1.414L7.414 9l3.879 3.879a1 1 0 1 1-1.414 1.414L6 10.414 2.121 14.293a1 1 0 0 1-1.414-1.414L4.586 9 .707 5.121a1 1 0 1 1 1.414-1.414L6 7.586l3.879-3.879a1 1 0 0 1 1.414 1.414z" />
@@ -17,7 +17,7 @@
                 </button>
             </div>
             <div class="p-6 space-y-6">
-                <form action="{{ route('admin.guru.store') }}" method="POST"
+                <form action="{{ route('admin.kepsek.store') }}" method="POST"
                     class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
                     @csrf
                     <div>
@@ -34,7 +34,7 @@
                     </div>
                     <div>
                         <label for="nama" class="block text-sm font-medium text-gray-700 dark:text-white">Nama
-                            Guru</label>
+                            Kepala Sekolah</label>
                         <input type="text" id="nama" name="nama"
                             class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white"
                             required>

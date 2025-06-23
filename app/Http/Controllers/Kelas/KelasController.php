@@ -15,7 +15,7 @@ class KelasController extends Controller
         ]);
 
         Kelas::create($validatedData);
-        return redirect()->route('admin.kelas')->with('success', 'Kelas berhasil ditambahkan');
+        return redirect()->back()->with('success', 'Kelas berhasil ditambahkan');
     }
     public function update(Request $request, string $id)
     {
@@ -25,13 +25,13 @@ class KelasController extends Controller
 
         $kelas = Kelas::findOrFail($id);
         $kelas->update($validatedData);
-        return redirect()->route('admin.kelas')->with('success', 'Kelas berhasil diperbaharui');
+        return redirect()->back()->with('success', 'Kelas berhasil diperbaharui');
     }
 
     public function destroy(string $id)
     {
         $kelas = Kelas::findOrFail($id);
         $kelas->delete();
-        return redirect()->route('admin.kelas')->with('success', 'Kelas berhasil dihapus');
+        return redirect()->back()->with('success', 'Kelas berhasil dihapus');
     }
 }

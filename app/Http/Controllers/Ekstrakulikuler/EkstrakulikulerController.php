@@ -15,7 +15,7 @@ class EkstrakulikulerController extends Controller
         ]);
 
         Ekstrakulikuler::create($validatedData);
-        return redirect()->route('admin.ekskul')->with('success', 'Ekstrakulikuler berhasil ditambahkan');
+        return redirect()->back()->with('success', 'Ekstrakulikuler berhasil ditambahkan');
     }
     public function update(Request $request, string $id)
     {
@@ -25,13 +25,13 @@ class EkstrakulikulerController extends Controller
 
         $ekskul = Ekstrakulikuler::findOrFail($id);
         $ekskul->update($validatedData);
-        return redirect()->route('admin.ekskul')->with('success', 'Ekstrakulikuler berhasil diperbaharui');
+        return redirect()->back()->with('success', 'Ekstrakulikuler berhasil diperbaharui');
     }
 
     public function destroy(string $id)
     {
         $ekskul = Ekstrakulikuler::findOrFail($id);
         $ekskul->delete();
-        return redirect()->route('admin.ekskul')->with('success', 'Ekstrakulikuler berhasil dihapus');
+        return redirect()->back()->with('success', 'Ekstrakulikuler berhasil dihapus');
     }
 }
