@@ -23,6 +23,9 @@
                             email
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            Foto
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             Role
                         </th>
                         <th scope="col" class="px-6 py-3">
@@ -40,6 +43,11 @@
                             <td class="px-6 py-4">
                                 {{ $user->email }}
                             </td>
+                            <td class="px-6 py-4">
+                                <img src="{{ asset($user->foto ? 'storage/foto-users/' . $user->foto : 'storage/foto-default/default-profile.jpg') }}"
+                                    alt="Foto User" class="w-20 h-20 rounded-full">
+                            </td>
+
                             <td class="px-6 py-4">
                                 @if ($user->role == 'guru')
                                     Guru Kelas

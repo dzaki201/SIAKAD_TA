@@ -18,7 +18,7 @@
                 </button>
             </div>
             <div class="p-6 space-y-6">
-                <form action="{{ route('admin.user.store') }}" method="POST">
+                <form action="{{ route('admin.user.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="grid gap-4 mb-4 grid-cols-1">
                         <div>
@@ -34,19 +34,27 @@
                             <input type="password" name="password" id="password"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                         </div>
-                    </div>
-                    <div>
-                        <label for="role"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
-                        <select name="role" id="role"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                            <option value="">pilih role</option>
-                            <option value="admin">Admin</option>
-                            <option value="guru">Guru kelas</option>
-                            <option value="guru_mapel">Guru Mapel</option>
-                            <option value="kepsek">Kepala Sekolah</option>
-                            <option value="orang_tua">Orang Tua</option>
-                        </select>
+                        <div>
+                            <label for="foto"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto
+                                </label>
+                            <input type="file" name="foto" id="foto"
+                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                                accept="image/*">
+                        </div>
+                        <div>
+                            <label for="role"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
+                            <select name="role" id="role"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                                <option value="">pilih role</option>
+                                <option value="admin">Admin</option>
+                                <option value="guru">Guru kelas</option>
+                                <option value="guru_mapel">Guru Mapel</option>
+                                <option value="kepsek">Kepala Sekolah</option>
+                                <option value="orang_tua">Orang Tua</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="p-6 space-x-4 border-t border-gray-200 dark:border-gray-600 text-right">
                         <button type="submit"
