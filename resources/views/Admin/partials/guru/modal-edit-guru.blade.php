@@ -63,8 +63,7 @@
                         <label for="alamat"
                             class="block text-sm font-medium text-gray-700 dark:text-white">Alamat</label>
                         <textarea id="alamat" name="alamat" rows="3"
-                            class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                            {{ $guru->alamat }}</textarea>
+                            class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">{{ $guru->alamat }}</textarea>
                     </div>
                     <div class="p-6 space-x-4 border-t border-gray-200 dark:border-gray-600 text-right">
                         <button type="submit"

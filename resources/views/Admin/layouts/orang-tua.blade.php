@@ -6,7 +6,6 @@
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div class="mb-4">
-            @include('components.alert')
             <button data-modal-target="tambah-orang-tua-modal" data-modal-toggle="tambah-orang-tua-modal"
                 class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
                 type="button">

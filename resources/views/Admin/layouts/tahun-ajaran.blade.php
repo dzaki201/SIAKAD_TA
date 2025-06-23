@@ -5,7 +5,6 @@
 @section('content')
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg mb-6">
-        @include('components.alert')
         <form action="{{ Route('admin.tahun-ajaran.store') }}" method="POST" class="mb-4">
             @csrf
             <button

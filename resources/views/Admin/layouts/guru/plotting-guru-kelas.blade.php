@@ -7,7 +7,6 @@
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg mb-6">
         @include('admin.components.navbar-admin-guru')
         <div class="mb-4">
-            @include('components.alert')
             <button data-modal-target="plotting-guru-kelas-modal" data-modal-toggle="plotting-guru-kelas-modal"
                 class="inline-flex items-center gap-2 bg-blue-500 text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition duration-200">
                 <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20"

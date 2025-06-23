@@ -3,7 +3,6 @@
 @section('title', 'Dashboard Guru')
 
 @section('content')
-    @include('components.alert')
     <div class="overflow-x-auto w-auto rounded-lg border p-4 bg-white dark:bg-gray-800 shadow">
         <div class="flex justify-between items-center mt-4 mb-4">
             <div class="flex items-center mt-4 mb-4">

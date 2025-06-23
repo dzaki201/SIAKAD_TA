@@ -4,7 +4,6 @@
 
 @section('content')
     <div class="flex space-x-4">
-        {{-- card profil admin --}}
         <div
             class="max-w-2xl w-full h-48 p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 flex items-center space-x-6">
             <div class="shrink-0">
@@ -43,6 +42,5 @@
         </div>
     </div>
 
-    {{-- @include('admin.partials.user.modal-edit-akun') --}}
 
 @endsection
