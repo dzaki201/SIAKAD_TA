@@ -33,8 +33,12 @@ class Siswa extends Model
     {
         return $this->hasMany(Absensi::class);
     }
-     public function siswaekskul()
+    public function siswaekskul()
     {
         return $this->hasMany(SiswaEkstrakulikuler::class);
+    }
+    public function orangTua()
+    {
+        return $this->hasMany(OrangTua::class);
     }
 }

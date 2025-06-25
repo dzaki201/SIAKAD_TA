@@ -157,6 +157,19 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ route('guru.siswa') }}"
+                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 dark:hover:bg-blue-500 group {{ request()->routeIs('guru.siswa') ? 'bg-blue-700 dark:bg-blue-600' : '' }}">
+                            <svg class="shrink-0 w-5 h-5 text-gray-200 transition duration-75 group-hover:text-white"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M8 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H6Zm7.25-2.095c.478-.86.75-1.85.75-2.905a5.973 5.973 0 0 0-.75-2.906 4 4 0 1 1 0 5.811ZM15.466 20c.34-.588.535-1.271.535-2v-1a5.978 5.978 0 0 0-1.528-4H18a4 4 0 0 1 4 4v1a2 2 0 0 1-2 2h-4.535Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <span class="flex-1 ms-3 whitespace-nowrap">Siswa</span>
+                        </a>
+                    </li>
+                    <li>
                         <button type="button"
                             class="mb-2 flex items-center w-full p-2 text-white rounded-lg hover:bg-blue-800 group"
                             aria-controls="dropdown-nilai" data-collapse-toggle="dropdown-nilai">
@@ -274,7 +287,7 @@
                     </li>
                 @endif
             </ul>
-            <ul class="mt-4 space-y-2 border-t border-gray-200 pt-4 font-medium dark:border-gray-700">
+            {{-- <ul class="mt-4 space-y-2 border-t border-gray-200 pt-4 font-medium dark:border-gray-700">
                 <li>
                     <a href="{{ route('logout') }}"
                         class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 dark:hover:bg-blue-500 group {{ request()->routeIs('logout') ? 'bg-blue-700 dark:bg-blue-600' : '' }}">
@@ -286,7 +299,7 @@
                         </svg>
                         <span class="flex-1 ms-3 whitespace-nowrap">Log Out</span>
                     </a>
-                </li>
+                </li> --}}
 
             </ul>
         </div>

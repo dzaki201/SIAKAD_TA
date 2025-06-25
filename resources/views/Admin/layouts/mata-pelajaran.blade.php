@@ -17,7 +17,7 @@
                 <thead class="text-xs text-white uppercase bg-blue-800 dark:bg-gray-700">
                     <tr>
                         <th scope="col" class="px-6 py-3">
-                            Id
+                            No
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Nama Mata Pelajaran

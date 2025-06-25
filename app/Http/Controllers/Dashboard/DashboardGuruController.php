@@ -16,6 +16,7 @@ use App\Models\CapaianPembelajaran;
 use App\Http\Controllers\Controller;
 use App\Models\Ekstrakulikuler;
 use App\Models\KelasMataPelajaran;
+use App\Models\OrangTua;
 use App\Models\PlotGuruMapel;
 use App\Models\SiswaEkstrakulikuler;
 use Database\Seeders\SiswaSeeder;
@@ -30,10 +31,22 @@ class DashboardGuruController extends Controller
       $guru = Guru::where('user_id', $userId)->first();
       $kelasId = $guru->kelas_id;
       $kelas = Kelas::where('id', $kelasId)->first();
-      $siswas = Siswa::where('kelas_id', $kelasId)->get();
+      $mapels = MataPelajaran::whereHas('kelases', function ($query) use ($kelasId) {
+         $query->where('kelas_id', $kelasId);
+      })->where('status', 'umum')
+         ->get();
+      return view('Guru.layouts.dashboard', compact('mapels', 'kelas'));
+   }
+   public function guruSiswa(Request $request)
+   {
+      $userId = Auth::id();
+      $guru = Guru::where('user_id', $userId)->first();
+      $kelasId = $guru->kelas_id;
+      $kelas = Kelas::where('id', $kelasId)->first();
+      $siswas = Siswa::with('orangTua.user')->where('kelas_id', $kelasId)->get();
       $tahuns = TahunAjaran::get();
       $tahun = TahunAjaran::where('id', $request->tahun_id)->first() ?? TahunAjaran::where('status', 1)->first();
-
+// dd($siswas);
       $mapels = MataPelajaran::whereHas('kelases', function ($query) use ($kelasId) {
          $query->where('kelas_id', $kelasId);
       })->where('status', 'umum')
@@ -59,7 +72,7 @@ class DashboardGuruController extends Controller
          ];
       });
 
-      return view('Guru.layouts.dashboard', compact('mapels', 'tahuns', 'tahun', 'siswas', 'progresNilai', 'nilaiPerSiswa', 'kelas'));
+      return view('Guru.layouts.siswa', compact('mapels', 'tahuns', 'tahun', 'siswas', 'progresNilai', 'nilaiPerSiswa', 'kelas'));
    }
    public function guruNilai($id, Request $request)
    {

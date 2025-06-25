@@ -119,6 +119,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 Route::middleware(['auth', 'role:guru'])->group(function () {
     Route::get('/guru-dashboard', [DashboardGuruController::class, 'guruIndex'])->name('guru.dashboard');
+    Route::get('/guru-siswa', [DashboardGuruController::class, 'guruSiswa'])->name('guru.siswa');
 
     Route::get('/guru-nilai/{id}', [DashboardGuruController::class, 'guruNilai'])->name('guru.nilai');
     Route::get('/guru-edit-nilai/{id}/{cpId}', [DashboardGuruController::class, 'guruEditNilai'])->name('guru.edit.nilai');

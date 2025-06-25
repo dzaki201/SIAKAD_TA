@@ -58,7 +58,6 @@ class DashboardGuruMapelController extends Controller
             ->unique()
             ->values();
         $kelaslabels = $rataNilai->pluck('kelas')->unique()->values();
-        // dd($kelaslabels);
         return view('GuruMapel.layouts.dashboard', compact('kelases', 'jumlahSiswa', 'mapel', 'rataNilai', 'labels','kelaslabels'));
     }
     public function guruMapelNilai($id)

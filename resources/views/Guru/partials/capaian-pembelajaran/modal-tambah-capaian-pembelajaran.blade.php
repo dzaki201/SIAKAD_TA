@@ -1,5 +1,5 @@
 <div id="tambah-capaian-pembelajaran-modal" tabindex="-1" aria-hidden="true"
-    class="fixed inset-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto justify-center items-center">
+    class="fixed inset-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto justify-center items-center bg-black/40 backdrop">
     <div class="relative w-full h-full max-w-2xl md:h-auto">
         <div class=" bg-white rounded-lg shadow dark:bg-gray-700">
             <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
