@@ -70,6 +70,11 @@ class UserSeeder extends Seeder
                 'email' => 'orangtua5@gmail.com',
                 'password' => Hash::make('password123'),
                 'role' => 'orang_tua',
+            ],
+            [
+                'email' => 'kepalasekolah@gmail.com',
+                'password' => Hash::make('password123'),
+                'role' => 'kepsek',
             ]
         ]);
     }

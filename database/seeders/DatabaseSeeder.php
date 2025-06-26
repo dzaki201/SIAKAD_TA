@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\KunciNilai;
 use App\Models\NilaiAkhir;
 use App\Models\SiswaEkstrakulikuler;
 use Database\Seeders\CapaianPembelajaranSeeder;
@@ -33,6 +34,9 @@ class DatabaseSeeder extends Seeder
             SiswaEkstrakulikulerSeeder::class,
             AbsensiSeeder::class,
             NilaiAkhirSeeder::class,
+            KepalaSekolahSeeder::class,
+            KkmSeeder::class,
+            KunciNilaiSeeder::class,
         ]);
     }
 }

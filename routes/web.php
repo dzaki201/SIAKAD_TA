@@ -26,6 +26,7 @@ use App\Http\Controllers\Dashboard\DashboardOrangTuaController;
 use App\Http\Controllers\KepalaSekolah\KepalaSekolahController;
 use App\Http\Controllers\MataPelajaran\MataPelajaranController;
 use App\Http\Controllers\Dashboard\DashboardGuruMapelController;
+use App\Http\Controllers\Dashboard\DashboardKepalaSekolahController;
 use App\Http\Controllers\Ekstrakulikuler\EkstrakulikulerController;
 use App\Http\Controllers\Ekstrakulikuler\SiswaEkstrakulikulerController;
 
@@ -148,6 +149,9 @@ Route::middleware(['auth', 'role:guru_mapel'])->group(function () {
 
 Route::middleware(['auth', 'role:orang_tua'])->group(function () {
     Route::get('/orang-tua-dashboard', [DashboardOrangTuaController::class, 'OrangTuaIndex'])->name('orang-tua.dashboard');
+});
+Route::middleware(['auth', 'role:kepsek'])->group(function () {
+    Route::get('/kepsek-dashboard', [DashboardKepalaSekolahController::class, 'kepsekIndex'])->name('kepsek.dashboard');
 });
 
 Route::middleware(['auth', 'role:guru,guru_mapel'])->group(function () {

@@ -1,6 +1,6 @@
-@extends('Admin.main-admin')
+@extends('KepalaSekolah.main-kepala-sekolah')
 
-@section('title', 'Dashboard Admin')
+@section('title', 'Dashboard Kepala Sekolah')
 
 @section('content')
     <div class="flex space-x-4">
@@ -18,7 +18,7 @@
                   </button>
             </div>
         </div>
-        <div
+        {{-- <div
             class="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-8 dark:bg-gray-800 dark:border-gray-700">
             <div class="mb-4">
                 <h5 class="text-xl font-bold text-gray-900 dark:text-white">Data Statistik</h5>
@@ -39,6 +39,6 @@
                     </li>
                 </ul>
             </div>
-        </div>
+        </div> --}}
     </div>
 @endsection
