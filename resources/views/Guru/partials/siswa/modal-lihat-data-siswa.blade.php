@@ -21,18 +21,17 @@
                     <div>
                         <dt class="font-semibold text-gray-900 dark:text-white">Nama Lengkap</dt>
                         <dd class="mb-2 text-gray-700 dark:text-gray-300">{{ $siswa->nama }}</dd>
+                        <dt class="font-semibold text-gray-900 dark:text-white">Kelas</dt>
+                        <dd class="mb-2 text-gray-700 dark:text-gray-300">{{ $siswa->kelas->nama }}</dd>
+                    </div>
+                    <div>
+
+                        <dt class="font-semibold text-gray-900 dark:text-white">NIS/NSN</dt>
+                        <dd class="mb-2 text-gray-700 dark:text-gray-300">{{ $siswa->nis }}/{{ $siswa->nisn }}</dd>
                         <dt class="font-semibold text-gray-900 dark:text-white">Jenis Kelamin</dt>
                         <dd class="mb-2 text-gray-700 dark:text-gray-300">{{ $siswa->jenis_kelamin }}</dd>
                         <dt class="font-semibold text-gray-900 dark:text-white">Agama</dt>
                         <dd class="mb-2 text-gray-700 dark:text-gray-300">{{ $siswa->agama }}</dd>
-                    </div>
-                    <div>
-                        <dt class="font-semibold text-gray-900 dark:text-white">Kelas</dt>
-                        <dd class="mb-2 text-gray-700 dark:text-gray-300">{{ $siswa->kelas->nama }}</dd>
-                        <dt class="font-semibold text-gray-900 dark:text-white">NIS</dt>
-                        <dd class="mb-2 text-gray-700 dark:text-gray-300">{{ $siswa->nis }}</dd>
-                        <dt class="font-semibold text-gray-900 dark:text-white">NISN</dt>
-                        <dd class="mb-2 text-gray-700 dark:text-gray-300">{{ $siswa->nisn }}</dd>
                     </div>
                     <div>
                         <dt class="font-semibold text-gray-900 dark:text-white">Asal sekolah</dt>
@@ -44,8 +43,6 @@
                             {{ \Carbon\Carbon::parse($siswa->tanggal_lahir)->translatedFormat('d F Y') }}</dd>
                     </div>
                     <div>
-                        <dt class="font-semibold text-gray-900 dark:text-white">Kelas</dt>
-                        <dd class="mb-2 text-gray-700 dark:text-gray-300">{{ $siswa->kelas->nama }}</dd>
                         <dt class="font-semibold text-gray-900 dark:text-white">Alamat</dt>
                         <dd class="mb-2 text-gray-700 dark:text-gray-300">{{ $siswa->alamat }}</dd>
                     </div>
@@ -62,7 +59,7 @@
                         <dd class="mb-2 text-gray-700 dark:text-gray-300">
                             {{ optional($siswa->orangTua->where('status', 'ayah')->first())->pekerjaan ?? '-' }}
                         </dd>
-                        <dt class="font-semibold text-gray-900 dark:text-white">email</dt>
+                        <dt class="font-semibold text-gray-900 dark:text-white">Email</dt>
                         <dd class="mb-2 text-gray-700 dark:text-gray-300">
                             {{ $siswa->orangTua->where('status', 'ayah')->first()->user?->email ?? '-' }}
                         </dd>
@@ -80,7 +77,7 @@
                         <dd class="mb-2 text-gray-700 dark:text-gray-300">
                             {{ optional($siswa->orangTua->where('status', 'ibu')->first())->pekerjaan ?? '-' }}
                         </dd>
-                        <dt class="font-semibold text-gray-900 dark:text-white">email</dt>
+                        <dt class="font-semibold text-gray-900 dark:text-white">Email</dt>
                         <dd class="mb-2 text-gray-700 dark:text-gray-300">
                             {{ $siswa->orangTua->where('status', 'ibu')->first()->user?->email ?? '-' }}
                         </dd>
@@ -98,7 +95,7 @@
                         <dd class="mb-2 text-gray-700 dark:text-gray-300">
                             {{ optional($siswa->orangTua->where('status', 'wali')->first())->pekerjaan ?? '-' }}
                         </dd>
-                        <dt class="font-semibold text-gray-900 dark:text-white">email</dt>
+                        <dt class="font-semibold text-gray-900 dark:text-white">Email</dt>
                         <dd class="mb-2 text-gray-700 dark:text-gray-300">
                             {{ $siswa->orangTua->where('status', 'wali')->first()->user?->email ?? '-' }}
                         </dd>

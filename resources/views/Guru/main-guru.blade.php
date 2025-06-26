@@ -17,7 +17,6 @@
     <div class="p-4 sm:ml-64 pt-20 ">
         @yield('content')
     </div>
-
     <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
 </body>
 

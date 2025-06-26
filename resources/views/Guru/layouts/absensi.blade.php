@@ -76,10 +76,10 @@
                             <td class="w-px-4 py-3 border border-gray-300 text-center">{{ $siswa->nama }}</td>
                             @foreach ($siswa->absensi as $absensi)
                                 <td class="w-px-4 py-3 border border-gray-300 text-center">
-                                    {{ $absensi->sakit ?? '-' }}
+                                    {{ $absensi->ijin ?? '-' }}
                                 </td>
                                 <td class="w-px-4 py-3 border border-gray-300 text-center">
-                                    {{ $absensi->ijin ?? '-' }}
+                                    {{ $absensi->sakit ?? '-' }}
                                 </td>
                                 <td class="w-px-4 py-3 border border-gray-300 text-center">
                                     {{ $absensi->alpa ?? '-' }}

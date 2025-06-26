@@ -134,9 +134,10 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
     Route::post('/guru-ekskul', [SiswaEkstrakulikulerController::class, 'store'])->name('guru.ekskul.store');
     Route::put('/guru-ekskul/{id}/update', [SiswaEkstrakulikulerController::class, 'update'])->name('guru.ekskul.update');
     Route::delete('/guru-ekskul/{id}', [SiswaEkstrakulikulerController::class, 'destroy'])->name('guru.ekskul.destroy');
-
+    
     route::get('/guru-rapor', [DashboardGuruController::class, 'guruRapor'])->name('guru.rapor');
-    route::get('/guru-rapor/{id}', [DashboardGuruController::class, 'guruRaporSiswa'])->name('guru.rapor-siswa');
+    route::get('/guru-rapor-semua-siswa', [DashboardGuruController::class, 'guruRaporSemuaSiswa'])->name('guru.rapor-semua-siswa');
+    route::get('/guru-rapor-siswa/{id}', [DashboardGuruController::class, 'guruRaporSiswa'])->name('guru.rapor-siswa');
 });
 
 Route::middleware(['auth', 'role:guru_mapel'])->group(function () {

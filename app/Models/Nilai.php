@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Nilai extends Model
 {
     use HasFactory;
-     protected $table = 'nilai';
+    protected $table = 'nilai';
 
     protected $fillable = [
         'nilai',
@@ -17,7 +17,7 @@ class Nilai extends Model
         'capaian_pembelajaran_id',
         'tahun_ajaran_id'
     ];
-      // Relasi ke Siswa
+    // Relasi ke Siswa
     public function siswa()
     {
         return $this->belongsTo(Siswa::class);

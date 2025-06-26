@@ -14,8 +14,10 @@ use Illuminate\Http\Request;
 use App\Models\MataPelajaran;
 use App\Models\CapaianPembelajaran;
 use App\Http\Controllers\Controller;
+use App\Models\CatatanGuru;
 use App\Models\Ekstrakulikuler;
 use App\Models\KelasMataPelajaran;
+use App\Models\NaikKelas;
 use App\Models\OrangTua;
 use App\Models\PlotGuruMapel;
 use App\Models\SiswaEkstrakulikuler;
@@ -44,35 +46,22 @@ class DashboardGuruController extends Controller
       $kelasId = $guru->kelas_id;
       $kelas = Kelas::where('id', $kelasId)->first();
       $siswas = Siswa::with('orangTua.user')->where('kelas_id', $kelasId)->get();
-      $tahuns = TahunAjaran::get();
       $tahun = TahunAjaran::where('id', $request->tahun_id)->first() ?? TahunAjaran::where('status', 1)->first();
-// dd($siswas);
+
       $mapels = MataPelajaran::whereHas('kelases', function ($query) use ($kelasId) {
          $query->where('kelas_id', $kelasId);
       })->where('status', 'umum')
          ->get();
-      $mapelsiswa = MataPelajaran::whereHas('kelases', function ($query) use ($kelasId) {
-         $query->where('kelas_id', $kelasId);
-      })
-         ->get();
-      $totalMapel = $mapelsiswa->count();
-      $nilaiPerSiswa = NilaiAkhir::selectRaw('siswa_id, COUNT(DISTINCT mata_pelajaran_id) as jumlah_nilai')
-         ->whereIn('siswa_id', $siswas->pluck('id'))
+
+      $nilaiAkhir = NilaiAkhir::whereIn('siswa_id', $siswas->pluck('id'))
          ->where('tahun_ajaran_id', $tahun->id)
-         ->groupBy('siswa_id')
-         ->pluck('jumlah_nilai', 'siswa_id');
-      $progresNilai = $siswas->map(function ($siswa) use ($nilaiPerSiswa, $totalMapel, $tahun) {
-         $mapelNilaiAda = $nilaiPerSiswa->get($siswa->id, 0);
-         $persen = $totalMapel > 0 ? round(($mapelNilaiAda / $totalMapel) * 100, 2) : 0;
-
-         return [
-            'siswa_id' => $siswa->id,
-            'tahun_id' => $tahun->id,
-            'persen' => $persen
-         ];
+         ->get()
+         ->groupBy('siswa_id');
+      $siswas->map(function ($siswa) use ($nilaiAkhir) {
+         $siswa->setAttribute('nilaiAkhir', $nilaiAkhir->get($siswa->id, collect()));
+         return $siswa;
       });
-
-      return view('Guru.layouts.siswa', compact('mapels', 'tahuns', 'tahun', 'siswas', 'progresNilai', 'nilaiPerSiswa', 'kelas'));
+      return view('Guru.layouts.siswa', compact('mapels', 'tahun', 'siswas', 'kelas'));
    }
    public function guruNilai($id, Request $request)
    {
@@ -201,6 +190,108 @@ class DashboardGuruController extends Controller
    {
       $userId = Auth::id();
       $guru = Guru::where('user_id', $userId)->first();
+      $kelasId = $guru->kelas_id;
+      $kelas = Kelas::where('id', $kelasId)->first();
+      $siswas = Siswa::where('kelas_id', $kelasId)->get();
+      $tahuns = TahunAjaran::get();
+      $tahun = TahunAjaran::where('id', $request->tahun_id)->first() ?? TahunAjaran::where('status', 1)->first();
+
+      $mapels = MataPelajaran::whereHas('kelases', function ($query) use ($kelasId) {
+         $query->where('kelas_id', $kelasId);
+      })->where('status', 'umum')
+         ->get();
+      $mapelsiswa = MataPelajaran::whereHas('kelases', function ($query) use ($kelasId) {
+         $query->where('kelas_id', $kelasId);
+      })
+         ->get();
+      $totalMapel = $mapelsiswa->count();
+      $mapelIds = $mapelsiswa->pluck('id');
+      $nilaiPerSiswa = NilaiAkhir::selectRaw('siswa_id, COUNT(DISTINCT mata_pelajaran_id) as jumlah_nilai')
+         ->whereIn('siswa_id', $siswas->pluck('id'))
+         ->where('tahun_ajaran_id', $tahun->id)
+         ->groupBy('siswa_id')
+         ->pluck('jumlah_nilai', 'siswa_id');
+
+      if ($nilaiPerSiswa->isEmpty()) {
+         return view('Guru.layouts.rapor', compact('mapels', 'tahuns', 'tahun', 'siswas', 'nilaiPerSiswa', 'kelas'));
+      }
+
+
+      $progresRapor = $siswas->map(function ($siswa) use ($nilaiPerSiswa, $totalMapel, $tahun, $mapelIds, $kelasId) {
+         $mapelNilaiAda = $nilaiPerSiswa->get($siswa->id, 0);
+         $persenNilai = $totalMapel > 0 ? round(($mapelNilaiAda / $totalMapel) * 100, 2) : 0;
+         $mapelBelumAda = MataPelajaran::whereIn('id', $mapelIds->diff($mapelNilaiAda))->pluck('nama')->toArray();
+
+         $belum = [];
+         $progressItem = 0; // hitung item yang sudah ada
+
+         // Nilai Akhir
+         if ($persenNilai >= 100) {
+            $progressItem++;
+         } else {
+            $belum[] = 'Nilai Akhir';
+         }
+
+         // Absensi
+         $absensiAda = Absensi::where('siswa_id', $siswa->id)
+            ->where('tahun_ajaran_id', $tahun->id)
+            ->where('kelas_id', $kelasId)
+            ->exists();
+         if ($absensiAda) {
+            $progressItem++;
+         } else {
+            $belum[] = 'Absensi';
+         }
+
+         // Ekskul
+         $ekskulAda = SiswaEkstrakulikuler::where('siswa_id', $siswa->id)
+            ->where('tahun_ajaran_id', $tahun->id)
+            ->exists();
+         if ($ekskulAda) {
+            $progressItem++;
+         } else {
+            $belum[] = 'Ekstrakulikuler';
+         }
+
+         // Catatan Guru
+         $catatanAda = CatatanGuru::where('siswa_id', $siswa->id)
+            ->where('tahun_ajaran_id', $tahun->id)
+            ->exists();
+         if ($catatanAda) {
+            $progressItem++;
+         } else {
+            $belum[] = 'Catatan Guru';
+         }
+
+         // Naik Kelas
+         $naikKelasAda = NaikKelas::where('siswa_id', $siswa->id)
+            ->where('tahun_ajaran_id', $tahun->id)
+            ->exists();
+         if ($naikKelasAda) {
+            $progressItem++;
+         } else {
+            $belum[] = 'Status Naik Kelas';
+         }
+
+         // Hitung persentase progres rapot total (5 komponen)
+         $totalKomponen = 5;
+         $persenRapor = round(($progressItem / $totalKomponen) * 100, 2);
+         return [
+            'siswa_id' => $siswa->id,
+            'tahun_id' => $tahun->id,
+            'persen_nilai' => $persenNilai,
+            'persen_rapor' => $persenRapor,
+            'mapel_belum_nilai' => $mapelBelumAda,
+            'belum_isi' => $belum,
+         ];
+      });
+
+      return view('Guru.layouts.rapor', compact('mapels', 'tahuns', 'tahun', 'siswas', 'progresRapor', 'nilaiPerSiswa', 'kelas'));
+   }
+   public function guruRaporSemuaSiswa(Request $request)
+   {
+      $userId = Auth::id();
+      $guru = Guru::where('user_id', $userId)->first();
       $siswas = Siswa::where('kelas_id', $guru->kelas_id)->get();
       $tahun = TahunAjaran::where('id', $request->tahun_id)->first() ?? TahunAjaran::where('status', 1)->first();
       $kelasMapel = KelasMataPelajaran::where('kelas_id', $guru->kelas_id)->pluck('mata_pelajaran_id');
@@ -217,7 +308,7 @@ class DashboardGuruController extends Controller
          ->where('tahun_ajaran_id', $tahun->id)
          ->get();
 
-      $template = view('guru.layouts.rapor', compact('siswas', 'guru', 'tahun', 'mapels', 'nilaiakhirs', 'ekskuls', 'absensi'))->render();
+      $template = view('guru.layouts.rapor-semua-siswa', compact('siswas', 'guru', 'tahun', 'mapels', 'nilaiakhirs', 'ekskuls', 'absensi'))->render();
 
       $tahunText = str_replace('/', '-', $tahun->tahun);
       $fileName = 'Rapor_Siswa_Kelas_' .  $guru->kelas->nama . '_Semester_' . $tahun->semester . '_' . $tahunText . '.pdf';
