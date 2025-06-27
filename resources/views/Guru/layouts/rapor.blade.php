@@ -154,20 +154,25 @@
                                         @endif
                                     </div>
                                 </td>
-                                @include('guru.partials.siswa.popover-progres-nilai-akhir')
-                                @include('guru.partials.siswa.popover-progres-rapor')
+                                @include('guru.partials.rapor.popover-progres-nilai-akhir')
+                                @include('guru.partials.rapor.popover-progres-rapor')
                                 @if (($progres['persen_nilai'] ?? 0) == 100)
                                     <td class="w-60 py-3 border border-gray-300 text-center">
-                                        <button>buat catatan</button>
+                                        <button
+                                            class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 focus:ring-2 focus:ring-blue-500"
+                                            data-modal-target="catatan-guru-modal-{{ $siswa->id }}"
+                                            data-modal-toggle="catatan-guru-modal-{{ $siswa->id }}">
+                                            buat catatan</button>
                                     </td>
                                     @if ($tahun->semester == 'Genap')
                                         <td class="w-60 py-3 border border-gray-300 text-center">
-                                        <button>status naik kelas</button>
-                                    </td>
+                                            <button>status naik kelas</button>
+                                        </td>
                                     @endif
+                                    @include('guru.partials.rapor.modal-catatan-guru')
                                 @else
                                     <td class="w-60 py-3 border border-gray-300 text-center">
-                                       -
+                                        -
                                     </td>
                                 @endif
                                 @if (($progres['persen_rapor'] ?? 0) == 100)

@@ -221,9 +221,8 @@ class DashboardGuruController extends Controller
          $mapelNilaiAda = $nilaiPerSiswa->get($siswa->id, 0);
          $persenNilai = $totalMapel > 0 ? round(($mapelNilaiAda / $totalMapel) * 100, 2) : 0;
          $mapelBelumAda = MataPelajaran::whereIn('id', $mapelIds->diff($mapelNilaiAda))->pluck('nama')->toArray();
-
          $belum = [];
-         $progressItem = 0; // hitung item yang sudah ada
+         $progressItem = 0;
 
          // Nilai Akhir
          if ($persenNilai >= 100) {
@@ -273,7 +272,6 @@ class DashboardGuruController extends Controller
             $belum[] = 'Status Naik Kelas';
          }
 
-         // Hitung persentase progres rapot total (5 komponen)
          $totalKomponen = 5;
          $persenRapor = round(($progressItem / $totalKomponen) * 100, 2);
          return [
@@ -284,6 +282,19 @@ class DashboardGuruController extends Controller
             'mapel_belum_nilai' => $mapelBelumAda,
             'belum_isi' => $belum,
          ];
+      });
+      $nilaiAkhir = NilaiAkhir::whereIn('siswa_id', $siswas->pluck('id'))
+         ->where('tahun_ajaran_id', $tahun->id)
+         ->get()
+         ->groupBy('siswa_id');
+      $absensi = Absensi::whereIn('siswa_id', $siswas->pluck('id'))
+         ->where('tahun_ajaran_id', $tahun->id)
+         ->get()
+         ->groupBy('siswa_id');
+      $siswas->map(function ($siswa) use ($nilaiAkhir, $absensi) {
+         $siswa->setAttribute('nilaiAkhir', $nilaiAkhir->get($siswa->id, collect()));
+         $siswa->setAttribute('absensi', $absensi->get($siswa->id, collect()));
+         return $siswa;
       });
 
       return view('Guru.layouts.rapor', compact('mapels', 'tahuns', 'tahun', 'siswas', 'progresRapor', 'nilaiPerSiswa', 'kelas'));

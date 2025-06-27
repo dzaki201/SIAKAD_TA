@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg mb-6">
+    <div class="overflow-x-auto w-auto rounded-lg border p-4 bg-white dark:bg-gray-800 shadow">
         @include('admin.components.navbar-admin-guru')
         <div class="mb-4">
             <button data-modal-target="plotting-guru-mapel-modal" data-modal-toggle="plotting-guru-mapel-modal"

@@ -3,7 +3,7 @@
 @section('title', 'Dashboard Admin')
 
 @section('content')
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div class="overflow-x-auto w-auto rounded-lg border p-4 bg-white dark:bg-gray-800 shadow">
         @include('admin.components.navbar-admin-siswa')
         <div >
             <form action="{{ route('admin.edit.kelas.siswa') }}" method="GET" class="space-y-2">

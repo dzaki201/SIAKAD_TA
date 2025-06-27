@@ -60,7 +60,7 @@
                     </li>
                     <li>
                         <a href="{{ route('admin.siswa') }}"
-                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 dark:hover:bg-blue-500 group {{ request()->routeIs('admin.siswa') ? 'bg-blue-700 dark:bg-blue-600' : '' }}">
+                            class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 dark:hover:bg-blue-500 group {{ request()->routeIs('admin.siswa') || request()->routeIs('admin.edit.kelas.siswa') ? 'bg-blue-700 dark:bg-blue-600' : '' }}">
                             <svg class="shrink-0 w-5 h-5 text-gray-200 transition duration-75 group-hover:text-white"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                 viewBox="0 0 20 20">
