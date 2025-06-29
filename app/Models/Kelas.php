@@ -24,6 +24,10 @@ class Kelas extends Model
     {
         return $this->belongsToMany(Guru::class, 'plot_guru_mapel', 'kelas_id', 'guru_id');
     }
+    public function siswaKelas()
+    {
+        return $this->belongsToMany(PlotSiswaKelas::class, 'plot_siswa_kelas', 'kelas_id', 'siswa_id');
+    }
     public function mataPelajarans()
     {
         return $this->belongsToMany(MataPelajaran::class, 'kelas_mata_pelajaran', 'kelas_id', 'mata_pelajaran_id');

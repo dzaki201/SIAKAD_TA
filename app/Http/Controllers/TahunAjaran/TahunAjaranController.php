@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\TahunAjaran;
 
-use App\Http\Controllers\Controller;
+use App\Models\Kelas;
 use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
+use App\Models\PlotSiswaKelas;
+use App\Http\Controllers\Controller;
 
 class TahunAjaranController extends Controller
 {

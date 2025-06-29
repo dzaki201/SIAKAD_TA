@@ -6,18 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+
     public function up()
     {
-        Schema::create('plot_guru_mapel', function (Blueprint $table) {
+        Schema::create('plot_siswa_kelas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('guru_id')->constrained('guru')->onDelete('cascade');
+            $table->foreignId('siswa_id')->constrained('siswa')->onDelete('cascade');
             $table->foreignId('kelas_id')->constrained('kelas')->onDelete('cascade');
+            $table->foreignId('tahun_ajaran_id')->constrained('tahun_ajaran')->onDelete('cascade');
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('plot_guru_mapel');
+        Schema::dropIfExists('plot_siswa_kelas');
     }
 };

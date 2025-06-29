@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             EkstrakulikulerSeeder::class,
             KelasMataPelajaranSeeder::class,
             PlotGuruMapelSeeder::class,
+            PlotSiswaKelasSeeder::class,
             CapaianPembelajaranSeeder::class,
             NilaiSeeder::class,
             SiswaEkstrakulikulerSeeder::class,

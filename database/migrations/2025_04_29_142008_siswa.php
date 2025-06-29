@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('agama',15);
             $table->string('sekolah_asal',100);
             $table->string('alamat',100);
-            $table->foreignId('kelas_id')->nullable()->constrained('kelas')->onDelete('cascade');;
             $table->timestamps();
         });
     }

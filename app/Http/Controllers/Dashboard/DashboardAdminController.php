@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
-use App\Models\Ekstrakulikuler;
 use App\Models\Guru;
+use App\Models\User;
 use App\Models\Kelas;
-use App\Models\KelasMataPelajaran;
+use App\Models\Siswa;
+use App\Models\OrangTua;
+use App\Models\TahunAjaran;
+use Illuminate\Http\Request;
 use App\Models\KepalaSekolah;
 use App\Models\MataPelajaran;
-use App\Models\OrangTua;
 use App\Models\PlotGuruMapel;
-use App\Models\Siswa;
-use App\Models\TahunAjaran;
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Models\PlotSiswaKelas;
+use App\Models\Ekstrakulikuler;
+use App\Models\KelasMataPelajaran;
+use App\Http\Controllers\Controller;
 
 class DashboardAdminController extends Controller
 {
@@ -78,12 +79,26 @@ class DashboardAdminController extends Controller
     public function adminEditKelasSiswa(Request $request)
     {
         $kelases = Kelas::all();
-        $siswa = Siswa::query();
-        if ($request->filter_kelas) {
-            $siswa->where('kelas_id', $request->filter_kelas);
-        }
-        $siswas = $siswa->get();
-        return view('admin.layouts.siswa.edit-kelas-siswa', compact('siswas', 'kelases'));
+        $tahun = TahunAjaran::where('status', 1)->first();
+        $siswa = Siswa::when($request->filled('filter_kelas'), function ($query) use ($request) {
+            $query->whereHas('kelasSiswa', function ($sub) use ($request) {
+                $sub->where('kelas_id', $request->filter_kelas);
+            });
+        })->with(['kelasSiswa' => function ($query) {
+            $query->orderByDesc('tahun_ajaran_id');
+        }])->get();
+        
+        $siswas = $siswa->map(function ($item) use ($tahun) {
+            $kelas = $item->kelasSiswa->firstWhere('tahun_ajaran_id', $tahun->id);
+            if (!$kelas) {
+                $kelas = $item->kelasSiswa->first();
+            }
+            
+            $item->setRelation('kelasSiswa', $kelas);
+            return $item;
+        });
+        // dd($siswas);
+        return view('admin.layouts.siswa.edit-kelas-siswa', compact('siswas', 'kelases', 'tahun'));
     }
     public function adminOrangTua()
     {

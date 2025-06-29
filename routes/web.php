@@ -16,6 +16,7 @@ use App\Http\Controllers\Nilai\KunciNilaiController;
 use App\Http\Controllers\Nilai\NilaiAkhirController;
 use App\Http\Controllers\Guru\PlottingGuruController;
 use App\Http\Controllers\OrangTua\OrangTuaController;
+use App\Http\Controllers\Siswa\PlotSiswaKelasController;
 use App\Http\Controllers\Ekstrakulikuler\Ekstrakulikuler;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\Dashboard\DashboardGuruController;
@@ -26,8 +27,8 @@ use App\Http\Controllers\Dashboard\DashboardOrangTuaController;
 use App\Http\Controllers\KepalaSekolah\KepalaSekolahController;
 use App\Http\Controllers\MataPelajaran\MataPelajaranController;
 use App\Http\Controllers\Dashboard\DashboardGuruMapelController;
-use App\Http\Controllers\Dashboard\DashboardKepalaSekolahController;
 use App\Http\Controllers\Ekstrakulikuler\EkstrakulikulerController;
+use App\Http\Controllers\Dashboard\DashboardKepalaSekolahController;
 use App\Http\Controllers\Ekstrakulikuler\SiswaEkstrakulikulerController;
 
 /*
@@ -88,7 +89,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin-edit-kelas-siswa', [DashboardAdminController::class, 'adminEditKelasSiswa'])->name('admin.edit.kelas.siswa');
     Route::post('/admin-siswa', [SiswaController::class, 'store'])->name('admin.siswa.store');
     Route::put('/admin-siswa/{id}/update', [SiswaController::class, 'update'])->name('admin.siswa.update');
-    Route::post('/admin-siswa/update-kelas', [SiswaController::class, 'updateKelas'])->name('admin.update.kelas.siswa');
+    Route::post('/admin-siswa/update-kelas', [PlotSiswaKelasController::class, 'update'])->name('admin.update.kelas.siswa');
     Route::delete('/admin-siswa/{id}', [SiswaController::class, 'destroy'])->name('admin.siswa.destroy');
 
     Route::get('/admin-orang-tua', [DashboardAdminController::class, 'adminOrangTua'])->name('admin.orang-tua');

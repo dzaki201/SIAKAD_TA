@@ -21,14 +21,9 @@ class Siswa extends Model
         'agama',
         'sekolah_asal',
         'alamat',
-        'kelas_id',
+
     ];
 
-    // Relasi ke Kelas
-    public function kelas()
-    {
-        return $this->belongsTo(Kelas::class, 'kelas_id');
-    }
     public function absensi()
     {
         return $this->hasMany(Absensi::class);
@@ -36,6 +31,11 @@ class Siswa extends Model
     public function siswaekskul()
     {
         return $this->hasMany(SiswaEkstrakulikuler::class);
+    }
+    public function kelasSiswa()
+    {
+        return $this->belongsToMany(Kelas::class, 'plot_siswa_kelas', 'siswa_id', 'kelas_id')
+            ->withPivot('tahun_ajaran_id');
     }
     public function orangTua()
     {
