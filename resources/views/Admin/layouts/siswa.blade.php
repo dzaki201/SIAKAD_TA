@@ -31,7 +31,6 @@
                         <th scope="col" class="px-6 py-3">Agama</th>
                         <th scope="col" class="px-6 py-3">Sekolah Asal</th>
                         <th scope="col" class="px-6 py-3">Alamat</th>
-                        <th scope="col" class="px-6 py-3">Kelas</th>
                         <th scope="col" class="px-6 py-3">Aksi</th>
                     </tr>
                 </thead>
@@ -49,7 +48,6 @@
                             <td class="px-6 py-4">{{ $siswa->agama }}</td>
                             <td class="px-6 py-4">{{ $siswa->sekolah_asal }}</td>
                             <td class="px-6 py-4">{{ $siswa->alamat }}</td>
-                            <td class="px-6 py-4">{{ $siswa->kelas ? $siswa->kelas->nama : '-' }}</td>
                             <td class="px-6 py-4">
                                 <div class="flex space-x-2">
                                     <button data-modal-target="edit-siswa-modal-{{ $siswa->id }}"

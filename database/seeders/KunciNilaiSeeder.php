@@ -14,7 +14,7 @@ class KunciNilaiSeeder extends Seeder
             [
                 'guru_id' => 1,
                 'mata_pelajaran_id' => 4,
-                'tahun_ajaran_id' => 6,
+                'tahun_ajaran_id' => 5,
                 'kelas_id' => 1,
                 'is_locked' => 0,
                 'locked_at' => null,

@@ -8,6 +8,7 @@ use App\Models\Siswa;
 use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\PlotSiswaKelas;
 use Illuminate\Support\Facades\Auth;
 
 class NilaiController extends Controller
@@ -27,8 +28,10 @@ class NilaiController extends Controller
         $mapelId = $request->mapel_id;
         $kelasId = $request->kelas_id;
         $nilaiInput = collect($request->nilai);
-        $siswaIds = Siswa::where('kelas_id', $request->kelas_id)->pluck('id');
-        $tahunAjaran = TahunAjaran::where('status', '1')->firstOrFail();
+        $tahunAjaran = TahunAjaran::where('status', 1)->first();
+        $siswaIds = PlotSiswaKelas::where('kelas_id', $request->kelas_id)
+            ->where('tahun_ajaran_id', $tahunAjaran->id)
+            ->pluck('siswa_id');
 
         $siswaIds->values()->map(function ($siswaId, $index) use ($nilaiInput, $cpId, $guru, $tahunAjaran) {
             Nilai::updateOrCreate(

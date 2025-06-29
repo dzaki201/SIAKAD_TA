@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <div class=" w-full bg-white rounded-lg shadow-sm dark:bg-gray-800 p-4 md:p-6">
+    {{-- <div class=" w-full bg-white rounded-lg shadow-sm dark:bg-gray-800 p-4 md:p-6">
         <div class="flex justify-between pb-4 mb-4 border-b border-gray-200 dark:border-gray-700">
             <div class="flex items-center">
                 <div class="w-12 h-12 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center me-3">
@@ -227,5 +227,5 @@
             var chart = new ApexCharts(document.querySelector("#column-chart"), options);
             chart.render();
         });
-    </script>
+    </script> --}}
 @endsection

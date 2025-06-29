@@ -26,25 +26,27 @@
             <input type="hidden" name="kelas_id" value="{{ $kelas->id }}">
             <div class="overflow-x-auto rounded-lg">
                 <table
-                    class="w-full min-w-[1000px] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 table-fixed">
+                    class="w-full min-w-[1000px] text-sm rtl:text-right text-gray-500 dark:text-gray-400 table-fixed">
                     <thead class="text-xs text-white text-center uppercase bg-blue-800 dark:bg-gray-700">
                         <tr>
-                            <th class="w-16 px-4 py-3 text-left border border-gray-300">No</th>
-                            <th class="w-60 w-px-4 py-3 border border-gray-300 break-words">NIS</th>
+                            <th class="w-12 px-4 py-3 text-left border border-gray-300">No</th>
+                            <th class="w-24 w-px-4 py-3 border border-gray-300 break-words">NIS</th>
                             <th class="w-60 w-px-4 py-3 border border-gray-300 break-words">Nama</th>
-                            <th class="w-60 w-px-4 py-3 border border-gray-300 break-words">Nilai</th>
+                            <th class="w-16 w-px-4 py-3 border border-gray-300 break-words">Nilai</th>
+                            <th class="w-60 w-px-4 py-3 border border-gray-300 break-words">Keterangan</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="text-center">
                         @foreach ($siswas as $siswa)
                             <tr
                                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td class="px-4 py-3 border border-gray-300">{{ $loop->iteration }}</td>
+                                <td class="px-4 py-3 text-left border border-gray-300">{{ $loop->iteration }}</td>
                                 <td class="px-4 py-3 border border-gray-300">{{ $siswa->nis }}</td>
                                 <td class="px-4 py-3 border border-gray-300">{{ $siswa->nama }}</td>
                                 @php
                                     $nilaiAkhirSiswa = $nilaiakhirs->where('siswa_id', $siswa->id)->first();
                                 @endphp
+                                <td class="px-4 py-3 border border-gray-300">{{ $nilaiAkhirSiswa ? $nilaiAkhirSiswa->nilai_akhir : '-' }}</td>
                                 <td class="w-80 px-4 py-3 border border-gray-300 text-center">
                                     <input type="text" name="keterangan[{{ $siswa->id }}]"
                                         value="{{ $nilaiAkhirSiswa ? $nilaiAkhirSiswa->keterangan : '-' }}"

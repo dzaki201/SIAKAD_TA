@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\MataPelajaran;
 use App\Models\CapaianPembelajaran;
 use App\Http\Controllers\Controller;
+use App\Models\PlotSiswaKelas;
 use Illuminate\Support\Facades\Auth;
 
 class CapaianPembelajaranController extends Controller
@@ -35,7 +36,9 @@ class CapaianPembelajaranController extends Controller
         $validatedData['tahun_ajaran_id'] = $tahunAjaran->id;
 
         $capaian = CapaianPembelajaran::create($validatedData);
-        $siswaIds = Siswa::where('kelas_id', $validatedData['kelas_id'])->pluck('id');
+        $siswaIds = PlotSiswaKelas::where('kelas_id', $validatedData['kelas_id'])
+            ->where('tahun_ajaran_id', $tahunAjaran->id)
+            ->pluck('Siswa_id');
         $dataNilai = $this->buatDataNilai($siswaIds, $capaian, $tahunAjaran, $guru);
         Nilai::insert($dataNilai);
         return redirect()->back()->with('success', 'Capaian Pembelajaran berhasil ditambahkan.');
@@ -106,7 +109,9 @@ class CapaianPembelajaranController extends Controller
         $validatedData['tahun_ajaran_id'] = $tahunAjaran->id;
 
         $capaian = CapaianPembelajaran::create($validatedData);
-        $siswaIds = Siswa::where('kelas_id', $validatedData['kelas_id'])->pluck('id');
+        $siswaIds = PlotSiswaKelas::where('kelas_id', $validatedData['kelas_id'])
+            ->where('tahun_ajaran_id', $tahunAjaran->id)
+            ->pluck('Siswa_id');
         $dataNilai = $this->buatDataNilai($siswaIds, $capaian, $tahunAjaran, $guru);
         Nilai::insert($dataNilai);
         return redirect()->back()->with('success', 'Capaian Pembelajaran berhasil ditambahkan.');
