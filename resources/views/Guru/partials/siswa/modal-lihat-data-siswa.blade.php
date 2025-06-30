@@ -22,7 +22,8 @@
                         <dt class="font-semibold text-gray-900 dark:text-white">Nama Lengkap</dt>
                         <dd class="mb-2 text-gray-700 dark:text-gray-300">{{ $siswa->nama }}</dd>
                         <dt class="font-semibold text-gray-900 dark:text-white">Kelas</dt>
-                        <dd class="mb-2 text-gray-700 dark:text-gray-300">{{ $siswa->kelas->nama }}</dd>
+                        <dd class="mb-2 text-gray-700 dark:text-gray-300">{{ $siswa->kelasSiswa->first()->nama ?? '-' }}
+                        </dd>
                     </div>
                     <div>
 

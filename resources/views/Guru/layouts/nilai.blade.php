@@ -3,32 +3,38 @@
 @section('title', 'Dashboard Guru')
 
 @section('content')
+    @include('components.alert')
     <div class="overflow-x-auto w-auto rounded-lg border p-4 bg-white dark:bg-gray-800 shadow">
         <div class="flex justify-between items-center mt-4 mb-4">
             <div class="flex items-center mt-4 mb-4">
-                @if ($kunci == null)
-                @else
+                @if ($kunci != null)
                     @if (!$kunci->is_locked)
-                        <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
-                            class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
-                            type="button">Tambah Penilaian <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="m1 1 4 4 4-4" />
-                            </svg>
-                        </button>
-                        <button data-modal-target="kunci-nilai-modal-{{ $kunci->id }}"
-                            data-modal-toggle="kunci-nilai-modal-{{ $kunci->id }}"
-                            class="ml-4 text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800">
-                            <svg class="w-5 h-5 text-white mr-2" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                viewBox="0 0 24 24" aria-hidden="true">
-                                <path fill-rule="evenodd"
-                                    d="M8 10V7a4 4 0 1 1 8 0v3h1a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h1Zm2-3a2 2 0 1 1 4 0v3h-4V7Zm2 6a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0v-3a1 1 0 0 1 1-1Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            Kunci Nilai
-                        </button>
-                        @include('guru.partials.kunci-nilai.modal-kunci-nilai')
+                        @if ($kunci->tahun_ajaran_id != $tahunAktif->id)
+                            <span class="text-base font-semibold text-gray-800 dark:text-gray-300">
+                                Nilai belum dikunci pada Semester {{ $tahun->semester }} - {{ $tahun->tahun }}
+                            </span>
+                        @else
+                            <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+                                class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
+                                type="button">Tambah Penilaian <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 1 4 4 4-4" />
+                                </svg>
+                            </button>
+                            <button data-modal-target="kunci-nilai-modal-{{ $kunci->id }}"
+                                data-modal-toggle="kunci-nilai-modal-{{ $kunci->id }}"
+                                class="ml-4 text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800">
+                                <svg class="w-5 h-5 text-white mr-2" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                    viewBox="0 0 24 24" aria-hidden="true">
+                                    <path fill-rule="evenodd"
+                                        d="M8 10V7a4 4 0 1 1 8 0v3h1a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h1Zm2-3a2 2 0 1 1 4 0v3h-4V7Zm2 6a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0v-3a1 1 0 0 1 1-1Z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                Kunci Nilai
+                            </button>
+                            @include('guru.partials.kunci-nilai.modal-kunci-nilai')
+                        @endif
                     @else
                         <span class="text-base font-semibold text-gray-800 dark:text-gray-300">
                             Nilai telah dikunci pada {{ \Carbon\Carbon::parse($kunci->locked_at)->format('d M Y H:i') }}
@@ -56,9 +62,6 @@
                 </form>
             </div>
         </div>
-        @php
-            $tahunAktif = $tahuns->firstWhere('status', 1);
-        @endphp
         @if ($kunci == null)
             @if ($tahun->id == $tahunAktif->id)
                 <div class="flex justify-center items-center h-[500px]">
@@ -99,18 +102,16 @@
                                         <span>
                                             {{ \Carbon\Carbon::parse($cp->tanggal)->translatedFormat('d F') }}</span>
                                     @endif
-                                    @if (!$kunci->is_locked)
-                                        <button id="dropdownMenuIconButton-{{ $cp->id }}"
-                                            data-dropdown-toggle="dropdownDots-{{ $cp->id }}"
-                                            class="p-1 text-white rounded-full focus:ring-2 focus:ring-blue-300 dark:text-gray-300 dark:focus:ring-blue-800"
-                                            type="button">
-                                            <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                fill="currentColor" viewBox="0 0 4 15">
-                                                <path
-                                                    d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
-                                            </svg>
-                                        </button>
-                                    @endif
+                                    <button id="dropdownMenuIconButton-{{ $cp->id }}"
+                                        data-dropdown-toggle="dropdownDots-{{ $cp->id }}"
+                                        class="p-1 text-white rounded-full focus:ring-2 focus:ring-blue-300 dark:text-gray-300 dark:focus:ring-blue-800"
+                                        type="button">
+                                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="currentColor" viewBox="0 0 4 15">
+                                            <path
+                                                d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+                                        </svg>
+                                    </button>
                                 </div>
                             </th>
                             @include('guru.partials.capaian-pembelajaran.dropdown-option-cp')
@@ -122,7 +123,7 @@
                         @if ($nilaiakhirs && $nilaiakhirs->where('mata_pelajaran_id', $mapel->id)->isNotEmpty())
                             <th class="w-32 w-px-4 py-3 border border-gray-300 text-center">
                                 Nilai Akhir
-                                @if (!$kunci->is_locked)
+                                @if (!$kunci->is_locked && $kunci->tahun_ajaran_id == $tahunAktif->id)
                                     <button id="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots"
                                         class="p-1 text-white rounded-full focus:ring-2 focus:ring-blue-300 dark:text-gray-300 dark:focus:ring-blue-800"
                                         type="button">
@@ -134,7 +135,7 @@
                                     </button>
                                 @endif
                             </th>
-                            <th class="w-60 px-4 py-3 border border-gray-300 text-center break-words ">
+                            <th class="w-[450px] px-4 py-3 border border-gray-300 text-center break-words ">
                                 Keterangan
                             </th>
                         @endif
@@ -165,7 +166,7 @@
                                 <td class="w-32 px-4 py-3 border border-gray-300 text-center">
                                     {{ $nilaiAkhirSiswa ? $nilaiAkhirSiswa->nilai_akhir : '-' }}
                                 </td>
-                                <td class="w-auto px-4 py-3 border border-gray-300 text-center">
+                                <td class="px-4 py-3 border border-gray-300 break-words whitespace-normal">
                                     {{ $nilaiAkhirSiswa ? $nilaiAkhirSiswa->keterangan : '-' }}
                                 </td>
                             @endif

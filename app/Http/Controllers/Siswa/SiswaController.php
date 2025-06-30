@@ -13,15 +13,14 @@ class siswaController extends Controller
     {
         $validatedData = $request->validate([
             'nis' => 'required|unique:siswa,nis',
-            'nisn' => 'nullable|string|max:20',
+            'nisn' => 'required|string|max:20',
             'nama' => 'required|string|max:100',
             'tempat_lahir' => 'required|string|max:100',
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'agama' => 'required|in:Islam,Kristen,Katolik,Hindu,Buddha,Konghucu',
-            'sekolah_asal' => 'nullable|string|max:255',
-            'alamat' => 'nullable|string',
-            'kelas_id' => 'nullable|exists:kelas,id',
+            'sekolah_asal' => 'required|string|max:255',
+            'alamat' => 'required|string',
         ]);
 
         Siswa::create($validatedData);
@@ -33,15 +32,14 @@ class siswaController extends Controller
     {
         $validatedData = $request->validate([
             'nis' => ['required', Rule::unique('siswa', 'nis')->ignore($id)],
-            'nisn' => 'nullable|string|max:20',
+            'nisn' => 'required|string|max:20',
             'nama' => 'required|string|max:100',
             'tempat_lahir' => 'required|string|max:100',
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'agama' => 'required|in:Islam,Kristen,Katolik,Hindu,Buddha,Konghucu',
-            'sekolah_asal' => 'nullable|string|max:255',
-            'alamat' => 'nullable|string',
-            'kelas_id' => 'nullable|exists:kelas,id',
+            'sekolah_asal' => 'required|string|max:255',
+            'alamat' => 'required|string',
         ]);
 
         $siswa = Siswa::findOrFail($id);

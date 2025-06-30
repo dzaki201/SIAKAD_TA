@@ -18,16 +18,17 @@
                 </button>
             </div>
             <div class="p-6 space-y-4">
-                @forelse ($siswa->nilaiAkhir as $nilai)
-                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg dark:bg-gray-700">
-                        <span
-                            class="text-sm font-medium text-gray-900 dark:text-white">{{ $nilai->mataPelajaran->nama }}</span>
-                        <span
-                            class="text-sm font-semibold text-gray-800 dark:text-gray-100">{{ $nilai->nilai_akhir }}</span>
-                    </div>
-                @empty
-                    <p class="text-gray-600 dark:text-gray-300 text-sm">Belum ada data nilai akhir.</p>
-                @endforelse
+                <div class="grid grid-cols-2 gap-3">
+                    @forelse ($siswa->nilaiAkhir as $nilai)
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg dark:bg-gray-600">
+                            <span class="text-sm text-gray-900 dark:text-white">{{ $nilai->mataPelajaran->nama }}</span>
+                            <span
+                                class="text-sm font-semibold text-gray-800 dark:text-white">{{ $nilai->nilai_akhir }}</span>
+                        </div>
+                    @empty
+                        <p class="text-gray-600 dark:text-gray-300 text-sm">Belum ada data nilai akhir.</p>
+                    @endforelse
+                </div>
             </div>
             <div class="p-6 space-y-6 pt-4 space-x-4 border-t border-gray-200 dark:border-gray-600 text-right">
                 <button type="button"

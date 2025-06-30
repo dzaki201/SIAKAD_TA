@@ -30,7 +30,7 @@
             $no = 1;
             $tahunAktif = $tahuns->firstWhere('status', 1);
         @endphp
-        @if ($siswas->every(fn($s) => $s->siswaekskul->isEmpty()))
+        @if ($siswas->every(fn($s) => $s->siswaekskul->isEmpty()) && $tahun->id != $tahunAktif->id)
             <div class="flex justify-center items-center h-[500px]">
                 <span class="ml-4 text-lg font-semibold text-gray-700 dark:text-white">Tidak ada data absensi di
                     semester

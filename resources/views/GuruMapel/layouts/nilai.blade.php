@@ -35,7 +35,7 @@
                 @if (!$kunci->is_locked)
                     @if ($kunci->tahun_ajaran_id != $tahunAktif->id)
                         <span class="text-base font-semibold text-gray-800 dark:text-gray-300">
-                            Nilai belum dikunci pada Semester {{ $item->semester }} - {{ $item->tahun }}
+                            Nilai belum dikunci pada Semester {{ $tahun->semester }} - {{ $tahun->tahun }}
                         </span>
                     @else
                         <div class="flex items-center mt-4 mb-4">
@@ -68,9 +68,8 @@
                 @endif
             @endif
         </div>
-
         @if ($kunci == null)
-            @if (isset($tahun) && $item->id == $tahun->id)
+            @if ($tahun->id == $tahunAktif->id)
                 <div class="flex justify-center items-center h-[500px]">
                     <a href="{{ route('guru.kunci-nilai.store', ['id' => $mapel->id, 'kelasId' => $kelas->id]) }}">
                         <button class="bg-blue-600 text-white rounded-full p-6 hover:bg-blue-700 focus:outline-none">
@@ -108,18 +107,16 @@
                                         <span>
                                             {{ \Carbon\Carbon::parse($cp->tanggal)->translatedFormat('d F') }}</span>
                                     @endif
-                                    @if (!$kunci->is_locked && $kunci->tahun_ajaran_id == $tahunAktif->id)
-                                        <button id="dropdownMenuIconButton-{{ $cp->id }}"
-                                            data-dropdown-toggle="dropdownDots-{{ $cp->id }}"
-                                            class="p-1 text-white rounded-full focus:ring-2 focus:ring-blue-300 dark:text-gray-300 dark:focus:ring-blue-800"
-                                            type="button">
-                                            <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                fill="currentColor" viewBox="0 0 4 15">
-                                                <path
-                                                    d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
-                                            </svg>
-                                        </button>
-                                    @endif
+                                    <button id="dropdownMenuIconButton-{{ $cp->id }}"
+                                        data-dropdown-toggle="dropdownDots-{{ $cp->id }}"
+                                        class="p-1 text-white rounded-full focus:ring-2 focus:ring-blue-300 dark:text-gray-300 dark:focus:ring-blue-800"
+                                        type="button">
+                                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="currentColor" viewBox="0 0 4 15">
+                                            <path
+                                                d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+                                        </svg>
+                                    </button>
                                 </div>
                             </th>
                             @include('guru.partials.capaian-pembelajaran.dropdown-option-cp')

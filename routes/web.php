@@ -30,6 +30,9 @@ use App\Http\Controllers\Dashboard\DashboardGuruMapelController;
 use App\Http\Controllers\Ekstrakulikuler\EkstrakulikulerController;
 use App\Http\Controllers\Dashboard\DashboardKepalaSekolahController;
 use App\Http\Controllers\Ekstrakulikuler\SiswaEkstrakulikulerController;
+use App\Http\Controllers\Siswa\CatatanGuruController;
+use App\Http\Controllers\Siswa\NaikKelasController;
+use App\Models\NaikKelas;
 
 /*
 |--------------------------------------------------------------------------
@@ -135,10 +138,16 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
     Route::post('/guru-ekskul', [SiswaEkstrakulikulerController::class, 'store'])->name('guru.ekskul.store');
     Route::put('/guru-ekskul/{id}/update', [SiswaEkstrakulikulerController::class, 'update'])->name('guru.ekskul.update');
     Route::delete('/guru-ekskul/{id}', [SiswaEkstrakulikulerController::class, 'destroy'])->name('guru.ekskul.destroy');
+
+    Route::post('/guru-catatan-guru', [CatatanGuruController::class, 'store'])->name('guru.catatan-guru.store');
+    Route::put('/guru-catatan-guru/{id}/update', [CatatanGuruController::class, 'update'])->name('guru.catatan-guru.update');
     
-    route::get('/guru-rapor', [DashboardGuruController::class, 'guruRapor'])->name('guru.rapor');
-    route::get('/guru-rapor-semua-siswa', [DashboardGuruController::class, 'guruRaporSemuaSiswa'])->name('guru.rapor-semua-siswa');
-    route::get('/guru-rapor-siswa/{id}', [DashboardGuruController::class, 'guruRaporSiswa'])->name('guru.rapor-siswa');
+    Route::post('/guru-status-naik-kelas', [NaikKelasController::class, 'store'])->name('guru.naik-kelas.store');
+    Route::post('/guru-status-naik-kelas/{id}/update', [NaikKelasController::class, 'ipdate'])->name('guru.naik-kelas.update');
+    
+    Route::get('/guru-rapor', [DashboardGuruController::class, 'guruRapor'])->name('guru.rapor');
+    Route::get('/guru-rapor-semua-siswa', [DashboardGuruController::class, 'guruRaporSemuaSiswa'])->name('guru.rapor-semua-siswa');
+    Route::get('/guru-rapor-siswa/{id}', [DashboardGuruController::class, 'guruRaporSiswa'])->name('guru.rapor-siswa');
 });
 
 Route::middleware(['auth', 'role:guru_mapel'])->group(function () {

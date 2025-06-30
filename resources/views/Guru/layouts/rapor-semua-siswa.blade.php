@@ -13,6 +13,7 @@
         }
     </style>
 </head>
+
 <body class="p-8">
     @foreach ($siswas as $siswa)
         <div class="text-center mb-6">
@@ -25,13 +26,13 @@
                         <td class="p-2 font-medium w-1/3">Nama Peserta Didik</td>
                         <td class="p-2">{{ $siswa->nama }}</td>
                         <td class="p-2 font-medium">Kelas</td>
-                        <td class="p-2">{{ $siswa->kelas->nama }}</td>
+                        <td class="p-2">{{ $siswa->kelasSiswa->first()->nama ?? '-' }}</td>
                     </tr>
                     <tr>
-                        <td class="p-2 font-medium">NIS</td>
-                        <td class="p-2">{{ $siswa->nis }}</td>
-                        <td class="p-2 font-medium">NISN</td>
-                        <td class="p-2">{{ $siswa->nisn }}</td>
+                        <td class="p-2 font-medium">NIS/NISN</td>
+                        <td class="p-2">{{ $siswa->nis }}/{{ $siswa->nisn }}</td>
+                        <td class="p-2 font-medium">Fase</td>
+                        <td class="p-2">{{ $fase }}</td>
                     </tr>
 
                     <tr>
@@ -148,17 +149,17 @@
         <div class="grid grid-cols-3 gap-4 text-center">
             <div>
                 <p class="font-medium">Mengetahui,<br>Orang Tua/Wali</p>
-                <div class="h-16"></div>
+                <div class="h-24"></div>
                 <p>Kana</p>
             </div>
             <div>
                 <p class="font-medium">Guru Kelas</p>
-                <div class="h-16"></div>
+                <div class="h-24"></div>
                 <p>{{ $guru->nama }}<br>NIP. {{ $guru->nip }}</p>
             </div>
             <div>
                 <p class="font-medium">Kepala Sekolah</p>
-                <div class="h-16"></div>
+                <div class="h-24"></div>
                 <p>Sri Sugihartini, S.Pd</p>
             </div>
         </div>

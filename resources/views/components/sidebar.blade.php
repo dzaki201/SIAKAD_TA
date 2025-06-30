@@ -171,7 +171,7 @@
                     </li>
                     <li>
                         <button type="button"
-                            class="mb-2 flex items-center w-full p-2 text-white rounded-lg hover:bg-blue-800 group"
+                            class="mb-2 flex items-center w-full p-2 text-white rounded-lg hover:bg-blue-800 group dark:hover:bg-blue-500 group"
                             aria-controls="dropdown-nilai" data-collapse-toggle="dropdown-nilai">
                             <svg class="w-5 h-5 text-gray-200 transition duration-75 group-hover:text-white"
                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
@@ -264,7 +264,7 @@
                     </li>
                     <li>
                         <button type="button"
-                            class="mb-2 flex items-center w-full p-2 text-white rounded-lg hover:bg-blue-800 group"
+                            class="mb-2 flex items-center w-full p-2 text-white rounded-lg hover:bg-blue-800 group dark:hover:bg-blue-500 group"
                             aria-controls="dropdown-nilai2" data-collapse-toggle="dropdown-nilai2">
                             <svg class="w-5 h-5 text-gray-200 transition duration-75 group-hover:text-white"
                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
@@ -285,7 +285,7 @@
                             @foreach ($kelases as $kelas)
                                 <li>
                                     <a href="{{ route('guru-mapel.nilai', ['id' => $kelas->id]) }}"
-                                        class="flex items-center w-full p-2 pl-11 text-white rounded-lg transition duration-75 group
+                                        class="flex items-center w-full p-2 pl-11 text-white rounded-lg transition duration-75 group hover:bg-blue-800 dark:hover:bg-blue-500 
                                         {{ (request()->routeIs('guru-mapel.nilai') && request()->route('id') == $kelas->id) ||
                                         (request()->routeIs('guru-mapel.edit.nilai') && request()->route('id') == $kelas->id) ||
                                         (request()->routeIs('guru-mapel.edit.nilai-akhir') && request()->route('kelasId') == $kelas->id)
