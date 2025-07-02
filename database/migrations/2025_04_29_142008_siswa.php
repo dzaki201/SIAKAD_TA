@@ -17,11 +17,11 @@ return new class extends Migration
             $table->string('nis',10)->unique();
             $table->string('nisn',20)->unique();
             $table->string('tempat_lahir',50);
-            $table->string('tanggal_lahir',50);
+            $table->date('tanggal_lahir');
             $table->string('jenis_kelamin',10);
             $table->string('agama',15);
             $table->string('sekolah_asal',100);
-            $table->string('alamat',100);
+            $table->string('alamat');
             $table->timestamps();
         });
     }

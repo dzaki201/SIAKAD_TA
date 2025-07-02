@@ -11,7 +11,6 @@ return new class extends Migration
         Schema::create('ekstrakulikuler', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('status')->nullable(); //status apakah wajib atau tidak
             $table->timestamps();
         });
     }
