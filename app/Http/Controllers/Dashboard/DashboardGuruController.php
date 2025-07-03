@@ -303,14 +303,6 @@ class DashboardGuruController extends Controller
          ->where('tahun_ajaran_id', $tahun->id)
          ->get()
          ->groupBy('siswa_id');
-      $absensi = Absensi::whereIn('siswa_id', $siswas->pluck('id'))
-         ->where('tahun_ajaran_id', $tahun->id)
-         ->get()
-         ->groupBy('siswa_id');
-      $ekskul = SiswaEkstrakulikuler::whereIn('siswa_id', $siswas->pluck('id'))
-         ->where('tahun_ajaran_id', $tahun->id)
-         ->get()
-         ->groupBy('siswa_id');
       $catatan = CatatanGuru::whereIn('siswa_id', $siswas->pluck('id'))
          ->where('tahun_ajaran_id', $tahun->id)
          ->get()
@@ -319,15 +311,12 @@ class DashboardGuruController extends Controller
          ->where('tahun_ajaran_id', $tahun->id)
          ->get()
          ->groupBy('siswa_id');
-      $siswas->map(function ($siswa) use ($nilaiAkhir, $absensi, $ekskul, $catatan, $naikKelas) {
+      $siswas->map(function ($siswa) use ($nilaiAkhir, $catatan, $naikKelas) {
          $siswa->setAttribute('nilaiAkhir', $nilaiAkhir->get($siswa->id, collect()));
-         $siswa->setAttribute('absensi', $absensi->get($siswa->id, collect())->first());
-         $siswa->setAttribute('ekskul', $ekskul->get($siswa->id, collect()));
          $siswa->setAttribute('catatan', $catatan->get($siswa->id, collect())->first());
          $siswa->setAttribute('naikKelas', $naikKelas->get($siswa->id, collect())->first());
          return $siswa;
       });
-      // dd($siswas);
 
       return view('Guru.layouts.rapor', compact('mapels', 'tahuns', 'tahun', 'siswas', 'progresRapor', 'nilaiPerSiswa', 'kelas', 'kelases'));
    }

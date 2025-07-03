@@ -14,7 +14,7 @@
                     </svg>
                 </button>
             </div>
-            <div class="p-6 space-y-6">
+            <div class="p-6">
                 @if ($siswa->naikKelas)
                     <form action="{{ route('guru.naik-kelas.update', ['id' => $siswa->naikKelas->id]) }}"
                         method="POST">
@@ -30,7 +30,7 @@
                                 <option value="tinggal" {{ $siswa->naikKelas->status == 'tinggal' ? 'selected' : '' }}>
                                     Tinggal Kelas</option>
                                 <option value="lulus" {{ $siswa->naikKelas->status == 'lulus' ? 'selected' : '' }}>
-                                    Lulus Kelas</option>
+                                    Lulus</option>
                             </select>
                         </div>
                         <div class="pt-2 space-x-4 border-t border-gray-200 dark:border-gray-600 text-right">

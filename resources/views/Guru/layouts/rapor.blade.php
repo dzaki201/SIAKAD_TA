@@ -11,15 +11,16 @@
                 @else
                     @php
                         $progres = collect($progresRapor)->keyBy('siswa_id');
-                        $raporComplited = collect($progres)->contains(function ($item) {
+                        $raporComplited = collect($progres)->every(function ($item) {
                             return $item['persen_rapor'] == 100;
                         });
+                        // dd($raporComplited);
                         $nilaiComplited = collect($progres)->contains(function ($item) {
                             return $item['persen_nilai'] == 100;
                         });
                         $tahunAktif = $tahuns->firstWhere('status', 1);
                     @endphp
-                    @if ($tahun->id == $tahunAktif->id && $raporComplited)
+                    @if ($tahun->id == $tahunAktif->id && $raporComplited == true)
                         <form method="GET" action="{{ route('guru.rapor-semua-siswa') }}">
                             <input type="hidden" name="tahun_id" value="{{ $tahun->id }}">
                             <input type="hidden" name="kelas_id" value="{{ $kelas->id }}">
@@ -34,7 +35,7 @@
                                 Rapor Semua Siswa
                             </button>
                         </form>
-                    @else
+                    @elseif ($tahun->id != $tahunAktif->id)
                         <form method="GET" action="{{ route('guru.rapor-semua-siswa') }}">
                             <input type="hidden" name="tahun_id" value="{{ $tahun->id }}">
                             <input type="hidden" name="kelas_id" value="{{ $kelas->id }}">
@@ -88,13 +89,13 @@
                         @if ($tahun->id == $tahunAktif->id)
                             <th class="w-80 w-py-3 border border-gray-300">Progres Nilai Akhir</th>
                             <th class="w-80 py-3 border border-gray-300">Progres rapor</th>
-                            @if ($nilaiComplited)
-                                <th class="w-80 w-py-3 border border-gray-300">Catatan Guru</th>
+                            @if ($nilaiComplited == true)
+                                <th class="w-60 w-py-3 border border-gray-300">Catatan</th>
                                 @if ($tahun->semester == 'Genap')
                                     <th class="w-60 w-py-3 border border-gray-300">Status Naik Kelas</th>
                                 @endif
                             @endif
-                            @if (@$raporComplited)
+                            @if ($nilaiComplited == true)
                                 <th class="w-80 py-3 border border-gray-300">Aksi</th>
                             @endif
                         @else
@@ -159,22 +160,38 @@
                                 @include('guru.partials.rapor.popover-progres-nilai-akhir')
                                 @include('guru.partials.rapor.popover-progres-rapor')
                                 @if (($progres['persen_nilai'] ?? 0) == 100)
-                                    <td class="py-3 border border-gray-300 text-center relative">
+                                    <td class="py-3 border border-gray-300 text-center">
                                         @if ($siswa->catatan)
-                                            <p class="text-sm text-gray-900 dark:text-white">
-                                                {{ $siswa->catatan->catatan }}
-                                            </p>
-                                            <button
-                                                class="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600"
-                                                data-modal-target="edit-catatan-guru-modal-{{ $siswa->id }}"
-                                                data-modal-toggle="edit-catatan-guru-modal-{{ $siswa->id }}">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                    class="w-5 h-5 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                                </svg>
-                                            </button>
+                                            <div class="p-2 flex justify-center gap-4">
+                                                <div>
+                                                    <button
+                                                        class="inline-flex items-center bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700"
+                                                        data-modal-target="lihat-catatan-guru-modal-{{ $siswa->id }}"
+                                                        data-modal-toggle="lihat-catatan-guru-modal-{{ $siswa->id }}">
+                                                        <svg class="w-5 h-5 text-white" aria-hidden="true"
+                                                            xmlns="http://www.w3.org/2000/svg" width="24"
+                                                            height="24" fill="none" viewBox="0 0 24 24">
+                                                            <path stroke="currentColor" stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="2"
+                                                                d="M10 3v4a1 1 0 0 1-1 1H5m8 7.5 2.5 2.5M19 4v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Zm-5 9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                                <div>
+                                                    <button
+                                                        class="inline-flex items-center bg-yellow-500 text-white p-2 rounded-lg hover:bg-yellow-600"
+                                                        data-modal-target="edit-catatan-guru-modal-{{ $siswa->id }}"
+                                                        data-modal-toggle="edit-catatan-guru-modal-{{ $siswa->id }}">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                            class="w-5 h-5 text-white">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            @include('guru.partials.rapor.modal-lihat-catatan-guru')
                                         @else
                                             <div class="flex justify-center">
                                                 <button
@@ -193,22 +210,30 @@
                                         @endif
                                     </td>
                                     @if ($tahun->semester == 'Genap')
-                                        <td class="py-3 border border-gray-300 text-center relative">
+                                        <td class="py-3 border border-gray-300 text-center">
                                             @if ($siswa->naikKelas)
-                                                <p class="text-sm text-gray-900 dark:text-white">
-                                                    {{ $siswa->naikKelas->status }}
-                                                </p>
-                                                <button
-                                                    class="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600"
-                                                    data-modal-target="edit-status-naik-kelas-modal-{{ $siswa->id }}"
-                                                    data-modal-toggle="edit-status-naik-kelas-modal-{{ $siswa->id }}">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                        class="w-5 h-5 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                                    </svg>
-                                                </button>
+                                                <div class="flex justify-center gap-4">
+                                                    <p class="text-sm text-gray-900 dark:text-white">
+                                                        @if ($siswa->naikKelas->status == 'naik')
+                                                            Naik Kelas
+                                                        @elseif ($siswa->naikKelas->status == 'tinggal')
+                                                            Tinggal Kelas
+                                                        @elseif ($siswa->naikKelas->status == 'lulus')
+                                                            Lulus
+                                                        @endif
+                                                    </p>
+                                                    <button
+                                                        class="inline-flex items-center bg-yellow-500 text-white p-2 rounded-lg hover:bg-yellow-600"
+                                                        data-modal-target="edit-status-naik-kelas-modal-{{ $siswa->id }}"
+                                                        data-modal-toggle="edit-status-naik-kelas-modal-{{ $siswa->id }}">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                            class="w-5 h-5">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
                                             @else
                                                 <div class="flex justify-center">
                                                     <button
@@ -232,28 +257,48 @@
                                     @include('guru.partials.rapor.modal-tambah-catatan-guru')
                                     @include('guru.partials.rapor.modal-edit-catatan-guru')
                                 @endif
-                                @if (@$raporComplited)
+                                @if ($nilaiComplited == true)
                                     <td class="py-3 border border-gray-300 text-center">
-                                        @if (($progres['persen_rapor'] ?? 0) == 100)
-                                            <div class="flex justify-center">
-                                                <form method="GET"
-                                                    action="{{ route('guru.rapor-siswa', ['id' => $siswa->id]) }}">
-                                                    <input type="hidden" name="tahun_id" value="{{ $tahun->id }}">
-                                                    <input type="hidden" name="kelas_id" value="{{ $kelas->id }}">
-                                                    <button type="submit"
-                                                        class="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700 focus:ring-2 focus:ring-green-500">
-                                                        <svg class="w-5 h-5 text-white" aria-hidden="true"
-                                                            xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                            viewBox="0 0 24 24">
-                                                            <path stroke="currentColor" stroke-linecap="round"
-                                                                stroke-linejoin="round" stroke-width="2"
-                                                                d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01" />
-                                                        </svg>
-                                                        Rapor Siswa
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        @endif
+                                        <div class="flex justify-center gap-2">
+                                            @if (($progres['persen_nilai'] ?? 0) == 100)
+                                                <button
+                                                    class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 focus:ring-2 focus:ring-blue-500"
+                                                    data-modal-target="lihat-nilai-akhir-modal-{{ $siswa->id }}"
+                                                    data-modal-toggle="lihat-nilai-akhir-modal-{{ $siswa->id }}">
+                                                    <svg class="w-5 h-5 text-white" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="M10 3v4a1 1 0 0 1-1 1H5m8 7.5 2.5 2.5M19 4v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Zm-5 9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
+                                                    </svg>
+                                                    Nilai Akhir
+                                                </button>
+                                            @endif
+                                            @if (($progres['persen_rapor'] ?? 0) == 100)
+                                                <div class="flex justify-center">
+                                                    <form method="GET"
+                                                        action="{{ route('guru.rapor-siswa', ['id' => $siswa->id]) }}">
+                                                        <input type="hidden" name="tahun_id"
+                                                            value="{{ $tahun->id }}">
+                                                        <input type="hidden" name="kelas_id"
+                                                            value="{{ $kelas->id }}">
+                                                        <button type="submit"
+                                                            class="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700 focus:ring-2 focus:ring-green-500">
+                                                            <svg class="w-5 h-5 text-white" aria-hidden="true"
+                                                                xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                viewBox="0 0 24 24">
+                                                                <path stroke="currentColor" stroke-linecap="round"
+                                                                    stroke-linejoin="round" stroke-width="2"
+                                                                    d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01" />
+                                                            </svg>
+                                                            Rapor Siswa
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            @endif
+                                            @include('guru.partials.rapor.modal-lihat-nilai-akhhir')
+                                        </div>
                                     </td>
                                 @endif
                             @else

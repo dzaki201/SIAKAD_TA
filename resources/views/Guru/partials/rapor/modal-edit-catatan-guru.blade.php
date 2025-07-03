@@ -3,7 +3,7 @@
     <div class="relative w-full h-full max-w-2xl mx-auto md:h-auto">
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <div class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Edit Catatan Siswa</h3>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Edit Catatan</h3>
                 <button type="button"
                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5"
                     data-modal-toggle="edit-catatan-guru-modal-{{ $siswa->id }}">
@@ -14,52 +14,7 @@
                     </svg>
                 </button>
             </div>
-            <div class="p-6 space-y-6">
-                <div>
-                    <h4 class="text-sm font-semibold text-gray-800 dark:text-white mb-2">Nilai Akhir</h4>
-                    <div class="grid grid-cols-4 gap-3">
-                        @foreach ($siswa->nilaiAkhir as $nilai)
-                            <div class="flex flex-col items-center p-3 bg-gray-100 rounded-lg dark:bg-gray-600">
-                                <span
-                                    class="text-xs text-gray-900 dark:text-white text-center">{{ $nilai->mataPelajaran->nama }}</span>
-                                <span
-                                    class="text-sm font-semibold text-gray-800 dark:text-white">{{ $nilai->nilai_akhir }}</span>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-                <div>
-                    <h4 class="text-sm font-semibold text-gray-800 dark:text-white mb-2">Absensi</h4>
-                    <div class="grid grid-cols-3 gap-3">
-                        <div class="p-3 bg-gray-100 rounded-lg dark:bg-gray-600 text-center">
-                            <span class="block text-sm font-medium text-gray-900 dark:text-white">Izin</span>
-                            <span
-                                class="text-sm text-gray-800 dark:text-white">{{ $siswa->absensi->ijin ?? '-' }}</span>
-                        </div>
-                        <div class="p-3 bg-gray-100 rounded-lg dark:bg-gray-600 text-center">
-                            <span class="block text-sm font-medium text-gray-900 dark:text-white">Sakit</span>
-                            <span
-                                class="text-sm text-gray-800 dark:text-white">{{ $siswa->absensi->sakit ?? '-' }}</span>
-                        </div>
-                        <div class="p-3 bg-gray-100 rounded-lg dark:bg-gray-600 text-center">
-                            <span class="block text-sm font-medium text-gray-900 dark:text-white">Alpa</span>
-                            <span
-                                class="text-sm text-gray-800 dark:text-white">{{ $siswa->absensi->alpa ?? '-' }}</span>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="text-sm font-semibold text-gray-800 dark:text-white mb-2">Ekstrakurikuler</h4>
-                    <div class="grid grid-cols-2 gap-3">
-                        @foreach ($siswa->ekskul as $ekskul)
-                            <div class="flex flex-col p-3 bg-gray-100 rounded-lg dark:bg-gray-600">
-                                <span
-                                    class="text-sm font-medium text-gray-900 dark:text-white">{{ $ekskul->ekskul->nama }}</span>
-                                <span class="text-sm text-gray-800 dark:text-white">{{ $ekskul->keterangan }}</span>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
+            <div class="p-6">
                 @if ($siswa->catatan)
                     <form action="{{ route('guru.catatan-guru.update', ['id' => $siswa->catatan->id]) }}" method="POST"
                         class="space-y-3">

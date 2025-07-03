@@ -14,7 +14,7 @@
                     </svg>
                 </button>
             </div>
-            <div class="p-6 space-y-6">
+            <div class="p-6 ">
                 <form action="{{ route('guru.naik-kelas.store') }}" method="POST" >
                     @csrf
                     <input type="hidden" name="siswa_id" value="{{ $siswa->id }}">
@@ -27,7 +27,7 @@
                             <option value="">-- Pilih Status --</option>
                             <option value="naik">Naik Kelas</option>
                             <option value="tinggal">Tinggal Kelas</option>
-                            <option value="lulus">Lulus Kelas</option>
+                            <option value="lulus">Lulus</option>
                         </select>
                     </div>
                     <div class="pt-2 space-x-4 border-t border-gray-200 dark:border-gray-600 text-right">
