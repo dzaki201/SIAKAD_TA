@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -65,7 +66,6 @@ class AuthController extends Controller
         } elseif ($user->role == 'orang_tua') {
             return redirect()->route('orang-tua.dashboard');
         } else {
-            // Kalau role tidak terdaftar, redirect ke halaman utama atau logout
             return redirect('/');
         }
     }
@@ -75,5 +75,42 @@ class AuthController extends Controller
         $request->session()->invalidate();
 
         return redirect()->route('login');
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $validatedData = $request->validate([
+            'email' => 'required|email',
+            'password' => 'nullable|confirmed',
+            'role' => 'nullable',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ], [
+            'password.confirmed' => 'Konfirmasi password tidak cocok.',
+        ]);
+
+
+        if ($request->filled('password')) {
+            $validatedData['password'] = Hash::make($request->password);
+        } else {
+            unset($validatedData['password']);
+        }
+
+        $user = User::findOrFail($id);
+
+        if ($request->hasFile('foto')) {
+            if ($user->foto) {
+                Storage::delete('public/foto_users/' . $user->foto);
+                $namaFoto = $user->foto;
+            } else {
+                $extension = $request->file('foto')->getClientOriginalExtension();
+                $namaFoto = $this->generateFotoUserName() . '.' . $extension;
+            }
+            $request->file('foto')->storeAs('public/foto_users', $namaFoto);
+            $validatedData['foto'] = $namaFoto;
+        }
+
+        $user->update($validatedData);
+
+        return redirect()->back()->with('success', 'Akun berhasil diupdate.');
     }
 }

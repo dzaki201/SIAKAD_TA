@@ -3,6 +3,7 @@
 @section('title', 'Dashboard Guru')
 
 @section('content')
+    @include('components.alert')
     <div class="mb-6 pt-5 flex space-x-4">
         <div
             class=" w-full p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 flex items-center space-x-6">
@@ -34,5 +35,5 @@
             </ul>
         </div>
     </div>
-
+    @include('partials.modal-edit-akun')
 @endsection
