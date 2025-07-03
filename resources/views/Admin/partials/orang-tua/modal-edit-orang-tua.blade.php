@@ -40,32 +40,6 @@
                             </select>
                         </div>
                         <div class="w-full">
-                            <label for="siswa_id"
-                                class="block text-sm font-medium text-gray-700 dark:text-white">Siswa</label>
-                            <select id="siswa_id" name="siswa_id" required
-                                class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                                <option value="">Pilih Siswa</option>
-                                @foreach ($siswas as $siswa)
-                                    <option value="{{ $siswa->id }}"
-                                        {{ $ortu->siswa_id == $siswa->id ? 'selected' : '' }}>{{ $siswa->nama }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="flex space-x-4">
-                        <div class="w-full">
-                            <label for="status"
-                                class="block text-sm font-medium text-gray-700 dark:text-white">Status</label>
-                            <select id="status" name="status" required
-                                class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                                <option value="">Pilih Status</option>
-                                <option value="ayah" {{ $ortu->status == 'ayah' ? 'selected' : '' }}>Ayah</option>
-                                <option value="ibu" {{ $ortu->status == 'ibu' ? 'selected' : '' }}>Ibu</option>
-                                <option value="wali" {{ $ortu->status == 'wali' ? 'selected' : '' }}>Wali</option>
-                            </select>
-                        </div>
-                        <div class="w-full">
                             <label for="nik"
                                 class="block text-sm font-medium text-gray-700 dark:text-white">NIK</label>
                             <input type="text" id="nik" name="nik" value="{{ $ortu->nik }}" required
@@ -92,7 +66,64 @@
                             <label for="no_hp" class="block text-sm font-medium text-gray-700 dark:text-white">Nomor
                                 HP</label>
                             <input type="text" id="no_hp" name="no_hp" value="{{ $ortu->no_hp }}"
-                                class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                                class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                        </div>
+
+                        <div class="w-1/2">
+                            <label for="dropdown-siswa-edit-button"
+                                class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Siswa</label>
+                            <div class="relative inline-block w-full">
+                                <button id="dropdown-siswa-edit-button"
+                                    data-dropdown-toggle="dropdown-siswa-edit-menu-{{ $ortu->id }}" type="button"
+                                    class="w-full flex items-center justify-between bg-white border border-gray-300 px-4 py-2 rounded-lg text-left focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                                    <span>Pilih Siswa</span>
+                                    <svg class="w-4 h-4 ml-2 text-gray-500 dark:text-gray-300" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </button>
+
+                                <div id="dropdown-siswa-edit-menu-{{ $ortu->id }}"
+                                    class="hidden absolute w-full mt-1 bg-white border border-gray-300 rounded-lg shadow z-10 max-h-64 overflow-y-auto dark:bg-gray-700 dark:border-gray-600">
+                                    <div class="p-2 border-b dark:border-gray-600">
+                                        <input type="text" onkeyup="filterSiswa(this)" placeholder="Cari siswa..."
+                                            class="w-full border border-gray-300 px-2 py-1 rounded text-sm focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                                    </div>
+                                    <div id="list-siswa">
+                                        @foreach ($siswas as $siswa)
+                                            <label
+                                                class="flex items-center px-3 py-2 border-b border-gray-200 dark:border-gray-600 siswa-item">
+                                                <input type="checkbox" name="siswa_id[]" value="{{ $siswa->id }}"
+                                                    class="mr-2" @if ($ortu->siswa->contains($siswa->id)) checked @endif>
+                                                <span class="text-gray-700 dark:text-white">{{ $siswa->nama }}</span>
+                                            </label>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex space-x-4">
+                        <div class="w-1/2 pr-2">
+                            <label for="status"
+                                class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Status</label>
+                            <select id="status" name="status" required
+                                class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                                <option value="">Pilih Status</option>
+                                <option value="ayah"
+                                    {{ $ortu->siswa->first() && $ortu->siswa->first()->pivot->status == 'ayah' ? 'selected' : '' }}>
+                                    Ayah
+                                </option>
+                                <option value="ibu"
+                                    {{ $ortu->siswa->first() && $ortu->siswa->first()->pivot->status == 'ibu' ? 'selected' : '' }}>
+                                    Ibu
+                                </option>
+                                <option value="wali"
+                                    {{ $ortu->siswa->first() && $ortu->siswa->first()->pivot->status == 'wali' ? 'selected' : '' }}>
+                                    Wali
+                                </option>
+                            </select>
                         </div>
                     </div>
                     <div class="md:col-span-2">

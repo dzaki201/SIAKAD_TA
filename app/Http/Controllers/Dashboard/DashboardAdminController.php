@@ -97,7 +97,6 @@ class DashboardAdminController extends Controller
             $item->setRelation('kelasSiswa', $kelas);
             return $item;
         });
-        // dd($siswas);
         return view('admin.layouts.siswa.edit-kelas-siswa', compact('siswas', 'kelases', 'tahun'));
     }
     public function adminOrangTua()
@@ -106,7 +105,8 @@ class DashboardAdminController extends Controller
         $users = User::where('role', 'orang_tua')
             ->whereNotIn('id', $userIds)
             ->get();
-        $orangtuas = OrangTua::all();
+        $orangtuas = OrangTua::with('siswa')->get();
+        // dd($orangtuas);
         $siswas = Siswa::all();
         return view('admin.layouts.orang-tua', compact('orangtuas', 'siswas', 'users'));
     }

@@ -28,6 +28,8 @@ class OrangTua extends Model
     // Relasi ke tabel siswa
     public function siswa()
     {
-        return $this->belongsTo(Siswa::class);
+        return $this->belongsToMany(Siswa::class, 'orang_tua_siswa')
+            ->withPivot('status')
+            ->withTimestamps();
     }
 }

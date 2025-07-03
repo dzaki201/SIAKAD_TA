@@ -52,49 +52,59 @@
                 <h4 class="text-lg font-bold text-gray-900 dark:text-white">Data Orang Tua / Wali</h4>
                 <dl class="grid grid-cols-3 gap-4">
                     <div>
+                        @php
+                            $ayah = $siswa->orangTua->filter(fn($ortu) => $ortu->pivot->status === 'ayah')->first();
+                        @endphp
                         <dt class="font-semibold text-gray-900 dark:text-white">Nama Ayah</dt>
                         <dd class="mb-2 text-gray-700 dark:text-gray-300">
-                            {{ optional($siswa->orangTua->where('status', 'ayah')->first())->nama ?? '-' }}
+                            {{ $ayah->nama ?? '-' }}
                         </dd>
                         <dt class="font-semibold text-gray-900 dark:text-white">Pekerjaan Ayah</dt>
                         <dd class="mb-2 text-gray-700 dark:text-gray-300">
-                            {{ optional($siswa->orangTua->where('status', 'ayah')->first())->pekerjaan ?? '-' }}
+                            {{ $ayah->pekerjaan ?? '-' }}
                         </dd>
                         <dt class="font-semibold text-gray-900 dark:text-white">Email</dt>
                         <dd class="mb-2 text-gray-700 dark:text-gray-300">
-                            {{ $siswa->orangTua->where('status', 'ayah')->first()->user?->email ?? '-' }}
+                            {{ $ayah->user?->email ?? '-' }}
                         </dd>
-                        <dt class="font-semibold text-gray-900 dark:text-white">Nomor Hp</dt>
+                        <dt class="font-semibold text-gray-900 dark:text-white">Nomor HP</dt>
                         <dd class="mb-2 text-gray-700 dark:text-gray-300">
-                            {{ optional($siswa->orangTua->where('status', 'ayah')->first())->no_hp ?? '-' }}
+                            {{ $ayah->no_hp ?? '-' }}
                         </dd>
                     </div>
                     <div>
+                        @php
+                            $ibu = $siswa->orangTua->filter(fn($ortu) => $ortu->pivot->status === 'ibu')->first();
+                        @endphp
                         <dt class="font-semibold text-gray-900 dark:text-white">Nama Ibu</dt>
                         <dd class="mb-2 text-gray-700 dark:text-gray-300">
-                            {{ optional($siswa->orangTua->where('status', 'ibu')->first())->nama ?? '-' }}
+                            {{ $ibu->nama ?? '-' }}
                         </dd>
                         <dt class="font-semibold text-gray-900 dark:text-white">Pekerjaan Ibu</dt>
                         <dd class="mb-2 text-gray-700 dark:text-gray-300">
-                            {{ optional($siswa->orangTua->where('status', 'ibu')->first())->pekerjaan ?? '-' }}
+                            {{ $ibu->pekerjaan ?? '-' }}
                         </dd>
                         <dt class="font-semibold text-gray-900 dark:text-white">Email</dt>
                         <dd class="mb-2 text-gray-700 dark:text-gray-300">
-                            {{ $siswa->orangTua->where('status', 'ibu')->first()->user?->email ?? '-' }}
+                            {{ $ibuuser?->email ?? '-' }}
                         </dd>
                         <dt class="font-semibold text-gray-900 dark:text-white">Nomor Hp</dt>
                         <dd class="mb-2 text-gray-700 dark:text-gray-300">
-                            {{ optional($siswa->orangTua->where('status', 'ibu')->first())->no_hp ?? '-' }}
+                            {{ $ibu->no_hp ?? '-' }}
                         </dd>
                     </div>
                     <div>
+                        @php
+                            $wali = $siswa->orangTua->filter(fn($ortu) => $ortu->pivot->status === 'wali')->first();
+                        @endphp
+
                         <dt class="font-semibold text-gray-900 dark:text-white">Nama Wali</dt>
                         <dd class="mb-2 text-gray-700 dark:text-gray-300">
-                            {{ optional($siswa->orangTua->where('status', 'wali')->first())->nama ?? '-' }}
+                            {{ $wali->nama ?? '-' }}
                         </dd>
                         <dt class="font-semibold text-gray-900 dark:text-white">Pekerjaan Wali</dt>
                         <dd class="mb-2 text-gray-700 dark:text-gray-300">
-                            {{ optional($siswa->orangTua->where('status', 'wali')->first())->pekerjaan ?? '-' }}
+                            {{ $wali->pekerjaan ?? '-' }}
                         </dd>
                         <dt class="font-semibold text-gray-900 dark:text-white">Email</dt>
                         <dd class="mb-2 text-gray-700 dark:text-gray-300">
@@ -102,7 +112,7 @@
                         </dd>
                         <dt class="font-semibold text-gray-900 dark:text-white">Nomor Hp</dt>
                         <dd class="mb-2 text-gray-700 dark:text-gray-300">
-                            {{ optional($siswa->orangTua->where('status', 'wali')->first())->no_hp ?? '-' }}
+                            {{ $wali->no_hp ?? '-' }}
                         </dd>
                     </div>
                 </dl>

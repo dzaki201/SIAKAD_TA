@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\KunciNilai;
 use App\Models\NilaiAkhir;
+use App\Models\OrangTuaSiswa;
 use App\Models\SiswaEkstrakulikuler;
 use Database\Seeders\CapaianPembelajaranSeeder;
 use Illuminate\Database\Seeder;
@@ -38,6 +39,7 @@ class DatabaseSeeder extends Seeder
             KepalaSekolahSeeder::class,
             KkmSeeder::class,
             KunciNilaiSeeder::class,
+            OrangTuaSiswaSeeder::class,
         ]);
     }
 }

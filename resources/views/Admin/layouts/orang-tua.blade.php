@@ -38,8 +38,16 @@
                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <td class="px-6 py-4">{{ $loop->iteration }}</td>
                             <td class="px-6 py-4">{{ $ortu->user->email ?? '-' }}</td>
-                            <td class="px-6 py-4">{{ $ortu->siswa->nama }}</td>
-                            <td class="px-6 py-4">{{ ucfirst($ortu->status) }}</td>
+                            <td class="px-6 py-4">
+                                @foreach ($ortu->siswa as $siswa)
+                                    {{ $siswa->nama }},
+                                @endforeach
+                            </td>
+                            <td class="px-6 py-4">
+                                @if ($ortu->siswa->first())
+                                    {{ $ortu->siswa->first()->pivot->status }}
+                                @endif
+                            </td>
                             <td class="px-6 py-4">{{ $ortu->nik }}</td>
                             <td class="px-6 py-4">{{ $ortu->nama }}</td>
                             <td class="px-6 py-4">{{ $ortu->pekerjaan }}</td>
@@ -80,3 +88,14 @@
     @include('admin.partials.orang-tua.modal-tambah-orang-tua')
 
 @endsection
+<script>
+    function filterSiswa(input) {
+        const filter = input.value.toLowerCase();
+        const items = document.querySelectorAll('#list-siswa .siswa-item');
+
+        items.forEach(function(item) {
+            const text = item.textContent.toLowerCase();
+            item.style.display = text.includes(filter) ? '' : 'none';
+        });
+    }
+</script>

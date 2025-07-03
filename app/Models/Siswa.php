@@ -39,6 +39,8 @@ class Siswa extends Model
     }
     public function orangTua()
     {
-        return $this->hasMany(OrangTua::class);
+        return $this->belongsToMany(OrangTua::class, 'orang_tua_siswa')
+            ->withPivot('status')
+            ->withTimestamps();
     }
 }
