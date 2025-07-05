@@ -56,7 +56,7 @@
                 <thead class="text-xs text-white text-center uppercase bg-blue-800 dark:bg-gray-700">
                     <tr>
                         <th class="w-12 px-4 py-3 text-left border border-gray-300">No</th>
-                        <th class="w-px-4 py-3  border border-gray-300">NIS</th>
+                        <th class="w-px-4 py-3 border border-gray-300">NIS</th>
                         <th class="w-px-4 py-3 border border-gray-300">Nama</th>
                         <th class="w-px-4 py-3 border border-gray-300">Ijin</th>
                         <th class="w-px-4 py-3 border border-gray-300">Sakit</th>

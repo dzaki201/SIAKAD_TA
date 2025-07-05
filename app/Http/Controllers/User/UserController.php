@@ -36,7 +36,7 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         $validatedData = $request->validate([
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'nullable',
             'role' => 'nullable',
             'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',

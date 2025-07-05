@@ -193,7 +193,6 @@ class DashboardGuruController extends Controller
          ->get();
       $tahuns = TahunAjaran::get();
       $ekskuls = Ekstrakulikuler::get();
-      // dd($siswas);
       return view('guru.layouts.ekskul',  compact('mapels', 'siswas', 'tahun', 'tahuns', 'tahunAktif', 'ekskuls'));
    }
    public function guruRapor(Request $request)
@@ -219,20 +218,21 @@ class DashboardGuruController extends Controller
          ->get();
       $totalMapel = $mapelsiswa->count();
       $mapelIds = $mapelsiswa->pluck('id');
-      $nilaiPerSiswa = NilaiAkhir::selectRaw('siswa_id, COUNT(DISTINCT mata_pelajaran_id) as jumlah_nilai')
-         ->whereIn('siswa_id', $siswas->pluck('id'))
+      $nilaiPerSiswa = NilaiAkhir::whereIn('siswa_id', $siswas->pluck('id'))
          ->where('tahun_ajaran_id', $tahun->id)
-         ->groupBy('siswa_id')
-         ->pluck('jumlah_nilai', 'siswa_id');
+         ->get()
+         ->groupBy('siswa_id');
 
       if ($nilaiPerSiswa->isEmpty()) {
          return view('Guru.layouts.rapor', compact('mapels', 'tahuns', 'tahun', 'siswas', 'nilaiPerSiswa', 'kelas', 'kelases'));
       }
 
       $progresRapor = $siswas->map(function ($siswa) use ($nilaiPerSiswa, $totalMapel, $tahun, $mapelIds, $kelasId) {
-         $mapelNilaiAda = $nilaiPerSiswa->get($siswa->id, 0);
+         $nilaiSiswa = $nilaiPerSiswa->get($siswa->id, collect());
+         $mapelAda = $nilaiSiswa->pluck('mata_pelajaran_id');
+         $mapelBelumAda = MataPelajaran::whereIn('id', $mapelIds->diff($mapelAda))->pluck('nama')->toArray();
+         $mapelNilaiAda = $mapelAda->count();
          $persenNilai = $totalMapel > 0 ? round(($mapelNilaiAda / $totalMapel) * 100, 2) : 0;
-         $mapelBelumAda = MataPelajaran::whereIn('id', $mapelIds->diff($mapelNilaiAda))->pluck('nama')->toArray();
          $belum = [];
          $progressItem = 0;
 
@@ -356,7 +356,7 @@ class DashboardGuruController extends Controller
          ->where('tahun_ajaran_id', $tahun->id)
          ->get();
 
-      $template = view('guru.layouts.rapor-semua-siswa', compact('siswas', 'guru', 'tahun', 'mapels', 'nilaiakhirs', 'ekskuls', 'absensi','fase'))->render();
+      $template = view('guru.layouts.rapor-semua-siswa', compact('siswas', 'guru', 'tahun', 'mapels', 'nilaiakhirs', 'ekskuls', 'absensi', 'fase'))->render();
 
       $tahunText = str_replace('/', '-', $tahun->tahun);
       $fileName = 'Rapor_Siswa_Kelas_' .  $kelas->nama . '_Semester_' . $tahun->semester . '_' . $tahunText . '.pdf';

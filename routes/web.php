@@ -143,10 +143,10 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
 
     Route::post('/guru-catatan-guru', [CatatanGuruController::class, 'store'])->name('guru.catatan-guru.store');
     Route::put('/guru-catatan-guru/{id}/update', [CatatanGuruController::class, 'update'])->name('guru.catatan-guru.update');
-    
+
     Route::post('/guru-status-naik-kelas', [NaikKelasController::class, 'store'])->name('guru.naik-kelas.store');
     Route::post('/guru-status-naik-kelas/{id}/update', [NaikKelasController::class, 'ipdate'])->name('guru.naik-kelas.update');
-    
+
     Route::get('/guru-rapor', [DashboardGuruController::class, 'guruRapor'])->name('guru.rapor');
     Route::get('/guru-rapor-semua-siswa', [DashboardGuruController::class, 'guruRaporSemuaSiswa'])->name('guru.rapor-semua-siswa');
     Route::get('/guru-rapor-siswa/{id}', [DashboardGuruController::class, 'guruRaporSiswa'])->name('guru.rapor-siswa');
@@ -160,11 +160,16 @@ Route::middleware(['auth', 'role:guru_mapel'])->group(function () {
     Route::get('/guru-mapel-edit-nilai-akhir/{id}/{kelasId}', [DashboardGuruMapelController::class, 'guruMapelEditNilaiAkhir'])->name('guru-mapel.edit.nilai-akhir');
 });
 
-Route::middleware(['auth', 'role:orang_tua'])->group(function () {
-    Route::get('/orang-tua-dashboard', [DashboardOrangTuaController::class, 'OrangTuaIndex'])->name('orang-tua.dashboard');
-});
 Route::middleware(['auth', 'role:kepsek'])->group(function () {
     Route::get('/kepsek-dashboard', [DashboardKepalaSekolahController::class, 'kepsekIndex'])->name('kepsek.dashboard');
+});
+Route::middleware(['auth', 'role:orang_tua'])->group(function () {
+    Route::get('/orang-tua-dashboard', [DashboardOrangTuaController::class, 'OrangTuaIndex'])->name('orang-tua.dashboard');
+    
+    Route::get('/orang-tua-nilai-akhir', [DashboardOrangTuaController::class, 'OrangTuaNilaiAkhir'])->name('orang-tua.nilai-akhir');
+    Route::get('/orang-tua-nilai', [DashboardOrangTuaController::class, 'OrangTuaNilai'])->name('orang-tua.nilai');
+
+    Route::get('/orang-tua-rapor', [DashboardOrangTuaController::class, 'orangTuaRapor'])->name('orang-tua.rapor');
 });
 
 Route::middleware(['auth', 'role:guru,guru_mapel'])->group(function () {

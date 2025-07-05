@@ -4,10 +4,7 @@
 
 @section('content')
     @include('components.alert')
-
     <div class="flex flex-col space-y-6">
-
-        {{-- Selamat Datang & Akun --}}
         <div class="p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
             <div class="flex items-center space-x-6">
                 <div class="shrink-0">
@@ -31,11 +28,11 @@
                 </div>
             </div>
         </div>
-        {{-- Daftar Anak --}}
         <div class="p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
             <div class="flex justify-between">
                 <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Daftar Anak</h3>
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Semester</h3>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Semester {{ $tahun->semester }}
+                    {{ $tahun->tahun }}</h3>
             </div>
             @if ($anak->count() > 0)
                 <div class="space-y-3">
@@ -45,14 +42,27 @@
                             <div>
                                 <p class="text-lg font-semibold dark:text-white">{{ $siswa->nama }}</p>
                                 <p class="text-sm text-gray-500 dark:text-gray-400">NIS: {{ $siswa->nis }}</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Kelas:
+                                    {{ $siswa->kelasSiswa->first()->nama }}</p>
                             </div>
-                            <div class="space-x-2">
-                                <a href=""
-                                    class="px-3 py-1 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700">Lihat
-                                    Nilai</a>
-                                <a href=""
-                                    class="px-3 py-1 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700">Lihat
-                                    Rapor</a>
+                            <div class="flex space-x-2">
+                                <form action="{{ route('orang-tua.nilai-akhir') }}" method="GET">
+                                    @csrf
+                                    <input type="hidden" name="siswa_id" value="{{ $siswa->id }}">
+                                    <button type="submit"
+                                        class="px-3 py-1 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700">
+                                        Lihat Detail Nilai
+                                    </button>
+                                </form>
+                                <form action="{{ route('orang-tua.rapor') }}" method="GET">
+                                    @csrf
+                                    <input type="hidden" name="siswa_id" value="{{ $siswa->id }}">
+                                    <input type="hidden" name="tahun_ajaran_id" value="{{ $tahun->id }}">
+                                    <button type="submit"
+                                    class="px-3 py-1 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                        Lihat Rapor
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     @endforeach
@@ -62,6 +72,5 @@
             @endif
         </div>
     </div>
-    {{-- Modal Edit Akun --}}
     @include('partials.modal-edit-akun')
 @endsection

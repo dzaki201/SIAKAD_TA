@@ -11,9 +11,8 @@
 </head>
 
 <body class="bg-gray-100 dark:bg-gray-900">
-    {{-- @include('components.navbar') --}}
-    @include('components.sidebar')
-    <div class="p-4 sm:ml-64 pt-20 ">
+    @include('components.navbar')
+    <div class="p-4 sm:ml-64 sm:mr-64 pt-20">
         @yield('content')
     </div>
 
