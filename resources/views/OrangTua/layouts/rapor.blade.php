@@ -48,7 +48,6 @@
             <div class="text-center mb-6">
                 <h2 class="text-2xl font-bold text-gray-900 dark:text-white">RAPOR DAN PROFIL PESERTA DIDIK</h2>
             </div>
-
             <div class="mb-6">
                 <table class="w-full border-collapse table-auto text-gray-800 dark:text-gray-200">
                     <tbody>
@@ -79,7 +78,6 @@
                     </tbody>
                 </table>
             </div>
-
             <div class="mb-8">
                 <table
                     class="table-auto w-full border border-gray-400 dark:border-gray-600 text-gray-800 dark:text-gray-200">
@@ -107,8 +105,6 @@
                     </tbody>
                 </table>
             </div>
-
-            <!-- Tambahkan dark:bg-gray-700 untuk thead atau dark:border-gray-600 untuk border -->
             <div class="mb-8">
                 <h4 class="font-semibold mb-2 text-gray-900 dark:text-white">Ekstrakurikuler</h4>
                 <table
@@ -131,12 +127,10 @@
                     </tbody>
                 </table>
             </div>
-
             <div class="mb-8">
                 <h4 class="font-semibold mb-2 text-gray-900 dark:text-white">Catatan Guru</h4>
                 <p class="p-2 border border-gray-400 dark:border-gray-600 dark:text-gray-200">{{ $catatan->catatan }}</p>
             </div>
-
             <div class="mb-8 grid grid-cols-2 gap-4">
                 <div>
                     <h4 class="font-semibold mb-2 text-gray-900 dark:text-white">Kehadiran</h4>
@@ -159,7 +153,6 @@
                         </tbody>
                     </table>
                 </div>
-
                 @if ($keputusan)
                     <div>
                         <h4 class="font-semibold mb-2 text-gray-900 dark:text-white">Keputusan</h4>
@@ -180,12 +173,10 @@
                     </div>
                 @endif
             </div>
-
             <div class="flex justify-between mb-4 text-gray-800 dark:text-gray-200">
                 <p class="ml-24 text-left">Mengetahui,</p>
                 <p class="mr-12 text-right">Purwokerto, .........................................</p>
             </div>
-
             <div class="grid grid-cols-3 gap-4 text-center text-gray-800 dark:text-gray-200">
                 <div>
                     <p class="font-medium">Orang Tua/Wali</p>

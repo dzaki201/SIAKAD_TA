@@ -74,7 +74,7 @@
                                     {{ $nilai->nilai_akhir }}
                                 </td>
                                 <td
-                                    class="w-px-4 py-3 border border-gray-300 text-center font-semibold text-gray-900 dark:text-white">
+                                    class="w-px-4 py-3 border border-gray-300 text-center font-semibold text-gray-900 dark:text-white breaks">
                                     {{ $nilai->keterangan ?? '-' }}
                                 </td>
                                 <td class="w-px-4 py-3 border border-gray-300 text-center">

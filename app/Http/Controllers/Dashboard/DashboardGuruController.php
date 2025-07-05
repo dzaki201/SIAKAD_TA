@@ -14,6 +14,7 @@ use App\Models\NilaiAkhir;
 use App\Models\CatatanGuru;
 use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
+use App\Models\KepalaSekolah;
 use App\Models\MataPelajaran;
 use App\Models\PlotGuruMapel;
 use App\Models\PlotSiswaKelas;
@@ -229,21 +230,26 @@ class DashboardGuruController extends Controller
 
       $progresRapor = $siswas->map(function ($siswa) use ($nilaiPerSiswa, $totalMapel, $tahun, $mapelIds, $kelasId) {
          $nilaiSiswa = $nilaiPerSiswa->get($siswa->id, collect());
-         $mapelAda = $nilaiSiswa->pluck('mata_pelajaran_id');
+         $mapelId = $nilaiSiswa->pluck('mata_pelajaran_id');
+         $cekNilai = KunciNilai::whereIn('mata_pelajaran_id', $mapelId)
+            ->where('tahun_ajaran_id', $tahun->id)
+            ->where('kelas_id', $kelasId)
+            ->where('is_locked', 1)
+            ->get();
+
+         $mapelAda = $cekNilai->pluck('mata_pelajaran_id');
          $mapelBelumAda = MataPelajaran::whereIn('id', $mapelIds->diff($mapelAda))->pluck('nama')->toArray();
          $mapelNilaiAda = $mapelAda->count();
          $persenNilai = $totalMapel > 0 ? round(($mapelNilaiAda / $totalMapel) * 100, 2) : 0;
          $belum = [];
          $progressItem = 0;
 
-         // Nilai Akhir
          if ($persenNilai >= 100) {
             $progressItem++;
          } else {
             $belum[] = 'Nilai Akhir';
          }
 
-         // Absensi
          $absensiAda = Absensi::where('siswa_id', $siswa->id)
             ->where('tahun_ajaran_id', $tahun->id)
             ->where('kelas_id', $kelasId)
@@ -254,7 +260,6 @@ class DashboardGuruController extends Controller
             $belum[] = 'Absensi';
          }
 
-         // Ekskul
          $ekskulAda = SiswaEkstrakulikuler::where('siswa_id', $siswa->id)
             ->where('tahun_ajaran_id', $tahun->id)
             ->exists();
@@ -264,7 +269,6 @@ class DashboardGuruController extends Controller
             $belum[] = 'Ekstrakulikuler';
          }
 
-         // Catatan Guru
          $catatanAda = CatatanGuru::where('siswa_id', $siswa->id)
             ->where('tahun_ajaran_id', $tahun->id)
             ->exists();
@@ -274,7 +278,6 @@ class DashboardGuruController extends Controller
             $belum[] = 'Catatan Guru';
          }
 
-         // Naik Kelas
          if ($tahun->semester == 'Genap') {
             $naikKelasAda = NaikKelas::where('siswa_id', $siswa->id)
                ->where('tahun_ajaran_id', $tahun->id)
@@ -329,6 +332,7 @@ class DashboardGuruController extends Controller
       }])->whereIn('id', $siswa)->get();
 
       $guru = Guru::where('kelas_id', $request->kelas_id)->first();
+      $kepsek = KepalaSekolah::first();
       $tahun = TahunAjaran::where('id', $request->tahun_id)->first() ?? TahunAjaran::where('status', 1)->first();
       $kelasMapel = KelasMataPelajaran::where('kelas_id', $request->kelas_id)->pluck('mata_pelajaran_id');
       $mapels = MataPelajaran::whereIn('id', $kelasMapel)->get();
@@ -344,19 +348,36 @@ class DashboardGuruController extends Controller
       } else {
          $fase = 'Tidak Diketahui';
       }
+      if ($tahun->semester == 'Ganjil') {
+         $semester = 1;
+      } elseif ($tahun->semester == 'Genap') {
+         $semester = 2;
+      } else {
+         $semester = '-';
+      }
 
       $nilaiakhirs = NilaiAkhir::whereIn('siswa_id', $siswas->pluck('id'))
          ->where('tahun_ajaran_id', $tahun->id)
          ->get();
-
       $ekskuls = SiswaEkstrakulikuler::whereIn('siswa_id', $siswas->pluck('id'))
          ->where('tahun_ajaran_id', $tahun->id)
          ->get();
-      $absensi = Absensi::whereIn('siswa_id', $siswas->pluck('id'))
+      $absensis = Absensi::whereIn('siswa_id', $siswas->pluck('id'))
+         ->where('tahun_ajaran_id', $tahun->id)
+         ->get();
+      $catatans = CatatanGuru::whereIn('siswa_id', $siswas->pluck('id'))
          ->where('tahun_ajaran_id', $tahun->id)
          ->get();
 
-      $template = view('guru.layouts.rapor-semua-siswa', compact('siswas', 'guru', 'tahun', 'mapels', 'nilaiakhirs', 'ekskuls', 'absensi', 'fase'))->render();
+      if ($tahun->semester == 'Genap') {
+         $keputusans = NaikKelas::whereIn('siswa_id', $siswas->pluck('id'))
+            ->where('tahun_ajaran_id', $tahun->id)
+            ->get();
+      } else {
+         $keputusans = false;
+      }
+
+      $template = view('guru.layouts.rapor-semua-siswa', compact('siswas', 'guru', 'tahun', 'mapels', 'nilaiakhirs', 'ekskuls', 'absensis', 'fase', 'semester', 'catatans', 'keputusans', 'kepsek', 'angkaKelas'))->render();
 
       $tahunText = str_replace('/', '-', $tahun->tahun);
       $fileName = 'Rapor_Siswa_Kelas_' .  $kelas->nama . '_Semester_' . $tahun->semester . '_' . $tahunText . '.pdf';
@@ -376,6 +397,7 @@ class DashboardGuruController extends Controller
       }])->where('id', $id)->first();
 
       $guru = Guru::where('kelas_id', $request->kelas_id)->first();
+      $kepsek = KepalaSekolah::first();
       $tahun = TahunAjaran::where('id', $request->tahun_id)->first() ?? TahunAjaran::where('status', 1)->first();
       $kelasMapel = KelasMataPelajaran::where('kelas_id', $request->kelas_id)->pluck('mata_pelajaran_id');
       $mapels = MataPelajaran::whereIn('id', $kelasMapel)->get();
@@ -391,6 +413,13 @@ class DashboardGuruController extends Controller
       } else {
          $fase = 'Tidak Diketahui';
       }
+      if ($tahun->semester == 'Ganjil') {
+         $semester = 1;
+      } elseif ($tahun->semester == 'Genap') {
+         $semester = 2;
+      } else {
+         $semester = '-';
+      }
 
       $nilaiakhirs = NilaiAkhir::where('siswa_id', $siswa->id)
          ->where('tahun_ajaran_id', $tahun->id)
@@ -401,8 +430,38 @@ class DashboardGuruController extends Controller
       $absensi = Absensi::where('siswa_id', $siswa->id)
          ->where('tahun_ajaran_id', $tahun->id)
          ->get();
+      $catatan = CatatanGuru::where('siswa_id', $siswa->id)
+         ->where('tahun_ajaran_id', $tahun->id)
+         ->first();
 
-      $template = view('guru.layouts.rapor-siswa', compact('siswa', 'guru', 'tahun', 'mapels', 'nilaiakhirs', 'ekskuls', 'absensi', 'fase'))->render();
+      if ($tahun->semester == 'Genap') {
+         $keputusan = NaikKelas::where('siswa_id', $siswa->id)
+            ->where('tahun_ajaran_id', $tahun->id)
+            ->first();
+      } else {
+         $keputusan = false;
+      }
+      $angkaKeHuruf = [
+         1 => 'Satu',
+         2 => 'Dua',
+         3 => 'Tiga',
+         4 => 'Empat',
+         5 => 'Lima',
+         6 => 'Enam',
+      ];
+      if ($keputusan) {
+         if ($keputusan->status == 'naik') {
+            $nextKelas = $angkaKelas + 1;
+         } elseif ($keputusan->status == 'tinggal') {
+            $nextKelas = $angkaKelas;
+         }
+         $teksKelas = $angkaKeHuruf[$nextKelas] ?? $nextKelas;
+      } else {
+         $nextKelas = null;
+         $teksKelas = null;
+      }
+
+      $template = view('guru.layouts.rapor-siswa', compact('siswa', 'guru', 'tahun', 'mapels', 'nilaiakhirs', 'ekskuls', 'absensi', 'fase', 'semester', 'catatan', 'keputusan', 'nextKelas', 'teksKelas', 'kepsek'))->render();
 
       $tahunText = str_replace('/', '-', $tahun->tahun);
       $fileName = ('Rapor_' . $siswa->nama . '_Semester_' . $tahun->semester . '_' . $tahunText . '.pdf');
