@@ -162,6 +162,9 @@ Route::middleware(['auth', 'role:guru_mapel'])->group(function () {
 
 Route::middleware(['auth', 'role:kepsek'])->group(function () {
     Route::get('/kepsek-dashboard', [DashboardKepalaSekolahController::class, 'kepsekIndex'])->name('kepsek.dashboard');
+
+    Route::get('/kepsek-siswa/{id}', [DashboardKepalaSekolahController::class, 'kepsekSiswa'])->name('kepsek.siswa');
+    Route::get('/kepsek-lihat-buku-induk', [DashboardKepalaSekolahController::class, 'kepsekLihatBukuInduk'])->name('kepsek.lihat-buku-induk');
 });
 Route::middleware(['auth', 'role:orang_tua'])->group(function () {
     Route::get('/orang-tua-dashboard', [DashboardOrangTuaController::class, 'OrangTuaIndex'])->name('orang-tua.dashboard');

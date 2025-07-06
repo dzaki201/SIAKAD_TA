@@ -51,20 +51,8 @@ class DashboardGuruController extends Controller
       $tahuns = TahunAjaran::all();
       $siswaIds = PlotSiswaKelas::where('kelas_id', $kelasId)->where('tahun_ajaran_id', $tahun->id)->pluck('siswa_id');
       $siswas = Siswa::with(['orangTua.user', 'kelasSiswa'])->whereIn('id', $siswaIds)->get();
-      $mapels = MataPelajaran::whereHas('kelases', function ($query) use ($kelasId) {
-         $query->where('kelas_id', $kelasId);
-      })->where('status', 'umum')
-         ->get();
 
-      $nilaiAkhir = NilaiAkhir::whereIn('siswa_id', $siswas->pluck('id'))
-         ->where('tahun_ajaran_id', $tahun->id)
-         ->get()
-         ->groupBy('siswa_id');
-      $siswas->map(function ($siswa) use ($nilaiAkhir) {
-         $siswa->setAttribute('nilaiAkhir', $nilaiAkhir->get($siswa->id, collect()));
-         return $siswa;
-      });
-      return view('Guru.layouts.siswa', compact('mapels', 'tahun', 'tahuns', 'siswas', 'kelas'));
+      return view('Guru.layouts.siswa', compact('tahun', 'tahuns', 'siswas', 'kelas'));
    }
    public function guruNilai($id, Request $request)
    {

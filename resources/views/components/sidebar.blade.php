@@ -312,6 +312,40 @@
                             <span class="ms-3">Dashboard</span>
                         </a>
                     </li>
+                    <li>
+                        <button type="button"
+                            class="mb-2 flex items-center w-full p-2 text-white rounded-lg hover:bg-blue-800 group dark:hover:bg-blue-500 group"
+                            aria-controls="dropdown-buku-induk" data-collapse-toggle="dropdown-buku-induk">
+                            <svg class="w-5 h-5 text-gray-200 transition duration-75 group-hover:text-white"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                                <path fill-rule="evenodd"
+                                    d="M11 4.717c-2.286-.58-4.16-.756-7.045-.71A1.99 1.99 0 0 0 2 6v11c0 1.133.934 2.022 2.044 2.007 2.759-.038 4.5.16 6.956.791V4.717Zm2 15.081c2.456-.631 4.198-.829 6.956-.791A2.013 2.013 0 0 0 22 16.999V6a1.99 1.99 0 0 0-1.955-1.993c-2.885-.046-4.76.13-7.045.71v15.081Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <span class="flex-1 ms-3 text-left whitespace-nowrap">Buku Induk</span>
+                            <svg class="w-3 h-3 ml-auto" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 4 4 4-4" />
+                            </svg>
+                        </button>
+                        <ul id="dropdown-buku-induk"
+                            class="{{ request()->routeIs('kepsek.siswa', 'kepsek.lihat-buku-induk') ? 'block' : 'hidden' }} space-y-2">
+                            @foreach ($kelases as $kelas)
+                                <li>
+                                    <a href="{{ route('kepsek.siswa', ['id' => $kelas->id]) }}"
+                                        class="flex items-center w-full p-2 pl-11 rounded-lg transition duration-75 group
+                                        {{ (request()->routeIs('kepsek.siswa') && request('id') == $kelas->id) ||
+                                        (request()->routeIs('kepsek.lihat-buku-induk') && request('kelas_id') == $kelas->id)
+                                            ? 'bg-blue-800 text-white dark:bg-blue-500'
+                                            : 'text-white hover:bg-blue-800 dark:hover:bg-blue-500' }}">
+                                        Kelas {{ $kelas->nama }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+
+                    </li>
                 @endif
             </ul>
             {{-- <ul class="mt-4 space-y-2 border-t border-gray-200 pt-4 font-medium dark:border-gray-700">

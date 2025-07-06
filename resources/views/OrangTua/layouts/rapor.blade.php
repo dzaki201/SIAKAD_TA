@@ -113,7 +113,7 @@
                         <tr>
                             <th class="w-12 p-2 border dark:border-gray-600">No</th>
                             <th class="w-72 p-2 border dark:border-gray-600">Ekstrakurikuler</th>
-                            <th class="p-2 border dark:border-gray-600">Keterangan</th>
+                            <th class="p-2 border dark:border-gray-600">Capaian Kompetensi</th>
                         </tr>
                     </thead>
                     <tbody>

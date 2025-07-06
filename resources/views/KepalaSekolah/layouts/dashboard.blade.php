@@ -21,28 +21,7 @@
                 </button>
             </div>
         </div>
-        {{-- <div
-            class="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-            <div class="mb-4">
-                <h5 class="text-xl font-bold text-gray-900 dark:text-white">Data Statistik</h5>
-            </div>
-            <div class="flow-root">
-                <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-                    <li class="py-3 sm:py-4 flex items-center justify-between">
-                        <span class="text-sm font-medium text-gray-900 dark:text-white">Guru</span>
-                        <span class="text-base font-semibold text-gray-900 dark:text-white">{{ $guru }}</span>
-                    </li>
-                    <li class="py-3 sm:py-4 flex items-center justify-between">
-                        <span class="text-sm font-medium text-gray-900 dark:text-white">Siswa</span>
-                        <span class="text-base font-semibold text-gray-900 dark:text-white">{{ $siswa }}</span>
-                    </li>
-                    <li class="py-3 sm:py-4 flex items-center justify-between">
-                        <span class="text-sm font-medium text-gray-900 dark:text-white">Pengajuan Baru belum disetujui</span>
-                        <span class="text-base font-semibold text-gray-900 dark:text-white">-</span>
-                    </li>
-                </ul>
-            </div>
-        </div> --}}
+        
     </div>
     @include('partials.modal-edit-akun')
 @endsection

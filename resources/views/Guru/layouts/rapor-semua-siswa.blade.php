@@ -80,7 +80,7 @@
                             <th class="w-12 p-2 border">No</th>
                             <th class="w-72 p-2 border">Mata Pelajaran</th>
                             <th class="w-20 p-2 border">Nilai Akhir</th>
-                            <th class="p-2 border">Keterangan</th>
+                            <th class="p-2 border">Capaian Kompetensi</th>
                         </tr>
                     </thead>
                     <tbody>

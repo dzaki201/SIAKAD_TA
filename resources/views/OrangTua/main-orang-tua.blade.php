@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <title>Orang Tua</title>
+    <title>@yield('title')</title>
 </head>
 
 <body class="bg-gray-100 dark:bg-gray-900">
