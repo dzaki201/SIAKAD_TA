@@ -70,7 +70,6 @@
                                             </button>
                                         </form>
                                     @endif
-
                                     <button data-modal-target="hapus-tahun-ajaran-modal-{{ $tahun->id }}"
                                         data-modal-toggle="hapus-tahun-ajaran-modal-{{ $tahun->id }}"
                                         class="inline-flex items-center bg-red-500 text-white p-2 rounded-lg hover:bg-red-600">
