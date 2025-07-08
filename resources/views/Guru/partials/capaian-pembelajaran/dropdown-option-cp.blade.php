@@ -3,11 +3,9 @@
     <div
         class="px-4 py-2 text-sm font-semibold text-gray-800 border-b border-gray-200 dark:text-gray-100 dark:border-gray-600 break-words">
         {{ $cp->nama }}
-        @if ($cp->status == 'PTS' || $cp->status == 'PAS')
-            <br>{{ \Carbon\Carbon::parse($cp->tanggal)->translatedFormat('d F Y') }}
-        @endif
+        <br>{{ \Carbon\Carbon::parse($cp->tanggal)->translatedFormat('d F Y') }}
     </div>
-    @if (!$kunci->is_locked && $kunci->tahun_ajaran_id == $tahunAktif->id)
+    @if (!$kunci->is_locked && $kunci->tahun_ajaran_id == $tahunAktif->id && $status == null)
         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
             aria-labelledby="dropdownMenuIconButton-{{ $cp->id }}">
             <li>

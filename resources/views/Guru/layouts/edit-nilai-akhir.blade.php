@@ -33,6 +33,7 @@
                             <th class="w-60 w-px-4 py-3 border border-gray-300 break-words">NIS</th>
                             <th class="w-60 w-px-4 py-3 border border-gray-300 break-words">Nama</th>
                             <th class="w-60 w-px-4 py-3 border border-gray-300 break-words">Nilai</th>
+                            <th class="w-60 w-px-4 py-3 border border-gray-300 break-words">Keterangan</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,11 +46,12 @@
                                 @php
                                     $nilaiAkhirSiswa = $nilaiakhirs->where('siswa_id', $siswa->id)->first();
                                 @endphp
+                                <td class="px-4 py-3 border border-gray-300">{{ $nilaiAkhirSiswa ? $nilaiAkhirSiswa->nilai_akhir : '-' }}</td>
                                 <td class="w-80 px-4 py-3 border border-gray-300 text-center">
                                     <input type="text" name="keterangan[{{ $siswa->id }}]"
                                         value="{{ $nilaiAkhirSiswa ? $nilaiAkhirSiswa->keterangan : '-' }}"
                                         class="w-full px-2 py-1 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded focus:outline-none focus:ring focus:ring-blue-200 dark:focus:ring-blue-500">
-                                        </td>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

@@ -5,7 +5,8 @@
 @section('content')
     @include('components.alert')
     <div class="overflow-x-auto w-auto rounded-lg border p-4 bg-white dark:bg-gray-800 shadow">
-        <div class="p-4">
+        <div class="flex justify-end mb-4">
+            <div></div>
             <form action="{{ route('guru.siswa') }}" method="GET" class="flex items-center gap-2">
                 <div>
                     <select name="tahun_id" id="tahun"

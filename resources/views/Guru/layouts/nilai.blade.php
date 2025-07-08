@@ -8,7 +8,7 @@
         <div class="flex justify-between items-center mt-4 mb-4">
             <div class="flex items-center mt-4 mb-4">
                 @if ($kunci != null)
-                    @if (!$kunci->is_locked)
+                    @if (!$kunci->is_locked && $status == null)
                         @if ($kunci->tahun_ajaran_id != $tahunAktif->id)
                             <span class="text-base font-semibold text-gray-800 dark:text-gray-300">
                                 Nilai belum dikunci pada Semester {{ $tahun->semester }} - {{ $tahun->tahun }}
@@ -36,9 +36,15 @@
                             @include('guru.partials.kunci-nilai.modal-kunci-nilai')
                         @endif
                     @else
-                        <span class="text-base font-semibold text-gray-800 dark:text-gray-300">
-                            Nilai telah dikunci pada {{ \Carbon\Carbon::parse($kunci->locked_at)->format('d M Y H:i') }}
-                        </span>
+                        @if ($kunci->is_locked)
+                            <span class="text-base font-semibold text-gray-800 dark:text-gray-300">
+                                Nilai telah dikunci pada {{ \Carbon\Carbon::parse($kunci->locked_at)->format('d M Y H:i') }}
+                            </span>
+                        @else
+                            <span class="text-base font-semibold text-gray-800 dark:text-gray-300">
+                                Nilai belum dikunci 
+                            </span>
+                        @endif
                     @endif
                 @endif
             </div>
@@ -100,7 +106,7 @@
                                         PAS
                                     @elseif ($cp->status == 'CP')
                                         <span>
-                                            {{ \Carbon\Carbon::parse($cp->tanggal)->translatedFormat('d F') }}</span>
+                                            Cp - {{ $loop->iteration }}</span>
                                     @endif
                                     <button id="dropdownMenuIconButton-{{ $cp->id }}"
                                         data-dropdown-toggle="dropdownDots-{{ $cp->id }}"
@@ -123,7 +129,7 @@
                         @if ($nilaiakhirs && $nilaiakhirs->where('mata_pelajaran_id', $mapel->id)->isNotEmpty())
                             <th class="w-32 w-px-4 py-3 border border-gray-300 text-center">
                                 Nilai Akhir
-                                @if (!$kunci->is_locked && $kunci->tahun_ajaran_id == $tahunAktif->id)
+                                @if (!$kunci->is_locked && $kunci->tahun_ajaran_id == $tahunAktif->id && $status == null)
                                     <button id="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots"
                                         class="p-1 text-white rounded-full focus:ring-2 focus:ring-blue-300 dark:text-gray-300 dark:focus:ring-blue-800"
                                         type="button">
