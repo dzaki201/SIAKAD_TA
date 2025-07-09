@@ -110,6 +110,7 @@ class DashboardGuruController extends Controller
       $nilaiakhirs = NilaiAkhir::whereIn('siswa_id', $siswas->pluck('id'))
          ->where('tahun_ajaran_id', $tahun->id)
          ->where('mata_pelajaran_id', $mapel->id)->get();
+
       return view('guru.layouts.nilai', compact('siswas', 'mapels', 'capaians', 'mapel', 'tahun', 'tahuns', 'tahunAktif', 'nilais', 'nilaiakhirs', 'kunci', 'kelas', 'status'));
    }
    public function guruEditNilai($id, $cpId)
@@ -245,7 +246,11 @@ class DashboardGuruController extends Controller
 
          $absensiAda = Absensi::where('siswa_id', $siswa->id)
             ->where('tahun_ajaran_id', $tahun->id)
-            ->where('kelas_id', $kelasId)
+            ->where(function ($query) {
+               $query->where('sakit', '>', 0)
+                  ->orWhere('ijin', '>', 0)
+                  ->orWhere('alpa', '>', 0);
+            })
             ->exists();
          if ($absensiAda) {
             $progressItem++;

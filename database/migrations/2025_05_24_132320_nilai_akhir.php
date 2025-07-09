@@ -13,7 +13,6 @@ return new class extends Migration
             $table->string('nilai_akhir',5);
             $table->foreignId('siswa_id')->constrained('siswa')->onDelete('cascade');
             $table->foreignId('mata_pelajaran_id')->constrained('mata_pelajaran')->onDelete('cascade');;
-            $table->foreignId('guru_id')->constrained('guru')->onDelete('cascade');;
             $table->string('keterangan')->nullable();
             $table->foreignId('tahun_ajaran_id')->constrained('tahun_ajaran')->onDelete('cascade');;
             $table->timestamps();

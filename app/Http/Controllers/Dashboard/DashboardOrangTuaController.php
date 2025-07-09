@@ -69,7 +69,8 @@ class DashboardOrangTuaController extends Controller
             })
             ->where('tahun_ajaran_id', $tahun->id)
             ->get();
-        return view('OrangTua.layouts.nilai', compact('tahun', 'tahuns', 'nilais', 'kunciStatus'));
+            $mapel = MataPelajaran::where('id', $request->mapel_id)->first();
+        return view('OrangTua.layouts.nilai', compact('tahun', 'tahuns', 'nilais', 'kunciStatus', 'mapel'));
     }
 
     public function orangTuaRapor(Request $request)

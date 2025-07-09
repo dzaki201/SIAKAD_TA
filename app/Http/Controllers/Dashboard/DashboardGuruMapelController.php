@@ -33,7 +33,6 @@ class DashboardGuruMapelController extends Controller
         $jumlahSiswa = $siswas->groupBy('kelas_id')->map(function ($items) {
             return $items->count();
         });
-        // dd($siswaIds);
         $mapel = MataPelajaran::where('id', $guru->mata_pelajaran_id)->first();
 
         // $rataNilai = NilaiAkhir::whereIn('siswa_id', $siswaIds)
@@ -80,9 +79,10 @@ class DashboardGuruMapelController extends Controller
             ->where('kelas_id', $kelas->id)
             ->where('tahun_ajaran_id', $tahun->id)
             ->first();
+        $status = null;
 
         if (!$kunci) {
-            return view('guruMapel.layouts.nilai', compact('tahun', 'tahuns', 'tahunAktif', 'kunci', 'mapel', 'kelas', 'kelases'));
+            return view('guruMapel.layouts.nilai', compact('tahun', 'tahuns', 'tahunAktif', 'kunci', 'mapel', 'kelas', 'kelases', 'status'));
         }
         $siswaIds = PlotSiswaKelas::where('kelas_id', $kelas->id)
             ->where('tahun_ajaran_id', $tahun->id)
@@ -110,7 +110,7 @@ class DashboardGuruMapelController extends Controller
             ->where('tahun_ajaran_id', $tahun->id)
             ->where('mata_pelajaran_id', $mapel->id)->get();
 
-        return view('GuruMapel.layouts.nilai', compact('kelases', 'siswas', 'mapel', 'tahun', 'capaians', 'kelas', 'nilais', 'nilaiakhirs', 'kunci', 'tahunAktif', 'tahuns'));
+        return view('GuruMapel.layouts.nilai', compact('kelases', 'siswas', 'mapel', 'tahun', 'capaians', 'kelas', 'nilais', 'nilaiakhirs', 'kunci', 'tahunAktif', 'tahuns', 'status'));
     }
     public function guruMapelEditNilai($id, $cpId)
     {

@@ -22,7 +22,6 @@ class AbsensiController extends Controller
         $siswas->map(function ($siswa) use ($kelasId, $id) {
             Absensi::create([
                 'siswa_id' => $siswa->id,
-                'kelas_id' => $kelasId,
                 'ijin' => null,
                 'sakit' => null,
                 'alpa' => null,

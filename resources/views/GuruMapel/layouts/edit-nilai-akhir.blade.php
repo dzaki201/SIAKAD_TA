@@ -57,7 +57,7 @@
                     </tbody>
                 </table>
                 <div class="mt-6 flex justify-end space-x-2">
-                    <a href="{{ route('guru.nilai', $mapel->id) }}"
+                    <a href="{{ route('guru-mapel.nilai', $kelas->id) }}"
                         class="px-6 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
                         Kembali
                     </a>

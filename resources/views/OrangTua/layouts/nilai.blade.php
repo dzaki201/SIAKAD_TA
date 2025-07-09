@@ -18,7 +18,14 @@
         </form>
     </div>
     <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-        <h5 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Nilai Akhir Anak</h5>
+        <div class="flex items-center justify-between mb-4">
+            <h5 class="text-2xl font-bold text-gray-900 dark:text-white">Nilai Akhir Anak</h5>
+            @if ($kunciStatus)
+                <span class="px-2 py-1 text-xs font-semibold text-green-800 bg-green-200 rounded">Nilai Mata Pelajaran {{ $mapel->nama }} Sudah Terkunci</span>
+            @else
+                <span class="px-2 py-1 text-xs font-semibold text-yellow-800 bg-yellow-200 rounded">Nilai Mata Pelajaran {{ $mapel->nama }} Belum dikunci</span>
+            @endif
+        </div>
         @if ($nilais->count() > 0)
             <div class="overflow-x-auto">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 table-fixed">
@@ -27,7 +34,6 @@
                             <th class="w-12 px-4 py-3 text-left border border-gray-300">No</th>
                             <th class="w-px-4 py-3  border border-gray-300">Capaian Pembelajaran</th>
                             <th class="w-px-4 py-3  border border-gray-300">Nilai</th>
-                            <th class="w-px-4 py-3  border border-gray-300">Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,16 +47,6 @@
                                 <td
                                     class="w-px-4 py-3 border border-gray-300 text-center font-semibold text-gray-900 dark:text-white">
                                     {{ $nilai->nilai }}
-                                </td>
-                                <td class="w-px-4 py-3 border border-gray-300 text-center">
-                                    @if ($kunciStatus)
-                                        <span
-                                            class="px-2 py-1 text-xs font-semibold text-green-800 bg-green-200 rounded">Terkunci</span>
-                                    @else
-                                        <span
-                                            class="px-2 py-1 text-xs font-semibold text-yellow-800 bg-yellow-200 rounded">Belum
-                                            dikunci</span>
-                                    @endif
                                 </td>
                             </tr>
                         @endforeach

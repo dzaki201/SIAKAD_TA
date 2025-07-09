@@ -42,7 +42,7 @@
                             </span>
                         @else
                             <span class="text-base font-semibold text-gray-800 dark:text-gray-300">
-                                Nilai belum dikunci 
+                                Nilai belum dikunci
                             </span>
                         @endif
                     @endif
@@ -68,7 +68,7 @@
                 </form>
             </div>
         </div>
-        @if ($kunci == null)
+        @if ($kunci == null && $status == null)
             @if ($tahun->id == $tahunAktif->id)
                 <div class="flex justify-center items-center h-[500px]">
                     <a href="{{ route('guru.kunci-nilai.store', ['id' => $mapel->id, 'kelasId' => $kelas->id]) }}">
@@ -83,11 +83,17 @@
                 </div>
             @else
                 <div class="flex justify-center items-center h-[500px]">
-                    <span class="ml-4 text-lg font-semibold text-gray-700 dark:text-white">Tidak ada data absensi di
+                    <span class="ml-4 text-lg font-semibold text-gray-700 dark:text-white">Tidak ada data penilaian di
                         semester
                         {{ $tahun->semester }} - {{ $tahun->tahun }} </span>
                 </div>
             @endif
+        @elseif ($status == 'ada')
+            <div class="flex justify-center items-center h-[500px]">
+                <span class="ml-4 text-lg font-semibold text-gray-700 dark:text-white">Tidak ada data penilaian di
+                    semester
+                    {{ $tahun->semester }} - {{ $tahun->tahun }} </span>
+            </div>
         @else
             <table
                 class="w-full min-w-[1000px] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 table-fixed">

@@ -39,7 +39,7 @@ class CapaianPembelajaranController extends Controller
         $siswaIds = PlotSiswaKelas::where('kelas_id', $validatedData['kelas_id'])
             ->where('tahun_ajaran_id', $tahunAjaran->id)
             ->pluck('Siswa_id');
-        $dataNilai = $this->buatDataNilai($siswaIds, $capaian, $tahunAjaran, $guru);
+        $dataNilai = $this->buatDataNilai($siswaIds, $capaian, $tahunAjaran);
         Nilai::insert($dataNilai);
         return redirect()->back()->with('success', 'Capaian Pembelajaran berhasil ditambahkan.');
     }
@@ -140,12 +140,11 @@ class CapaianPembelajaranController extends Controller
             ->exists();
     }
 
-    private function buatDataNilai($siswaIds, $capaian, $tahunAjaran, $guru)
+    private function buatDataNilai($siswaIds, $capaian, $tahunAjaran)
     {
-        return $siswaIds->map(function ($siswaId) use ($capaian, $tahunAjaran, $guru) {
+        return $siswaIds->map(function ($siswaId) use ($capaian, $tahunAjaran) {
             return [
                 'siswa_id' => $siswaId,
-                'guru_id' => $guru->id,
                 'capaian_pembelajaran_id' => $capaian->id,
                 'tahun_ajaran_id' => $tahunAjaran->id,
                 'nilai' => 0,

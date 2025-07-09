@@ -57,10 +57,9 @@ class NilaiAkhirController extends Controller
             return  round($nilaiAkhir, 3);
         });
 
-        $nilaiAkhir = $hasilAkhir->map(function ($nilaiAkhir, $siswaId) use ($guru, $id, $tahunAjaran) {
+        $nilaiAkhir = $hasilAkhir->map(function ($nilaiAkhir, $siswaId) use ($id, $tahunAjaran) {
             return [
                 'siswa_id' => $siswaId,
-                'guru_id' => $guru->id,
                 'mata_pelajaran_id' => $id,
                 'tahun_ajaran_id' => $tahunAjaran->id,
                 'nilai_akhir' => $nilaiAkhir,
@@ -74,7 +73,6 @@ class NilaiAkhirController extends Controller
             return redirect()->back()->with('errors', 'Tidak ada data nilai untuk dihitung.');
         }
         NilaiAkhir::whereIn('siswa_id', $siswaIds)
-            ->where('guru_id', $guru->id)
             ->where('mata_pelajaran_id', $id)
             ->where('tahun_ajaran_id', $tahunAjaran->id)
             ->delete();

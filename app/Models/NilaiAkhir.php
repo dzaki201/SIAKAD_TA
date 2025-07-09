@@ -13,7 +13,6 @@ class NilaiAkhir extends Model
     protected $fillable = [
         'nilai_akhir',
         'siswa_id',
-        'guru_id',
         'mata_pelajaran_id',
         'tahun_ajaran_id',
         'keterangan'

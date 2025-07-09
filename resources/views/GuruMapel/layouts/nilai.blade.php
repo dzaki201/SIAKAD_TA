@@ -105,7 +105,7 @@
                                         PAS
                                     @elseif ($cp->status == 'CP')
                                         <span>
-                                            {{ \Carbon\Carbon::parse($cp->tanggal)->translatedFormat('d F') }}</span>
+                                            Cp - {{ $loop->iteration }}</span>
                                     @endif
                                     <button id="dropdownMenuIconButton-{{ $cp->id }}"
                                         data-dropdown-toggle="dropdownDots-{{ $cp->id }}"

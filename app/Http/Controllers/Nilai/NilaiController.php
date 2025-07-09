@@ -24,7 +24,6 @@ class NilaiController extends Controller
         ]);
 
         $cpId = $request->cp_id;
-        $guru = Guru::where('user_id', Auth::id())->first();
         $mapelId = $request->mapel_id;
         $kelasId = $request->kelas_id;
         $nilaiInput = collect($request->nilai);
@@ -33,12 +32,11 @@ class NilaiController extends Controller
             ->where('tahun_ajaran_id', $tahunAjaran->id)
             ->pluck('siswa_id');
 
-        $siswaIds->values()->map(function ($siswaId, $index) use ($nilaiInput, $cpId, $guru, $tahunAjaran) {
+        $siswaIds->values()->map(function ($siswaId, $index) use ($nilaiInput, $cpId, $tahunAjaran) {
             Nilai::updateOrCreate(
                 [
                     'siswa_id' => $siswaId,
                     'capaian_pembelajaran_id' => $cpId,
-                    'guru_id' => $guru->id,
                     'tahun_ajaran_id' => $tahunAjaran->id
                 ],
                 [
