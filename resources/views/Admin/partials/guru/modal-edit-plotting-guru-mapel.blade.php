@@ -31,7 +31,6 @@
                             @endforeach
                         </select>
                     </div>
-                   
                     <div class="text-right border-t border-gray-200 dark:border-gray-600 pt-4 space-x-4">
                         <button type="submit"
                             class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800">Simpan</button>
