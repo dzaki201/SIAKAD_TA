@@ -22,52 +22,55 @@
                     @method('PUT')
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label for="nis" class="block text-sm font-medium text-gray-700 dark:text-white">Nomor Induk Siswa (NIS)</label>
+                            <label for="nis" class="block text-sm font-medium text-gray-700 dark:text-white">Nomor
+                                Induk Siswa (NIS)</label>
                             <input type="text" id="nis" name="nis" required
                                 class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white"
                                 value="{{ $siswa->nis }}">
                         </div>
-
                         <div>
-                            <label for="nisn" class="block text-sm font-medium text-gray-700 dark:text-white">NISN</label>
+                            <label for="nisn"
+                                class="block text-sm font-medium text-gray-700 dark:text-white">NISN</label>
                             <input type="text" id="nisn" name="nisn"
                                 class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white"
                                 value="{{ $siswa->nisn }}">
                         </div>
-
                         <div>
-                            <label for="nama" class="block text-sm font-medium text-gray-700 dark:text-white">Nama Siswa</label>
+                            <label for="nama" class="block text-sm font-medium text-gray-700 dark:text-white">Nama
+                                Siswa</label>
                             <input type="text" id="nama" name="nama" required
                                 class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white"
                                 value="{{ $siswa->nama }}">
                         </div>
-
                         <div>
-                            <label for="tempat_lahir" class="block text-sm font-medium text-gray-700 dark:text-white">Tempat Lahir</label>
+                            <label for="tempat_lahir"
+                                class="block text-sm font-medium text-gray-700 dark:text-white">Tempat Lahir</label>
                             <input type="text" id="tempat_lahir" name="tempat_lahir" required
                                 class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white"
                                 value="{{ $siswa->tempat_lahir }}">
                         </div>
-
                         <div>
-                            <label for="tanggal_lahir" class="block text-sm font-medium text-gray-700 dark:text-white">Tanggal Lahir</label>
+                            <label for="tanggal_lahir"
+                                class="block text-sm font-medium text-gray-700 dark:text-white">Tanggal Lahir</label>
                             <input type="date" id="tanggal_lahir" name="tanggal_lahir" required
                                 class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white"
                                 value="{{ $siswa->tanggal_lahir }}">
                         </div>
-
                         <div>
-                            <label for="jenis_kelamin" class="block text-sm font-medium text-gray-700 dark:text-white">Jenis Kelamin</label>
+                            <label for="jenis_kelamin"
+                                class="block text-sm font-medium text-gray-700 dark:text-white">Jenis Kelamin</label>
                             <select id="jenis_kelamin" name="jenis_kelamin" required
                                 class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                                 <option value="">Pilih Jenis Kelamin</option>
-                                <option value="Laki-laki" {{ $siswa->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
-                                <option value="Perempuan" {{ $siswa->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                                <option value="Laki-laki" {{ $siswa->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>
+                                    Laki-laki</option>
+                                <option value="Perempuan" {{ $siswa->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>
+                                    Perempuan</option>
                             </select>
                         </div>
-
                         <div>
-                            <label for="agama" class="block text-sm font-medium text-gray-700 dark:text-white">Agama</label>
+                            <label for="agama"
+                                class="block text-sm font-medium text-gray-700 dark:text-white">Agama</label>
                             <select id="agama" name="agama" required
                                 class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                                 <option value="">Pilih Agama</option>
@@ -75,40 +78,27 @@
                                     $agamaOptions = ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu'];
                                 @endphp
                                 @foreach ($agamaOptions as $agama)
-                                    <option value="{{ $agama }}" {{ $siswa->agama == $agama ? 'selected' : '' }}>
+                                    <option value="{{ $agama }}"
+                                        {{ $siswa->agama == $agama ? 'selected' : '' }}>
                                         {{ $agama }}
                                     </option>
                                 @endforeach
                             </select>
                         </div>
-
                         <div>
-                            <label for="sekolah_asal" class="block text-sm font-medium text-gray-700 dark:text-white">Sekolah Asal</label>
+                            <label for="sekolah_asal"
+                                class="block text-sm font-medium text-gray-700 dark:text-white">Sekolah Asal</label>
                             <input type="text" id="sekolah_asal" name="sekolah_asal"
                                 class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white"
                                 value="{{ $siswa->sekolah_asal }}">
                         </div>
-
-                        <div>
-                            <label for="alamat" class="block text-sm font-medium text-gray-700 dark:text-white">Alamat</label>
+                        <div class="md:col-span-2">
+                            <label for="alamat"
+                                class="block text-sm font-medium text-gray-700 dark:text-white">Alamat</label>
                             <textarea id="alamat" name="alamat" rows="3"
                                 class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">{{ $siswa->alamat }}</textarea>
                         </div>
-
-                        <div>
-                            <label for="kelas_id" class="block text-sm font-medium text-gray-700 dark:text-white">Kelas</label>
-                            <select id="kelas_id" name="kelas_id"
-                                class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                                <option value="">Pilih Kelas</option>
-                                @foreach ($kelases as $kelas)
-                                    <option value="{{ $kelas->id }}" {{ $siswa->kelas_id == $kelas->id ? 'selected' : '' }}>
-                                        {{ $kelas->nama }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
                     </div>
-
                     <div class="p-6 space-x-4 border-t border-gray-200 dark:border-gray-600 text-right mt-4">
                         <button type="submit"
                             class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800">

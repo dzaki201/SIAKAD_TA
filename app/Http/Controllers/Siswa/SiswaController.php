@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Siswa;
 
 use App\Models\Siswa;
 use Illuminate\Http\Request;
+use App\Models\PlotSiswaKelas;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 
@@ -13,7 +14,7 @@ class siswaController extends Controller
     {
         $validatedData = $request->validate([
             'nis' => 'required|unique:siswa,nis',
-            'nisn' => 'required|string|max:20',
+            'nisn' => 'required|unique:siswa,nisn',
             'nama' => 'required|string|max:100',
             'tempat_lahir' => 'required|string|max:100',
             'tanggal_lahir' => 'required|date',
@@ -22,9 +23,8 @@ class siswaController extends Controller
             'sekolah_asal' => 'required|string|max:255',
             'alamat' => 'required|string',
         ]);
-
         Siswa::create($validatedData);
-
+        
         return redirect()->route('admin.siswa')->with('success', 'Data siswa berhasil disimpan.');
     }
 
@@ -32,7 +32,7 @@ class siswaController extends Controller
     {
         $validatedData = $request->validate([
             'nis' => ['required', Rule::unique('siswa', 'nis')->ignore($id)],
-            'nisn' => 'required|string|max:20',
+            'nisn' => ['required', Rule::unique('siswa', 'nisn')->ignore($id)],
             'nama' => 'required|string|max:100',
             'tempat_lahir' => 'required|string|max:100',
             'tanggal_lahir' => 'required|date',

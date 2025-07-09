@@ -4,7 +4,7 @@
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Tambah Mata Pelajaran
+                    Tambah Siswa
                 </h3>
                 <button type="button"
                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -71,20 +71,10 @@
                         <input type="text" id="sekolah_asal" name="sekolah_asal"
                             class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                     </div>
-                    <div>
+                    <div class="md:col-span-2">
                         <label for="alamat" class="block text-sm font-medium text-gray-700 dark:text-white">Alamat</label>
                         <textarea id="alamat" name="alamat" rows="3"
                             class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white"></textarea>
-                    </div>
-                    <div>
-                        <label for="kelas_id" class="block text-sm font-medium text-gray-700 dark:text-white">Kelas</label>
-                        <select id="kelas_id" name="kelas_id"
-                            class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                            <option value="">Pilih Kelas</option>
-                            @foreach ($kelases as $kelas)
-                                <option value="{{ $kelas->id }}">{{ $kelas->nama }}</option>
-                            @endforeach
-                        </select>
                     </div>
                     <div class="md:col-span-2 p-6 space-x-4 border-t border-gray-200 dark:border-gray-600 text-right">
                         <button type="submit"
