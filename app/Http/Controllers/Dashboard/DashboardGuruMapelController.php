@@ -15,6 +15,7 @@ use App\Models\PlotGuruMapel;
 use App\Models\PlotSiswaKelas;
 use App\Models\CapaianPembelajaran;
 use App\Http\Controllers\Controller;
+use App\Models\Kkm;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardGuruMapelController extends Controller
@@ -24,44 +25,49 @@ class DashboardGuruMapelController extends Controller
         $userId = Auth::id();
         $guru = Guru::where('user_id', $userId)->first();
         $kelasMapel = PlotGuruMapel::where('guru_id', $guru->id)->pluck('kelas_id');
-        $kelases = Kelas::whereIn('id', $kelasMapel)->get();
         $tahun = TahunAjaran::where('status', 1)->first();
-
-        $siswas = PlotSiswaKelas::whereIn('kelas_id', $kelasMapel)
-            ->where('tahun_ajaran_id', $tahun->id)
-            ->get();
-        $jumlahSiswa = $siswas->groupBy('kelas_id')->map(function ($items) {
-            return $items->count();
-        });
+        $kelases = Kelas::whereIn('id', $kelasMapel)->get();
         $mapel = MataPelajaran::where('id', $guru->mata_pelajaran_id)->first();
 
-        // $rataNilai = NilaiAkhir::whereIn('siswa_id', $siswaIds)
-        //     ->where('guru_id', $guru->id)
-        //     ->where('mata_pelajaran_id', $guru->mata_pelajaran_id)
-        //     ->get()
-        //     ->groupBy(['siswa.kelas_id', 'tahun_ajaran_id'])
-        //     ->map(function ($byTahunAjaran, $kelasId) {
-        //         $kelas = Kelas::find($kelasId);
-        //         return [
-        //             'kelas' => $kelas->nama,
-        //             'data' => $byTahunAjaran->map(function ($items, $tahunAjaranId) {
-        //                 $tahunAjaran = TahunAjaran::find($tahunAjaranId);
-        //                 $label = "Semester {$tahunAjaran->semester} - {$tahunAjaran->tahun}";
-        //                 return [
-        //                     'label' => $label,
-        //                     'rata_rata' => $items->avg('nilai_akhir')
-        //                 ];
-        //             })->values()
-        //         ];
-        //     })->values();
+        $siswaKelas = PlotSiswaKelas::whereIn('kelas_id', $kelasMapel)
+            ->where('tahun_ajaran_id', $tahun->id)
+            ->get()
+            ->keyBy('siswa_id');
+        $siswa = $siswaKelas->count();
+        $siswaIds = $siswaKelas->pluck('siswa_id');
+        $dataSiswa = Siswa::whereIn('id', $siswaIds)->get();
+        $nilai = NilaiAkhir::whereIn('siswa_id', $siswaIds)
+            ->where('mata_pelajaran_id', $mapel->id)
+            ->where('tahun_ajaran_id', $tahun->id)
+            ->get();
+        $kkmList = Kkm::where('mata_pelajaran_id', $mapel->id)
+            ->whereIn('kelas_id', $kelasMapel)
+            ->where('tahun_ajaran_id', $tahun->id)
+            ->get()
+            ->keyBy('kelas_id');
 
-        // $labels = $rataNilai->pluck('data')
-        //     ->flatten(1)
-        //     ->pluck('label')
-        //     ->unique()
-        //     ->values();
-        // $kelaslabels = $rataNilai->pluck('kelas')->unique()->values();
-        return view('GuruMapel.layouts.dashboard', compact('kelases', 'jumlahSiswa', 'mapel'));
+        $totalSiswaKkm = $nilai->filter(function ($item) use ($kkmList, $siswaKelas) {
+            $kelasId = $siswaKelas->get($item->siswa_id)->kelas_id ?? null;
+            if (!$kelasId) {
+                return false;
+            }
+            $kkm = $kkmList->get($kelasId)->nilai ?? 0;
+            return $item->nilai_akhir < $kkm;
+        })->count();
+
+        $siswaKkm = $nilai->filter(function ($item) use ($kkmList, $siswaKelas) {
+            $kelasId = $siswaKelas->get($item->siswa_id)->kelas_id ?? null;
+            if (!$kelasId) {
+                return false;
+            }
+            $kkm = $kkmList->get($kelasId)->nilai ?? 0;
+            return $item->nilai_akhir < $kkm;
+        })->groupBy(function ($item) use ($siswaKelas) {
+            return $siswaKelas->get($item->siswa_id)->kelas_id;
+        });
+
+        $kelas = $kelasMapel->count();
+        return view('GuruMapel.layouts.dashboard', compact('kelases', 'siswa', 'mapel', 'kelas', 'tahun', 'siswaKkm', 'totalSiswaKkm', 'kkmList'));
     }
     public function guruMapelNilai(Request $request, $id)
     {
@@ -108,9 +114,14 @@ class DashboardGuruMapelController extends Controller
             ->get();
         $nilaiakhirs = NilaiAkhir::whereIn('siswa_id', $siswas->pluck('id'))
             ->where('tahun_ajaran_id', $tahun->id)
-            ->where('mata_pelajaran_id', $mapel->id)->get();
+            ->where('mata_pelajaran_id', $mapel->id)
+            ->get();
+        $kkm = Kkm::where('kelas_id', $id)
+            ->where('mata_pelajaran_id', $mapel->id)
+            ->where('tahun_ajaran_id', $tahun->id)
+            ->first();
 
-        return view('GuruMapel.layouts.nilai', compact('kelases', 'siswas', 'mapel', 'tahun', 'capaians', 'kelas', 'nilais', 'nilaiakhirs', 'kunci', 'tahunAktif', 'tahuns', 'status'));
+        return view('GuruMapel.layouts.nilai', compact('kelases', 'siswas', 'mapel', 'tahun', 'capaians', 'kelas', 'nilais', 'nilaiakhirs', 'kunci', 'tahunAktif', 'tahuns', 'status', 'kkm'));
     }
     public function guruMapelEditNilai($id, $cpId)
     {
