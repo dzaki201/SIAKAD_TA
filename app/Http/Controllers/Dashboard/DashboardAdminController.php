@@ -16,14 +16,18 @@ use App\Models\PlotSiswaKelas;
 use App\Models\Ekstrakulikuler;
 use App\Models\KelasMataPelajaran;
 use App\Http\Controllers\Controller;
+use App\Models\Kkm;
 
 class DashboardAdminController extends Controller
 {
     public function adminIndex()
     {
+        $user = User::count();
         $guru = Guru::count();
         $siswa = Siswa::count();
-        return view('Admin.layouts.dashboard', compact('guru', 'siswa'));
+        $tahun = TahunAjaran::where('status', 1)->first();
+
+        return view('Admin.layouts.dashboard', compact('guru', 'user', 'siswa', 'tahun'));
     }
     public function adminUser()
     {
@@ -87,13 +91,13 @@ class DashboardAdminController extends Controller
         })->with(['kelasSiswa' => function ($query) {
             $query->orderByDesc('tahun_ajaran_id');
         }])->get();
-        
+
         $siswas = $siswa->map(function ($item) use ($tahun) {
             $kelas = $item->kelasSiswa->firstWhere('tahun_ajaran_id', $tahun->id);
             if (!$kelas) {
                 $kelas = $item->kelasSiswa->first();
             }
-            
+
             $item->setRelation('kelasSiswa', $kelas);
             return $item;
         });
@@ -137,5 +141,20 @@ class DashboardAdminController extends Controller
     {
         $ekskuls = Ekstrakulikuler::all();
         return view('admin.layouts.ekstrakulikuler', compact('ekskuls'));
+    }
+    public function adminKkm(Request $request)
+    {
+        $tahunLama = kkm::max('tahun_ajaran_id');
+        $tahun = TahunAjaran::where('id', $request->tahun_ajaran_id ?? $tahunLama)->first();
+        $kkm = Kkm::where('tahun_ajaran_id', $tahun->id)
+            ->when($request->mata_pelajaran_id, function ($query) use ($request) {
+                return $query->where('mata_pelajaran_id', $request->mata_pelajaran_id);
+            })
+            ->get();
+        $mapels = MataPelajaran::all();
+        $mapel = MataPelajaran::where('id', $request->mata_pelajaran_id)->first();
+        $kelases = Kelas::all();
+        $tahuns = TahunAjaran::all();
+        return view('admin.layouts.kkm', compact('kkm', 'mapel', 'mapels', 'tahun', 'tahuns', 'kelases', 'tahunLama'));
     }
 }

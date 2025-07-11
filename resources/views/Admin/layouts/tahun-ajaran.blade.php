@@ -1,6 +1,6 @@
 @extends('Admin.main-admin')
 
-@section('title', 'Dashboard Admin')
+@section('title', 'Kelola Tahun Ajaran')
 
 @section('content')
 

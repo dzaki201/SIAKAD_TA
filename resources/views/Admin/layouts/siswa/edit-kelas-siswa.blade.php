@@ -1,6 +1,6 @@
 @extends('Admin.main-admin')
 
-@section('title', 'Dashboard Admin')
+@section('title', 'Plotting Kelas Siswa')
 
 @section('content')
     <div class="overflow-x-auto w-auto rounded-lg border p-4 bg-white dark:bg-gray-800 shadow">

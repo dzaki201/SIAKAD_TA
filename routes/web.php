@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\NaikKelas;
 use App\Models\NilaiAkhir;
 use App\Models\TahunAjaran;
 use App\Models\KepalaSekolah;
@@ -12,10 +13,13 @@ use App\Http\Controllers\Kelas\KelasController;
 use App\Http\Controllers\Nilai\NilaiController;
 use App\Http\Controllers\Siswa\SiswaController;
 use App\Http\Controllers\Absensi\AbsensiController;
+use App\Http\Controllers\Siswa\NaikKelasController;
 use App\Http\Controllers\Nilai\KunciNilaiController;
 use App\Http\Controllers\Nilai\NilaiAkhirController;
 use App\Http\Controllers\Guru\PlottingGuruController;
+use App\Http\Controllers\MataPelajaran\KkmController;
 use App\Http\Controllers\OrangTua\OrangTuaController;
+use App\Http\Controllers\Siswa\CatatanGuruController;
 use App\Http\Controllers\Siswa\PlotSiswaKelasController;
 use App\Http\Controllers\Ekstrakulikuler\Ekstrakulikuler;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -30,9 +34,6 @@ use App\Http\Controllers\Dashboard\DashboardGuruMapelController;
 use App\Http\Controllers\Ekstrakulikuler\EkstrakulikulerController;
 use App\Http\Controllers\Dashboard\DashboardKepalaSekolahController;
 use App\Http\Controllers\Ekstrakulikuler\SiswaEkstrakulikulerController;
-use App\Http\Controllers\Siswa\CatatanGuruController;
-use App\Http\Controllers\Siswa\NaikKelasController;
-use App\Models\NaikKelas;
 
 /*
 |--------------------------------------------------------------------------
@@ -122,6 +123,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/admin-ekstrakulikuler', [EkstrakulikulerController::class, 'store'])->name('admin.ekskul.store');
     Route::put('/admin-ekstrakulikuler/{id}/update', [EkstrakulikulerController::class, 'update'])->name('admin.ekskul.update');
     Route::delete('/admin-ekstrakulikuler/{id}', [EkstrakulikulerController::class, 'destroy'])->name('admin.ekskul.destroy');
+
+    Route::get('/admin-kkm', [DashboardAdminController::class, 'adminKkm'])->name('admin.kkm');
+    Route::post('/admin-kkm', [KkmController::class, 'store'])->name('admin.kkm.store');
+    Route::post('/kkm/update-semua', [KkmController::class, 'updateSemua'])->name('admin.kkm.updateSemua');
+    Route::put('/admin-kkm/{id}/update', [KkmController::class, 'update'])->name('admin.kkm.update');
+    Route::delete('/admin-kkm/{id}', [KkmController::class, 'destroy'])->name('admin.kkm.destroy');
 });
 
 Route::middleware(['auth', 'role:guru'])->group(function () {
@@ -168,7 +175,7 @@ Route::middleware(['auth', 'role:kepsek'])->group(function () {
 });
 Route::middleware(['auth', 'role:orang_tua'])->group(function () {
     Route::get('/orang-tua-dashboard', [DashboardOrangTuaController::class, 'OrangTuaIndex'])->name('orang-tua.dashboard');
-    
+
     Route::get('/orang-tua-nilai-akhir', [DashboardOrangTuaController::class, 'OrangTuaNilaiAkhir'])->name('orang-tua.nilai-akhir');
     Route::get('/orang-tua-nilai', [DashboardOrangTuaController::class, 'OrangTuaNilai'])->name('orang-tua.nilai');
 
