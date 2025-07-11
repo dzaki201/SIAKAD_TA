@@ -1,6 +1,6 @@
 @extends('Guru.main-guru')
 
-@section('title', 'Dashboard Guru')
+@section('title', 'Kelola Ektrakulikuler')
 
 @section('content')
     <div class="overflow-x-auto w-auto rounded-lg border p-4 bg-white dark:bg-gray-800 shadow">

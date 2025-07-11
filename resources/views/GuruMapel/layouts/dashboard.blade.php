@@ -10,11 +10,11 @@
             <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ $mapel->nama }}</p>
         </div>
         <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-            <h5 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Total Kelas</h5>
+            <h5 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Jumlah Kelas</h5>
             <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ $kelas }}</p>
         </div>
         <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-            <h5 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Total Siswa</h5>
+            <h5 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Jumlah Siswa</h5>
             <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ $siswa }}</p>
         </div>
         <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">

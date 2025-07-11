@@ -1,6 +1,6 @@
 @extends('Guru.main-guru')
 
-@section('title', 'Dashboard Guru')
+@section('title', "Kelola Nilai $mapel->nama")
 
 @section('content')
 

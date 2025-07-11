@@ -35,7 +35,6 @@ class DashboardGuruMapelController extends Controller
             ->keyBy('siswa_id');
         $siswa = $siswaKelas->count();
         $siswaIds = $siswaKelas->pluck('siswa_id');
-        $dataSiswa = Siswa::whereIn('id', $siswaIds)->get();
         $nilai = NilaiAkhir::whereIn('siswa_id', $siswaIds)
             ->where('mata_pelajaran_id', $mapel->id)
             ->where('tahun_ajaran_id', $tahun->id)

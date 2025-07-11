@@ -127,18 +127,21 @@
                         @endforeach
                         @if ($nilaiakhirs && $nilaiakhirs->where('mata_pelajaran_id', $mapel->id)->isNotEmpty())
                             <th class="w-32 w-px-4 py-3 border border-gray-300 text-center">
-                                Nilai Akhir
-                                @if (!$kunci->is_locked && $kunci->tahun_ajaran_id == $tahunAktif->id)
-                                    <button id="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots"
-                                        class="p-1 text-white rounded-full focus:ring-2 focus:ring-blue-300 dark:text-gray-300 dark:focus:ring-blue-800"
-                                        type="button">
-                                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                            fill="currentColor" viewBox="0 0 4 15">
-                                            <path
-                                                d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
-                                        </svg>
-                                    </button>
-                                @endif
+                                <div class="flex items-center justify-center space-x-2">
+
+                                    Nilai Akhir
+                                    @if (!$kunci->is_locked && $kunci->tahun_ajaran_id == $tahunAktif->id)
+                                        <button id="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots"
+                                            class="p-1 text-white rounded-full focus:ring-2 focus:ring-blue-300 dark:text-gray-300 dark:focus:ring-blue-800"
+                                            type="button">
+                                            <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                fill="currentColor" viewBox="0 0 4 15">
+                                                <path
+                                                    d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+                                            </svg>
+                                        </button>
+                                    @endif
+                                </div>
                             </th>
                             <th class="w-60 px-4 py-3 border border-gray-300 text-center break-words ">
                                 Keterangan
@@ -160,10 +163,11 @@
                                         ->where('siswa_id', $siswa->id)
                                         ->where('capaian_pembelajaran_id', $cp->id)
                                         ->first();
-                                    $kkmValue = $kkm && is_numeric($kkm->nilai) ? $kkm->nilai : 0;
+                                    $nilaiKkm = $kkm && is_numeric($kkm->nilai) ? $kkm->nilai : 0;
                                 @endphp
                                 <td
-                                    class="w-24 px-4 py-3 border border-gray-300 text-center {{ $nilai && $nilai->nilai < $kkmValue ? 'bg-red-100 text-red-700' : '' }}">
+                                    class="w-24 px-4 py-3 border border-gray-300 text-center 
+                                        {{ $nilai && $nilai->nilai < $nilaiKkm ? 'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-200' : '' }}">
                                     {{ $nilai ? $nilai->nilai : '-' }}
                                 </td>
                             @endforeach
@@ -172,7 +176,10 @@
                                     $nilaiAkhirSiswa = $nilaiakhirs->where('siswa_id', $siswa->id)->first();
                                 @endphp
                                 <td
-                                    class="w-32 px-4 py-3 border border-gray-300 text-center {{ $nilaiAkhirSiswa && $nilaiAkhirSiswa->nilai_akhir < $kkmValue ? 'bg-red-100 text-red-700' : '' }}">
+                                    class="w-32 px-4 py-3 border border-gray-300 text-center
+                                        {{ $nilaiAkhirSiswa && $nilaiAkhirSiswa->nilai_akhir < $nilaiKkm
+                                            ? 'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-200'
+                                            : '' }}">
                                     {{ $nilaiAkhirSiswa ? $nilaiAkhirSiswa->nilai_akhir : '-' }}
                                 </td>
                                 <td class="w-auto px-4 py-3 border border-gray-300 text-center">

@@ -1,6 +1,6 @@
 @extends('Guru.main-guru')
 
-@section('title', 'Dashboard Guru')
+@section('title', 'Kelola data Rapor')
 
 @section('content')
     @include('components.alert')

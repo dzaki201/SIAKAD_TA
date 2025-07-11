@@ -1,6 +1,6 @@
 @extends('Guru.main-guru')
 
-@section('title', 'Dashboard Guru')
+@section('title', 'Data Siswa')
 
 @section('content')
     @include('components.alert')
@@ -45,21 +45,6 @@
                         <td class="py-3 border border-gray-300 text-center">{{ $siswa->nama }}</td>
                         <td class="py-3 border items-center border-gray-300 ">
                             <div class="flex justify-center">
-                                {{-- <div>
-                                    <button data-modal-target="lihat-nilai-akhir-siswa-modal-{{ $siswa->id }}"
-                                        data-modal-toggle="lihat-nilai-akhir-siswa-modal-{{ $siswa->id }}"
-                                        class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 focus:ring-2 focus:ring-blue-500">
-                                        <svg class="w-5 h-5 text-white" aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                            viewBox="0 0 24 24">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M10 3v4a1 1 0 0 1-1 1H5m8 7.5 2.5 2.5M19 4v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Zm-5 9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
-                                        </svg>
-                                        Nilai Akhir
-                                    </button>
-                                </div> --}}
-                            {{-- <div> --}}
                                 <button data-modal-target="lihat-data-siswa-modal-{{ $siswa->id }}"
                                     data-modal-toggle="lihat-data-siswa-modal-{{ $siswa->id }}"
                                     class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 focus:ring-2 focus:ring-blue-500">
@@ -72,7 +57,6 @@
                                     Detail Siswa
                                 </button>
                             </div>
-                            {{-- </div> --}}
                         </td>
                     </tr>
                     @include('guru.partials.siswa.modal-lihat-data-siswa')

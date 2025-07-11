@@ -1,13 +1,13 @@
 @extends('Guru.main-guru')
 
-@section('title', 'Dashboard Guru')
+@section('title', "Kelola Nilai $mapel->nama")
 
 @section('content')
     @include('components.alert')
     <div class="overflow-x-auto w-auto rounded-lg border p-4 bg-white dark:bg-gray-800 shadow">
         <div class="flex justify-between items-center mt-4 mb-4">
             <div class="flex items-center mt-4 mb-4">
-                @if ($kunci != null)
+                @if ($kunci)
                     @if (!$kunci->is_locked && $status == null)
                         @if ($kunci->tahun_ajaran_id != $tahunAktif->id)
                             <span class="text-base font-semibold text-gray-800 dark:text-gray-300">
@@ -35,16 +35,14 @@
                             </button>
                             @include('guru.partials.kunci-nilai.modal-kunci-nilai')
                         @endif
+                    @elseif ($kunci->is_locked)
+                        <span class="text-base font-semibold text-gray-800 dark:text-gray-300">
+                            Nilai telah dikunci pada {{ \Carbon\Carbon::parse($kunci->locked_at)->format('d M Y H:i') }}
+                        </span>
                     @else
-                        @if ($kunci->is_locked)
-                            <span class="text-base font-semibold text-gray-800 dark:text-gray-300">
-                                Nilai telah dikunci pada {{ \Carbon\Carbon::parse($kunci->locked_at)->format('d M Y H:i') }}
-                            </span>
-                        @else
-                            <span class="text-base font-semibold text-gray-800 dark:text-gray-300">
-                                Nilai belum dikunci
-                            </span>
-                        @endif
+                        <span class="text-base font-semibold text-gray-800 dark:text-gray-300">
+                            Nilai belum dikunci
+                        </span>
                     @endif
                 @endif
             </div>
@@ -88,13 +86,16 @@
                         {{ $tahun->semester }} - {{ $tahun->tahun }} </span>
                 </div>
             @endif
-        @elseif ($status == 'ada')
+        @elseif ($kunci == null && $status == 'ada')
             <div class="flex justify-center items-center h-[500px]">
                 <span class="ml-4 text-lg font-semibold text-gray-700 dark:text-white">Tidak ada data penilaian di
                     semester
                     {{ $tahun->semester }} - {{ $tahun->tahun }} </span>
             </div>
-        @else
+        @elseif ($kunci)
+            <p class="text-base text-gray-800 dark:text-gray-300 mb-4">
+                KKM = {{ $kkm->nilai ?? '-' }}
+            </p>
             <table
                 class="w-full min-w-[1000px] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 table-fixed">
                 <thead class="text-xs text-white text-center uppercase bg-blue-800 dark:bg-gray-700">
@@ -134,18 +135,20 @@
                         @endforeach
                         @if ($nilaiakhirs && $nilaiakhirs->where('mata_pelajaran_id', $mapel->id)->isNotEmpty())
                             <th class="w-32 w-px-4 py-3 border border-gray-300 text-center">
-                                Nilai Akhir
-                                @if (!$kunci->is_locked && $kunci->tahun_ajaran_id == $tahunAktif->id && $status == null)
-                                    <button id="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots"
-                                        class="p-1 text-white rounded-full focus:ring-2 focus:ring-blue-300 dark:text-gray-300 dark:focus:ring-blue-800"
-                                        type="button">
-                                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                            fill="currentColor" viewBox="0 0 4 15">
-                                            <path
-                                                d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
-                                        </svg>
-                                    </button>
-                                @endif
+                                <div class="flex items-center justify-center space-x-2">
+                                    Nilai Akhir
+                                    @if (!$kunci->islocked && $kunci->tahun_ajaran_id == $tahunAktif->id && $status == null)
+                                        <button id="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots"
+                                            class="p-1 text-white rounded-full focus:ring-2 focus:ring-blue-300 dark:text-gray-300 dark:focus:ring-blue-800"
+                                            type="button">
+                                            <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                fill="currentColor" viewBox="0 0 4 15">
+                                                <path
+                                                    d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+                                            </svg>
+                                        </button>
+                                    @endif
+                                </div>
                             </th>
                             <th class="w-[450px] px-4 py-3 border border-gray-300 text-center break-words ">
                                 Keterangan
@@ -166,8 +169,11 @@
                                         ->where('siswa_id', $siswa->id)
                                         ->where('capaian_pembelajaran_id', $cp->id)
                                         ->first();
+                                    $nilaiKkm = $kkm && is_numeric($kkm->nilai) ? $kkm->nilai : 0;
                                 @endphp
-                                <td class="w-24 px-4 py-3 border border-gray-300 text-center">
+                                <td
+                                    class="w-24 px-4 py-3 border border-gray-300 text-center 
+                                        {{ $nilai && $nilai->nilai < $nilaiKkm ? 'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-200' : '' }}">
                                     {{ $nilai ? $nilai->nilai : '-' }}
                                 </td>
                             @endforeach
@@ -175,7 +181,11 @@
                                 @php
                                     $nilaiAkhirSiswa = $nilaiakhirs->where('siswa_id', $siswa->id)->first();
                                 @endphp
-                                <td class="w-32 px-4 py-3 border border-gray-300 text-center">
+                                <td
+                                    class="w-32 px-4 py-3 border border-gray-300 text-center
+                                        {{ $nilaiAkhirSiswa && $nilaiAkhirSiswa->nilai_akhir < $nilaiKkm
+                                            ? 'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-200'
+                                            : '' }}">
                                     {{ $nilaiAkhirSiswa ? $nilaiAkhirSiswa->nilai_akhir : '-' }}
                                 </td>
                                 <td class="px-4 py-3 border border-gray-300 break-words whitespace-normal">
