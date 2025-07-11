@@ -150,6 +150,7 @@ class DashboardAdminController extends Controller
             ->when($request->mata_pelajaran_id, function ($query) use ($request) {
                 return $query->where('mata_pelajaran_id', $request->mata_pelajaran_id);
             })
+            ->orderBy('mata_pelajaran_id')
             ->get();
         $mapels = MataPelajaran::all();
         $mapel = MataPelajaran::where('id', $request->mata_pelajaran_id)->first();

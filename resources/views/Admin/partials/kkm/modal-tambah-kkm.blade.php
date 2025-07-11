@@ -47,13 +47,12 @@
                         </select>
                     </div>
                     <div class="mb-4">
-                        <label for="nilai" class="block text-sm font-medium text-gray-700 dark:text-white">Niali
+                        <label for="nilai" class="block text-sm font-medium text-gray-700 dark:text-white">Nilai
                             KKM</label>
                         <input type="number" id="nilai" name="nilai"
                             class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white"
                             required>
                     </div>
-                    
                     <input type="hidden" name="tahun_ajaran_id" value="{{ $tahunNow->id }}">
                     <div class="p-6 space-x-4 border-t border-gray-200 dark:border-gray-600 text-right">
                         <button type="submit"
