@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>Rapor Peserta Didik</title>
@@ -11,27 +12,33 @@
                 size: A4;
                 margin: 10mm;
             }
+
             body {
                 margin: 0;
                 padding: 0;
             }
+
             .print-wrapper {
                 padding: 4mm;
             }
+
             .avoid-break {
                 break-inside: avoid;
                 page-break-inside: avoid;
             }
+
             .avoid-break * {
                 break-inside: avoid;
                 page-break-inside: avoid;
             }
+
             .page-break {
                 page-break-before: always;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="print-wrapper">
         <div class="text-center mb-6">
@@ -74,7 +81,7 @@
                         <th class="w-12 p-2 border">No</th>
                         <th class="w-72 p-2 border">Mata Pelajaran</th>
                         <th class="w-20 p-2 border">Nilai Akhir</th>
-                        <th class="p-2 border">Capaian Kompetensi</th>
+                        <th class="p-2 border">Keterangan</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -184,4 +191,5 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </body>
+
 </html>
