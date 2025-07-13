@@ -1,6 +1,6 @@
 @extends('KepalaSekolah.main-kepala-sekolah')
 
-@section('title', 'Dashboard Kepala Sekolah')
+@section('title', 'Lihat Buku Induk Siswa')
 
 @section('content')
     <div class="mb-4">

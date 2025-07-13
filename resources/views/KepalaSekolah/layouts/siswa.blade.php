@@ -1,14 +1,18 @@
 @extends('KepalaSekolah.main-kepala-sekolah')
 
-@section('title', 'Dashboard Kepala Sekolah')
+@section('title', 'Buku Induk')
 
 @section('content')
     @include('components.alert')
     <div class="flex justify-between mb-4">
-        <a href=""
-            class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700 focus:ring-2 focus:ring-green-500">
-            Cetak Buku Induk
-        </a>
+        <form action="{{ route('kepsek.cetak-buku-induk') }}" method="GET" class="inline">
+            <input type="hidden" name="kelas_id" value="{{ $kelas->id }}">
+            <input type="hidden" name="tahun_id" value="{{ $tahun->id }}">
+            <button type="submit"
+                class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700 focus:ring-2 focus:ring-green-500">
+                Cetak Buku Induk
+            </button>
+        </form>
         <form action="{{ route('kepsek.siswa', ['id' => $kelas->id]) }}" method="GET" class="flex items-center gap-2">
             <div>
                 <select name="tahun_id" id="tahun"

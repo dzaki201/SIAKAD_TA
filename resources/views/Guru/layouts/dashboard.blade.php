@@ -102,7 +102,7 @@
                 <div>
                     <select name="mata_pelajaran_id" id="mata_pelajaran_id"
                         class="border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-800 dark:border-gray-600 dark:text-white">
-                        <option value="">Pilih Tahun</option>
+                        <option value="">Pilih Mata Pelajaran</option>
                         </option>
                         @foreach ($mapels as $item)
                             <option value="{{ $item->id }}"
