@@ -14,14 +14,14 @@
                 </div>
                 <div class="flex-1">
                     <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-1">
-                        Selamat Datang, {{ Auth::user()->username }}
+                        Selamat Datang, {{ $orangTua->nama ?? '-' }}
                     </h2>
                     <p class="text-gray-700 dark:text-gray-400 mb-3">{{ Auth::user()->email }}</p>
                     <button data-modal-target="edit-akun-modal" data-modal-toggle="edit-akun-modal"
                         class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600">
                         Edit Akun
                     </button>
-                    <button data-modal-target="edit-akun-modal" data-modal-toggle="edit-akun-modal"
+                    <button data-modal-target="lihat-data-diri-modal" data-modal-toggle="lihat-data-diri-modal"
                         class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600">
                         Lihat Data Diri
                     </button>
@@ -73,4 +73,5 @@
         </div>
     </div>
     @include('partials.modal-edit-akun')
+    @include('OrangTua.partials.modal-lihat-data-diri')
 @endsection

@@ -1,6 +1,6 @@
 @extends('OrangTua.main-orang-tua')
 
-@section('title', 'Nilai Akhir')
+@section('title', 'Rapor')
 
 @section('content')
     <div class="flex justify-between mb-4">

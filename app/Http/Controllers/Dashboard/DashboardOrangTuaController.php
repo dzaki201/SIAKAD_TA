@@ -8,18 +8,19 @@ use App\Models\Nilai;
 use App\Models\Siswa;
 use App\Models\Absensi;
 use App\Models\OrangTua;
+use App\Models\NaikKelas;
 use App\Models\KunciNilai;
 use App\Models\NilaiAkhir;
+use App\Models\CatatanGuru;
 use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
+use App\Models\KepalaSekolah;
 use App\Models\MataPelajaran;
 use App\Models\OrangTuaSiswa;
 use App\Models\PlotSiswaKelas;
 use App\Models\KelasMataPelajaran;
+use App\Models\CapaianPembelajaran;
 use App\Http\Controllers\Controller;
-use App\Models\CatatanGuru;
-use App\Models\KepalaSekolah;
-use App\Models\NaikKelas;
 use App\Models\SiswaEkstrakulikuler;
 
 class DashboardOrangTuaController extends Controller
@@ -35,7 +36,7 @@ class DashboardOrangTuaController extends Controller
             ->whereIn('id', $siswaIds)
             ->get();
 
-        return view('OrangTua.layouts.dashboard', compact('anak', 'tahun'));
+        return view('OrangTua.layouts.dashboard', compact('anak', 'tahun', 'orangTua'));
     }
     public function orangTuaNilaiAkhir(Request $request)
     {
@@ -69,8 +70,21 @@ class DashboardOrangTuaController extends Controller
             })
             ->where('tahun_ajaran_id', $tahun->id)
             ->get();
-            $mapel = MataPelajaran::where('id', $request->mapel_id)->first();
-        return view('OrangTua.layouts.nilai', compact('tahun', 'tahuns', 'nilais', 'kunciStatus', 'mapel'));
+        $mapel = MataPelajaran::where('id', $request->mapel_id)->first();
+
+        $capaianPembelajaran = CapaianPembelajaran::where('mata_pelajaran_id', $request->mapel_id)
+            ->get()
+            ->keyBy('id');
+
+        $nilaiPerCP = $nilais->map(function ($item) use ($capaianPembelajaran) {
+            $label = $capaianPembelajaran[$item->capaian_pembelajaran_id]->nama ?? 'CP Tidak Ditemukan';
+            return [
+                'label' => $label,
+                'nilai' => $item->nilai
+            ];
+        })->values();
+
+        return view('OrangTua.layouts.nilai', compact('nilaiPerCP', 'tahun', 'tahuns', 'nilais', 'kunciStatus', 'mapel'));
     }
 
     public function orangTuaRapor(Request $request)

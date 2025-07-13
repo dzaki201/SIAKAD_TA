@@ -71,7 +71,7 @@ class DashboardGuruController extends Controller
       $mataPelajaranId = $request->mata_pelajaran_id ?? $mapelIds->first();
       $mapelSelect =  MataPelajaran::where('id', $request->mata_pelajaran_id ?? $mapelIds->first())->first();
 
-         $cp = CapaianPembelajaran::where('mata_pelajaran_id', $mataPelajaranId)
+      $cp = CapaianPembelajaran::where('mata_pelajaran_id', $mataPelajaranId)
          ->where('kelas_id', $kelasId)
          ->where('tahun_ajaran_id', $tahun->id)
          ->get();

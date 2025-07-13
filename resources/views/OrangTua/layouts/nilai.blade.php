@@ -1,6 +1,6 @@
 @extends('OrangTua.main-orang-tua')
 
-@section('title', 'Nilai Akhir')
+@section('title', 'Detail Nilai')
 
 @section('content')
     <div class="mb-4">
@@ -17,13 +17,15 @@
             </button>
         </form>
     </div>
-    <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+    <div class="mb-4 p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
         <div class="flex items-center justify-between mb-4">
             <h5 class="text-2xl font-bold text-gray-900 dark:text-white">Nilai Akhir Anak</h5>
             @if ($kunciStatus)
-                <span class="px-2 py-1 text-xs font-semibold text-green-800 bg-green-200 rounded">Nilai Mata Pelajaran {{ $mapel->nama }} Sudah Terkunci</span>
+                <span class="px-2 py-1 text-xs font-semibold text-green-800 bg-green-200 rounded">Nilai Mata Pelajaran
+                    {{ $mapel->nama }} Sudah Terkunci</span>
             @else
-                <span class="px-2 py-1 text-xs font-semibold text-yellow-800 bg-yellow-200 rounded">Nilai Mata Pelajaran {{ $mapel->nama }} Belum dikunci</span>
+                <span class="px-2 py-1 text-xs font-semibold text-yellow-800 bg-yellow-200 rounded">Nilai Mata Pelajaran
+                    {{ $mapel->nama }} Belum dikunci</span>
             @endif
         </div>
         @if ($nilais->count() > 0)
@@ -57,5 +59,41 @@
             <p class="text-sm text-gray-500 dark:text-gray-300">Belum ada data nilai akhir tersedia.</p>
         @endif
     </div>
-
+    <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+        <h2>Grafik Perkembangan Nilai Siswa</h2>
+        <canvas id="grafik-perkembangan-nilai"></canvas>
+    </div>
+    <script>
+        const ctx = document.getElementById('grafik-perkembangan-nilai').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {!! json_encode($nilaiPerCP->pluck('label')) !!},
+                datasets: [{
+                    label: 'Nilai Capaian pembelajaran {{ $mapel->nama }}',
+                    data: {!! json_encode($nilaiPerCP->pluck('nilai')) !!},
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(255, 206, 86, 0.7)',
+                        'rgba(75, 192, 192, 0.7)',
+                        'rgba(153, 102, 255, 0.7)',
+                        'rgba(255, 159, 64, 0.7)'
+                    ],
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1,
+                    barThickness: 60,
+                    categoryPercentage: 0.7,
+                    barPercentage: 0.9
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 @endsection
