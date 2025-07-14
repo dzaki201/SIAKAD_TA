@@ -17,6 +17,7 @@ use App\Models\Ekstrakulikuler;
 use App\Models\KelasMataPelajaran;
 use App\Http\Controllers\Controller;
 use App\Models\Kkm;
+use App\Models\KunciNilai;
 
 class DashboardAdminController extends Controller
 {
@@ -156,5 +157,31 @@ class DashboardAdminController extends Controller
         $kelases = Kelas::all();
         $tahuns = TahunAjaran::all();
         return view('admin.layouts.kkm', compact('kkm', 'mapel', 'mapels', 'tahun', 'tahuns', 'kelases', 'tahunLama'));
+    }
+
+    public function adminKunciNilai(Request $request)
+    {
+        $tahun = TahunAjaran::where('status', 1)->first();
+        $kunci = KunciNilai::where('tahun_ajaran_id', $tahun->id)
+            ->when($request->mata_pelajaran_id, function ($query) use ($request) {
+                return $query->where('mata_pelajaran_id', $request->mata_pelajaran_id);
+            })
+            ->when($request->kelas_id, function ($query) use ($request) {
+                return $query->where('kelas_id', $request->kelas_id);
+            })
+            ->get();
+        $mapels = MataPelajaran::all();
+        $kelases = Kelas::all();
+        $mapel = null;
+        $kelas = null;
+
+        if ($request->mata_pelajaran_id) {
+            $mapel = MataPelajaran::find($request->mata_pelajaran_id);
+        }
+
+        if ($request->kelas_id) {
+            $kelas = Kelas::find($request->kelas_id);
+        }
+        return view('admin.layouts.kunci-nilai', compact('kunci', 'mapels', 'kelases', 'mapel', 'kelas'));
     }
 }

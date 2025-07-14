@@ -16,19 +16,19 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
-            'role' => 'nullable',
+            'role' => 'required',
             'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // validasi foto
         ]);
+
 
         $validatedData['password'] = Hash::make($validatedData['password']);
         if ($request->hasFile('foto')) {
             $foto = $request->file('foto');
             $extension = $foto->getClientOriginalExtension();
             $namaFoto = $this->generateFotoUserName() . '.' . $extension;
-            $foto->storeAs('public/foto_users', $namaFoto);
+            $foto->storeAs('public/foto-users', $namaFoto);
             $validatedData['foto'] = $namaFoto;
         }
-
         User::create($validatedData);
         return redirect()->back()->with('success', 'Akun berhasil dibuat');
     }
@@ -52,13 +52,13 @@ class UserController extends Controller
 
         if ($request->hasFile('foto')) {
             if ($user->foto) {
-                Storage::delete('public/foto_users/' . $user->foto);
+                Storage::delete('public/foto-users/' . $user->foto);
                 $namaFoto = $user->foto;
             } else {
                 $extension = $request->file('foto')->getClientOriginalExtension();
                 $namaFoto = $this->generateFotoUserName() . '.' . $extension;
             }
-            $request->file('foto')->storeAs('public/foto_users', $namaFoto);
+            $request->file('foto')->storeAs('public/foto-users', $namaFoto);
             $validatedData['foto'] = $namaFoto;
         }
         $user->update($validatedData);
@@ -69,7 +69,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         if ($user->foto) {
-            Storage::delete('public/foto_users/' . $user->foto);
+            Storage::delete('public/foto-users/' . $user->foto);
         }
         $user->delete();
 
@@ -77,7 +77,7 @@ class UserController extends Controller
     }
     private function generateFotoUserName()
     {
-        $files = Storage::files('public/foto_users');
+        $files = Storage::files('public/foto-users');
         $filteredFiles = array_filter($files, function ($file) {
             return str_contains(basename($file), 'foto-user-');
         });

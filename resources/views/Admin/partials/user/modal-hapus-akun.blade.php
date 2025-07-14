@@ -18,7 +18,7 @@
             </div>
             <div class="p-6 space-y-6 text-center">
                 <p class="text-gray-700 dark:text-white">Apakah Anda yakin ingin menghapus akun
-                    "{{ $user->username }}"?</p>
+                    "{{ $user->email }}"?</p>
             </div>
             <div class="p-6 space-x-4 border-t border-gray-200 dark:border-gray-600 text-right">
                 <form action="{{ route('admin.user.destroy', ['id' => $user->id]) }}" method="POST">

@@ -35,40 +35,19 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                         </div>
                         <div>
-                            <label for="upload_foto"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Foto</label>
-                            <input
-                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none dark:text-gray-400 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                id="upload_foto" type="file" name="upload_foto" accept=".jpg,.jpeg,.png">
+                            <label for="foto"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto
+                            </label>
+                            <input type="file" name="foto" id="foto"
+                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                                accept="image/*">
                         </div>
-                        {{-- <div>
-                            <label for="upload_foto" class="block mb-2 text-sm font-medium text-gray-900">Upload
-                                Foto</label>
-
-                            <div class="flex items-center">
-                                <label for="upload_foto"
-                                    class="px-4 py-2 bg-blue-600 text-white rounded cursor-pointer">
-                                    Pilih File
-                                </label>
-                                <span id="file-name" class="ml-3 text-sm text-gray-500">Belum ada file dipilih</span>
-                            </div>
-
-                            <input type="file" id="upload_foto" name="upload_foto" accept=".jpg,.jpeg,.png"
-                                class="hidden">
-                        </div>
-
-                        <script>
-                            document.getElementById("upload_foto").addEventListener("change", function() {
-                                const fileName = this.files[0] ? this.files[0].name : "Belum ada file dipilih";
-                                document.getElementById("file-name").textContent = fileName;
-                            });
-                        </script> --}}
-
                         <div>
                             <label for="role"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
                             <select name="role" id="role"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                                required>
                                 <option value="">pilih role</option>
                                 <option value="admin">Admin</option>
                                 <option value="guru">Guru kelas</option>

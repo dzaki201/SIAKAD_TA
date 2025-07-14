@@ -34,6 +34,7 @@ use App\Http\Controllers\Dashboard\DashboardGuruMapelController;
 use App\Http\Controllers\Ekstrakulikuler\EkstrakulikulerController;
 use App\Http\Controllers\Dashboard\DashboardKepalaSekolahController;
 use App\Http\Controllers\Ekstrakulikuler\SiswaEkstrakulikulerController;
+use App\Models\KunciNilai;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,9 +52,6 @@ use App\Http\Controllers\Ekstrakulikuler\SiswaEkstrakulikulerController;
 // });
 
 Route::controller(AuthController::class)->group(function () {
-    Route::get('/register', 'register')->name('register');
-    Route::post('/register', 'registerSave')->name('register.save');
-
     Route::get('/', 'login')->name('login');
     Route::post('/login', 'loginAction')->name('login.action');
 
@@ -129,6 +127,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/kkm/update-semua', [KkmController::class, 'updateSemua'])->name('admin.kkm.updateSemua');
     Route::put('/admin-kkm/{id}/update', [KkmController::class, 'update'])->name('admin.kkm.update');
     Route::delete('/admin-kkm/{id}', [KkmController::class, 'destroy'])->name('admin.kkm.destroy');
+
+    Route::get('/admin-kunci-nilai', [DashboardAdminController::class, 'adminKunciNilai'])->name('admin.kunci-nilai');
+    Route::post('/admin-buka-kunci/{id}', [KunciNilaiController::class, 'bukaKunci'])->name('admin.buka-kunci');
 });
 
 Route::middleware(['auth', 'role:guru'])->group(function () {

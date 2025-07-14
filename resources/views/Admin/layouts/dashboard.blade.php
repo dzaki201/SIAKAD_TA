@@ -3,7 +3,6 @@
 @section('title', 'Dashboard Admin')
 
 @section('content')
-    @include('components.alert')
     <div class="grid grid-cols-4 gap-4 mb-6 text-center">
         <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
             <h5 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Total User</h5>
