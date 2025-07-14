@@ -16,7 +16,7 @@
                 Tambah Data Orang Tua
             </button>
         </div>
-        <div class="overflow-x-auto rounded-lg ">
+        <div class="mb-4 overflow-x-auto rounded-lg ">
             <table class="w-full min-w-[1000px] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-white uppercase bg-blue-800 dark:bg-gray-700">
                     <tr>
@@ -33,7 +33,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($orangtuas as $ortu)
+                    @foreach ($orangTuas as $ortu)
                         <tr
                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <td class="px-6 py-4">{{ $loop->iteration }}</td>
@@ -83,6 +83,33 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
+        <div class="flex justify-center">
+            <nav class="items-center" aria-label="Page navigation example">
+                <ul class="inline-flex -space-x-px text-sm">
+                    <li>
+                        <a href="{{ $orangTuas->previousPageUrl() ?? '#' }}"
+                            class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700">
+                            Previous
+                        </a>
+                    </li>
+                    @for ($i = 1; $i <= $orangTuas->lastPage(); $i++)
+                        <li>
+                            <a href="{{ $orangTuas->url($i) }}"
+                                class="flex items-center justify-center px-3 h-8 leading-tight border border-gray-300 
+                            {{ $i == $orangTuas->currentPage() ? 'text-blue-600 bg-blue-50 hover:bg-blue-100 hover:text-blue-700' : 'text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700' }}">
+                                {{ $i }}
+                            </a>
+                        </li>
+                    @endfor
+                    <li>
+                        <a href="{{ $orangTuas->nextPageUrl() ?? '#' }}"
+                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700">
+                            Next
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
     @include('admin.partials.orang-tua.modal-tambah-orang-tua')

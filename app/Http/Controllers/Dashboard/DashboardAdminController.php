@@ -76,7 +76,7 @@ class DashboardAdminController extends Controller
     }
     public function adminSiswa()
     {
-        $siswas = Siswa::all();
+        $siswas = Siswa::paginate(25);
         $kelases = Kelas::all();
         return view('admin.layouts.siswa', compact('siswas', 'kelases'));
     }
@@ -109,10 +109,9 @@ class DashboardAdminController extends Controller
         $users = User::where('role', 'orang_tua')
             ->whereNotIn('id', $userIds)
             ->get();
-        $orangtuas = OrangTua::with('siswa')->get();
-        // dd($orangtuas);
+        $orangTuas = OrangTua::with('siswa')->paginate(25);
         $siswas = Siswa::all();
-        return view('admin.layouts.orang-tua', compact('orangtuas', 'siswas', 'users'));
+        return view('admin.layouts.orang-tua', compact('orangTuas', 'siswas', 'users'));
     }
     public function adminFilterEditKelasSiswa()
     {

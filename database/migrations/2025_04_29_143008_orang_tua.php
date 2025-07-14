@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('orang_tua', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
-            $table->string('nik', 20);
-            $table->string('nama', 50);
-            $table->string('pekerjaan', 30);
-            $table->string('alamat');
-            $table->string('no_hp', 20);
+            $table->string('nik', 20)->nullable();
+            $table->string('nama', 50)->nullable();
+            $table->string('pekerjaan', 30)->nullable();
+            $table->string('alamat')->nullable();
+            $table->string('no_hp', 20)->nullable();
             $table->timestamps();
         });
     }

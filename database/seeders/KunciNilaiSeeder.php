@@ -15,34 +15,19 @@ class KunciNilaiSeeder extends Seeder
                 'guru_id' => 1,
                 'mata_pelajaran_id' => 4,
                 'tahun_ajaran_id' => 5,
-                'kelas_id' => 1,
+                'kelas_id' => 6,
                 'is_locked' => 0,
                 'locked_at' => null,
             ],
             [
-                'guru_id' => 2,
-                'mata_pelajaran_id' => 1,
-                'tahun_ajaran_id' => 5,
-                'kelas_id' => 1,
+                'guru_id' => 1,
+                'mata_pelajaran_id' => 4,
+                'tahun_ajaran_id' => 6,
+                'kelas_id' => 7,
                 'is_locked' => 0,
                 'locked_at' => null,
             ],
-            [
-                'guru_id' => 2,
-                'mata_pelajaran_id' => 2,
-                'tahun_ajaran_id' => 5,
-                'kelas_id' => 1,
-                'is_locked' => 0,
-                'locked_at' => null,
-            ],
-            [
-                'guru_id' => 2,
-                'mata_pelajaran_id' => 3,
-                'tahun_ajaran_id' => 5,
-                'kelas_id' => 1,
-                'is_locked' => 0,
-                'locked_at' => null,
-            ],
+
         ]);
     }
 }

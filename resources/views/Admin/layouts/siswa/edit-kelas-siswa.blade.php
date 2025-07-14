@@ -27,7 +27,11 @@
             </div>
             <div class="pr-2 text-right">
                 <span class="text-base font-semibold text-gray-800 dark:text-gray-300">
-                    Semester {{ $tahun->semester }} - Tahun Ajaran {{ $tahun->tahun }}
+                    @if (empty($tahun?->semester) && empty($tahun?->tahun))
+                        -
+                    @else
+                        Semester {{ $tahun->semester ?? '-' }} - Tahun Ajaran {{ $tahun->tahun ?? '-' }}
+                    @endif
                 </span>
             </div>
         </div>

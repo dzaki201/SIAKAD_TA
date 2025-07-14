@@ -13,19 +13,15 @@ class PlotGuruMapelSeeder extends Seeder
         PlotGuruMapel::insert([
             [
                 'guru_id' => 5,
-                'kelas_id' => 2
-            ],
-            [
-                'guru_id' => 5,
-                'kelas_id' => 4
-            ],
-            [
-                'guru_id' => 5,
                 'kelas_id' => 6
             ],
             [
                 'guru_id' => 5,
-                'kelas_id' => 8
+                'kelas_id' => 7
+            ],
+            [
+                'guru_id' => 5,
+                'kelas_id' => 6
             ],
             [
                 'guru_id' => 1,
@@ -37,7 +33,7 @@ class PlotGuruMapelSeeder extends Seeder
             ],
             [
                 'guru_id' => 1,
-                'kelas_id' => 5
+                'kelas_id' => 6
             ],
             [
                 'guru_id' => 1,

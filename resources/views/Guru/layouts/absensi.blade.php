@@ -29,7 +29,8 @@
         @php
             $tahunAktif = $tahuns->firstWhere('status', 1);
         @endphp
-        @if ($siswas->first()->absensi->isEmpty())
+
+        @if ($siswas->isNotEmpty() && $siswas->first()->absensi->isEmpty())
             @if ($tahun->id == $tahunAktif->id)
                 <div class="flex justify-center items-center h-[500px]">
                     <a href="{{ route('guru.absensi.store', ['id' => $tahun->id]) }}">

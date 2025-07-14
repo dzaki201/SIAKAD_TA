@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
             MataPelajaranSeeder::class,
             GuruSeeder::class,
             SiswaSeeder::class,
-            OrangTuaSeeder::class,
+            OrangTuaAyahSeeder::class,
+            OrangTuaIbuSeeder::class,
             TahunAjaranSeeder::class,
             EkstrakulikulerSeeder::class,
             KelasMataPelajaranSeeder::class,
@@ -39,7 +40,7 @@ class DatabaseSeeder extends Seeder
             KepalaSekolahSeeder::class,
             KkmSeeder::class,
             KunciNilaiSeeder::class,
-            OrangTuaSiswaSeeder::class,
+            // OrangTuaSiswaSeeder::class,
         ]);
     }
 }

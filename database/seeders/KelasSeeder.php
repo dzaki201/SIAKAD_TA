@@ -11,14 +11,13 @@ class KelasSeeder extends Seeder
     public function run(): void
     {
         Kelas::insert([
-            ['nama' => '1A', 'created_at' => now(), 'updated_at' => now()],
-            ['nama' => '1B', 'created_at' => now(), 'updated_at' => now()],
-            ['nama' => '2A', 'created_at' => now(), 'updated_at' => now()],
-            ['nama' => '2B', 'created_at' => now(), 'updated_at' => now()],
-            ['nama' => '3A', 'created_at' => now(), 'updated_at' => now()],
-            ['nama' => '3B', 'created_at' => now(), 'updated_at' => now()],
+            ['nama' => '1', 'created_at' => now(), 'updated_at' => now()],
+            ['nama' => '2', 'created_at' => now(), 'updated_at' => now()],
+            ['nama' => '3', 'created_at' => now(), 'updated_at' => now()],
             ['nama' => '4A', 'created_at' => now(), 'updated_at' => now()],
             ['nama' => '4B', 'created_at' => now(), 'updated_at' => now()],
+            ['nama' => '5', 'created_at' => now(), 'updated_at' => now()],
+            ['nama' => '6', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }
