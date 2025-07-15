@@ -13,9 +13,10 @@
                     <select name="filter_kelas" id="filter_kelas"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                         <option value="">Semua Kelas</option>
-                        @foreach ($kelases as $kelas)
-                            <option value="{{ $kelas->id }}">
-                                {{ $kelas->nama }}
+                        @foreach ($kelases as $item)
+                            <option value="{{ $item->id }}"
+                                 {{ isset($kelas) && $item->id == $kelas->id ? 'selected' : '' }}>
+                                {{ $item->nama }}
                             </option>
                         @endforeach
                     </select>

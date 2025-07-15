@@ -1,76 +1,88 @@
 <div id="edit-kepsek-modal-{{ $kepsek->id }}" tabindex="-1" aria-hidden="true"
-    class="fixed inset-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 bg-black/40">
+    class="fixed inset-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto bg-black/40">
     <div class="relative w-full h-full max-w-2xl md:h-auto">
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Edit Kepala Sekolah
-                </h3>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Edit Kepala Sekolah</h3>
                 <button type="button"
                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
                     data-modal-hide="edit-kepsek-modal-{{ $kepsek->id }}">
-                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 16 16">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
                             d="M11.293 4.707a1 1 0 0 1 0 1.414L7.414 9l3.879 3.879a1 1 0 1 1-1.414 1.414L6 10.414 2.121 14.293a1 1 0 0 1-1.414-1.414L4.586 9 .707 5.121a1 1 0 1 1 1.414-1.414L6 7.586l3.879-3.879a1 1 0 0 1 1.414 1.414z" />
                     </svg>
-                    <span class="sr-only">Close</span>
                 </button>
             </div>
-            <div class="p-6 space-y-6">
-                <form action="{{ route('admin.kepsek.update', ['id' => $kepsek->id]) }}" method="POST">
+            <div class="p-6">
+                <form action="{{ route('admin.kepsek.update', $kepsek->id) }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    <div class="flex item-center mb-4">
-                        <div class="w-full mr-4">
-                            <label for="user_id"
-                                class="block text-sm font-medium text-gray-700 dark:text-white">User</label>
-                            <select id="user_id" name="user_id"
-                                class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                                <option value="">Pilih User</option>
-                                <option value="{{ $kepsek->user_id }}" selected>
-                                    {{ $kepsek->user->email }}
-                                </option>
-                                @foreach ($users as $user)
-                                    <option value="{{ $user->id }}">{{ $user->email }}
-                                    </option>
-                                @endforeach
-                            </select>
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="w-full md:w-1/2 space-y-4">
+                            <h4 class="text-lg font-semibold text-gray-700 dark:text-white">Akun</h4>
+                            <div>
+                                <label for="email"
+                                    class="block text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                                <input type="email" name="email" id="email"
+                                    class="w-full p-2.5 rounded-lg border text-sm bg-gray-50 border-gray-300 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                                    value="{{ $kepsek->user->email }}" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-white">Password
+                                </label>
+                                <input type="password" name="password"
+                                    class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                                    placeholder="Kosongkan jika tidak ingin ganti">
+                            </div>
+                            <div>
+                                <label for="foto"
+                                    class="block text-sm font-medium text-gray-900 dark:text-white">Foto</label>
+                                <input type="file" name="foto" id="foto"
+                                    class="block w-full mt-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                                    accept="image/*">
+                                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Format gambar: JPG, JPEG, PNG.
+                                    Maksimal 2MB.</p>
+                            </div>
                         </div>
-                        <div class="w-full">
-                            <label for="nama" class="block text-sm font-medium text-gray-700 dark:text-white">Nama
-                                Guru</label>
-                            <input type="text" id="nama" name="nama"
-                                class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white"
-                                value="{{ $kepsek->nama }}" required>
+                        <div class="w-full md:w-1/2 space-y-4">
+                            <h4 class="text-lg font-semibold text-gray-700 dark:text-white">Data Kepala Sekolah</h4>
+                            <div>
+                                <label for="nama"
+                                    class="block text-sm font-medium text-gray-900 dark:text-white">Nama Kepala
+                                    Sekolah</label>
+                                <input type="text" id="nama" name="nama"
+                                    class="w-full p-2.5 rounded-lg border text-sm bg-gray-50 border-gray-300 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                                    value="{{ $kepsek->nama }}" required>
+                            </div>
+                            <div>
+                                <label for="nip"
+                                    class="block text-sm font-medium text-gray-900 dark:text-white">NIP</label>
+                                <input type="text" id="nip" name="nip"
+                                    class="w-full p-2.5 rounded-lg border text-sm bg-gray-50 border-gray-300 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                                    value="{{ $kepsek->nip }}" required>
+                            </div>
+                            <div>
+                                <label for="no_hp"
+                                    class="block text-sm font-medium text-gray-900 dark:text-white">Nomor HP</label>
+                                <input type="text" id="no_hp" name="no_hp"
+                                    class="w-full p-2.5 rounded-lg border text-sm bg-gray-50 border-gray-300 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                                    value="{{ $kepsek->no_hp }}">
+                            </div>
+                            <div>
+                                <label for="alamat"
+                                    class="block text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
+                                <textarea id="alamat" name="alamat" rows="3"
+                                    class="w-full p-2.5 rounded-lg border text-sm bg-gray-50 border-gray-300 dark:bg-gray-600 dark:border-gray-500 dark:text-white">{{ $kepsek->alamat }}</textarea>
+                            </div>
                         </div>
                     </div>
-                    <div class="flex item-center mb-4">
-                        <div class="w-full mr-4">
-                            <label for="nip"
-                                class="block text-sm font-medium text-gray-700 dark:text-white">NIP</label>
-                            <input type="text" id="nip" name="nip"
-                                class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white"
-                                value="{{ $kepsek->nip }}" placeholder="Opsional" maxlength="50" required>
-                        </div>
-                        <div class="w-full">
-                            <label for="no_hp" class="block text-sm font-medium text-gray-700 dark:text-white">Nomor
-                                HP</label>
-                            <input type="text" id="no_hp" name="no_hp"
-                                class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white"
-                                value="{{ $kepsek->no_hp }}">
-                        </div>
-                    </div>
-                    <div class="md:col-span-2">
-                        <label for="alamat"
-                            class="block text-sm font-medium text-gray-700 dark:text-white">Alamat</label>
-                        <textarea id="alamat" name="alamat" rows="3"
-                            class="w-full px-4 py-2 mt-2 text-sm border  border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">{{ $kepsek->alamat }}</textarea>
-                    </div>
-                    <div class="p-6 space-x-4 border-t border-gray-200 dark:border-gray-600 text-right">
+                    <div
+                        class="md:col-span-2 flex justify-end space-x-2 pt-4 border-t border-gray-200 dark:border-gray-600">
                         <button type="submit"
-                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800">Simpan</button>
-                        <button data-modal-hide="edit-kepsek-modal-{{ $kepsek->id }}" type="button"
-                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800">Batal</button>
+                            class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700">Simpan</button>
+                        <button type="button" data-modal-hide="edit-kepsek-modal-{{ $kepsek->id }}"
+                            class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700">Batal</button>
                     </div>
                 </form>
             </div>

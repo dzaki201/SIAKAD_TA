@@ -77,7 +77,7 @@ class DashboardAdminController extends Controller
     }
     public function adminSiswa()
     {
-        $siswas = Siswa::paginate(25);
+        $siswas = Siswa::latest()->paginate(25);
         $kelases = Kelas::all();
         return view('admin.layouts.siswa', compact('siswas', 'kelases'));
     }
@@ -85,9 +85,10 @@ class DashboardAdminController extends Controller
     {
         $kelases = Kelas::all();
         $tahun = TahunAjaran::where('status', 1)->first();
-        $siswa = Siswa::when($request->filled('filter_kelas'), function ($query) use ($request) {
-            $query->whereHas('kelasSiswa', function ($sub) use ($request) {
-                $sub->where('kelas_id', $request->filter_kelas);
+        $siswa = Siswa::when($request->filled('filter_kelas'), function ($query) use ($request, $tahun) {
+            $query->whereHas('kelasSiswa', function ($sub) use ($request, $tahun) {
+                $sub->where('kelas_id', $request->filter_kelas)
+                ->where('tahun_ajaran_id', $tahun->id);
             });
         })->with(['kelasSiswa' => function ($query) {
             $query->orderByDesc('tahun_ajaran_id');
@@ -102,7 +103,8 @@ class DashboardAdminController extends Controller
             $item->setRelation('kelasSiswa', $kelas);
             return $item;
         });
-        return view('admin.layouts.siswa.edit-kelas-siswa', compact('siswas', 'kelases', 'tahun'));
+        $kelas = Kelas::where('id', $request->filter_kelas)->first();
+        return view('admin.layouts.siswa.edit-kelas-siswa', compact('siswas', 'kelases', 'tahun', 'kelas'));
     }
     public function adminOrangTua()
     {
@@ -110,7 +112,7 @@ class DashboardAdminController extends Controller
         $users = User::where('role', 'orang_tua')
             ->whereNotIn('id', $userIds)
             ->get();
-        $orangTuas = OrangTua::with('siswa')->paginate(25);
+        $orangTuas = OrangTua::with('siswa')->latest()->paginate(25);
         $siswas = Siswa::all();
         return view('admin.layouts.orang-tua', compact('orangTuas', 'siswas', 'users'));
     }
