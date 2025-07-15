@@ -15,7 +15,6 @@ class NilaiSeeder extends Seeder
      */
     public function run(): void
     {
-        $tahunAjaranId = 5;
         $capaian = CapaianPembelajaran::all();
         $siswaList = Siswa::all();
 
@@ -24,10 +23,10 @@ class NilaiSeeder extends Seeder
         foreach ($siswaList as $siswa) {
             foreach ($capaian as $cp) {
                 $nilaiList[] = [
-                    'nilai' => rand(80, 95), // Atau nilai fix sesuai kebutuhan
+                    'nilai' => rand(70, 98),
                     'siswa_id' => $siswa->id,
                     'capaian_pembelajaran_id' => $cp->id,
-                    'tahun_ajaran_id' => $tahunAjaranId,
+                    'tahun_ajaran_id' => 5,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ];

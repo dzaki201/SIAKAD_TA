@@ -35,6 +35,8 @@
                                 class="block text-sm font-medium text-gray-900 dark:text-white">Password</label>
                             <input type="password" name="password" id="password"
                                 class="w-full p-2.5 rounded-lg border text-sm bg-gray-50 border-gray-300 dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Minimal 6 karakter.
+                            </p>
                         </div>
                         <div>
                             <label for="foto"

@@ -15,7 +15,7 @@
             </div>
             <div class="p-6 space-y-6">
                 <form action="{{ route('admin.orang-tua.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf 
+                    @csrf
                     <div class="flex flex-col md:flex-row gap-6">
                         <div class="w-full md:w-1/2 space-y-4">
                             <h4 class="text-lg font-semibold text-gray-700 dark:text-white">Akun</h4>
@@ -29,10 +29,11 @@
                                 <label class="block text-sm font-medium text-gray-700 dark:text-white">Password</label>
                                 <input type="password" name="password" required
                                     class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Minimal 6 karakter.
+                                </p>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 dark:text-white">Foto
-                                    (opsional)</label>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-white">Foto</label>
                                 <input type="file" name="foto"
                                     class="block w-full text-sm border border-gray-300 mt-2 rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
                                     accept="image/*">

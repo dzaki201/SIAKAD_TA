@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('nama', 100);
             $table->string('nip', 50)->unique();
             $table->string('alamat');
-            $table->string('no_hp', 20);
+            $table->string('no_hp', 20)->nullable();
             $table->timestamps();
         });
     }

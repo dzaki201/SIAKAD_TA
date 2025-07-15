@@ -44,15 +44,16 @@ class DashboardGuruMapelController extends Controller
             ->where('tahun_ajaran_id', $tahun->id)
             ->get()
             ->keyBy('kelas_id');
-
         $totalSiswaKkm = $nilai->filter(function ($item) use ($kkmList, $siswaKelas) {
             $kelasId = $siswaKelas->get($item->siswa_id)->kelas_id ?? null;
+
             if (!$kelasId) {
                 return false;
             }
             $kkm = $kkmList->get($kelasId)->nilai ?? 0;
             return $item->nilai_akhir < $kkm;
         })->count();
+
 
         $siswaKkm = $nilai->filter(function ($item) use ($kkmList, $siswaKelas) {
             $kelasId = $siswaKelas->get($item->siswa_id)->kelas_id ?? null;
@@ -66,7 +67,7 @@ class DashboardGuruMapelController extends Controller
         });
 
         $kelas = $kelasMapel->count();
-        return view('GuruMapel.layouts.dashboard', compact('kelases', 'siswa', 'mapel', 'kelas', 'tahun', 'siswaKkm', 'totalSiswaKkm', 'kkmList'));
+        return view('GuruMapel.layouts.dashboard', compact('guru', 'kelases', 'siswa', 'mapel', 'kelas', 'tahun', 'siswaKkm', 'totalSiswaKkm', 'kkmList'));
     }
     public function guruMapelNilai(Request $request, $id)
     {

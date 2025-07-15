@@ -36,7 +36,8 @@ class DashboardKepalaSekolahController extends Controller
                 return $item->tahun_ajaran_id . '-' . $item->mata_pelajaran_id;
             });
         $tahunAjaran = TahunAjaran::all()->keyBy('id');
-        $namaMapel = MataPelajaran::where('id', $mapelId)->value('nama');
+        $mapelSelect = MataPelajaran::where('id', $mapelId)->first();
+        $namaMapel = $mapelSelect->nama;
 
         $hasilPerTahun = $nilai->groupBy('tahun_ajaran_id')->map(function ($items, $tahunId) use ($kkmlist, $tahunAjaran) {
             $siswaDiAtasKKM = $items->filter(function ($item) use ($kkmlist, $tahunId) {
@@ -53,7 +54,7 @@ class DashboardKepalaSekolahController extends Controller
             ];
         })->values();
 
-        return view('KepalaSekolah.layouts.dashboard', compact('kelases', 'kelas', 'siswa', 'guru', 'mapel', 'mapels', 'hasilPerTahun', 'namaMapel'));
+        return view('KepalaSekolah.layouts.dashboard', compact('kelases', 'kelas', 'siswa', 'guru', 'mapel', 'mapels', 'hasilPerTahun', 'namaMapel', 'mapelSelect'));
     }
     public function kepsekSiswa(Request $request, $id)
     {
@@ -74,8 +75,6 @@ class DashboardKepalaSekolahController extends Controller
         }])->where('id', $request->siswa_id)->first();
 
         $tahun = TahunAjaran::where('id', $request->tahun_id)->first();
-        $kelasMapel = KelasMataPelajaran::where('kelas_id', $request->kelas_id)->pluck('mata_pelajaran_id');
-        $mapels = MataPelajaran::whereIn('id', $kelasMapel)->get();
         $kelasMapel = KelasMataPelajaran::where('kelas_id', $request->kelas_id)->pluck('mata_pelajaran_id');
         $mapels = MataPelajaran::whereIn('id', $kelasMapel)->get();
 

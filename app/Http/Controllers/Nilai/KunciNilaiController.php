@@ -28,6 +28,16 @@ class KunciNilaiController extends Controller
         ]);
         return redirect()->back()->with('success', 'Penilaian Baru berhasil dibuat.');;
     }
+    public function kunci($id)
+    {
+        $kunci = KunciNilai::where('id', $id)
+            ->first();
+        $kunci->update([
+            'is_locked' => 1,
+            'locked_at' => now(),
+        ]);
+        return redirect()->back()->with('success', 'Data Nilai berhasil dikunci.');
+    }
     public function bukaKunci($id)
     {
         $kunci = KunciNilai::where('id', $id)->first();

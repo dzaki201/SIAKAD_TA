@@ -81,7 +81,7 @@ class AuthController extends Controller
     {
         $validatedData = $request->validate([
             'email' => 'required|email',
-            'password' => 'nullable|confirmed',
+            'password' => 'nullable|confirmed|min:6',
             'role' => 'nullable',
             'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ], [

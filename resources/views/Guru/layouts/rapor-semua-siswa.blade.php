@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>Rapor Peserta Didik</title>
@@ -37,6 +38,7 @@
         }
     </style>
 </head>
+
 <body>
     @foreach ($siswas as $siswa)
         <div class="print-wrapper">
@@ -111,7 +113,7 @@
                     <thead class="bg-gray-100">
                         <tr>
                             <th class="w-12 p-2 border">No</th>
-                            <th class="w-72 p-2 border">Ekstrakurikuler</th>
+                            <th class="w-56 p-2 border">Ekstrakurikuler</th>
                             <th class="p-2 border">Keterangan</th>
                         </tr>
                     </thead>
@@ -131,18 +133,22 @@
             </div>
             @php
                 $catatan = $catatans->where('siswa_id', $siswa->id)->first();
-                $keputusan = $keputusans->where('siswa_id', $siswa->id)->first();
-                if ($keputusan) {
-                    if ($keputusan->status == 'naik') {
-                        $nextKelas = $angkaKelas + 1;
-                    } elseif ($keputusan->status == 'tinggal') {
-                        $nextKelas = $angkaKelas;
+                if ($keputusans) {
+                    $keputusan = $keputusans->where('siswa_id', $siswa->id)->first();
+                    if ($keputusan) {
+                        if ($keputusan->status == 'naik') {
+                            $nextKelas = $angkaKelas + 1;
+                        } elseif ($keputusan->status == 'tinggal') {
+                            $nextKelas = $angkaKelas;
+                        }
+                        $angkaKeHuruf = [1 => 'Satu', 2 => 'Dua', 3 => 'Tiga', 4 => 'Empat', 5 => 'Lima', 6 => 'Enam'];
+                        $teksKelas = $angkaKeHuruf[$nextKelas] ?? $nextKelas;
+                    } else {
+                        $nextKelas = null;
+                        $teksKelas = null;
                     }
-                    $angkaKeHuruf = [1 => 'Satu', 2 => 'Dua', 3 => 'Tiga', 4 => 'Empat', 5 => 'Lima', 6 => 'Enam'];
-                    $teksKelas = $angkaKeHuruf[$nextKelas] ?? $nextKelas;
-                } else {
-                    $nextKelas = null;
-                    $teksKelas = null;
+                }else{
+                    $keputusan = false;
                 }
             @endphp
             <div class="mb-8">
@@ -217,4 +223,5 @@
     @endforeach
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </body>
+
 </html>

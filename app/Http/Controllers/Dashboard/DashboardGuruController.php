@@ -91,7 +91,7 @@ class DashboardGuruController extends Controller
          ];
       });
 
-      return view('Guru.layouts.dashboard', compact('rataRataPerCP', 'mapels', 'kelas', 'tahun', 'siswa', 'mapel', 'totalSiswaKkm', 'siswaKkm', 'kkmList', 'tahuns', 'mapelSelect'));
+      return view('Guru.layouts.dashboard', compact('guru', 'rataRataPerCP', 'mapels', 'kelas', 'tahun', 'siswa', 'mapel', 'totalSiswaKkm', 'siswaKkm', 'kkmList', 'tahuns', 'mapelSelect'));
    }
    public function guruSiswa(Request $request)
    {
@@ -343,8 +343,12 @@ class DashboardGuruController extends Controller
                $belum[] = 'Status Naik Kelas';
             }
          }
+         if ($tahun->semester == 'Genap') {
+            $totalKomponen = 5;
+         } else {
+            $totalKomponen = 4;
+         }
 
-         $totalKomponen = 5;
          $persenRapor = round(($progressItem / $totalKomponen) * 100, 2);
          return [
             'siswa_id' => $siswa->id,

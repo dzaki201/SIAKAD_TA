@@ -39,6 +39,11 @@
                     type="button">
                     Edit Akun
                 </button>
+                <button data-modal-target="lihat-data-guru-modal" data-modal-toggle="lihat-data-guru-modal"
+                    class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
+                    type="button">
+                    Lihat Data Guru
+                </button>
             </div>
         </div>
         <div
@@ -97,7 +102,7 @@
     </div>
     <div class="mb-4 w-full p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
         <div class="flex justify-between">
-            <h2>Grafik Perkembangan Nilai Siswa</h2>
+            <h2 class="text-gray-800 dark:text-gray-300">Grafik Perkembangan Nilai Siswa</h2>
             <form action="{{ route('guru.dashboard') }}" method="GET" class="flex items-center gap-2">
                 <div>
                     <select name="mata_pelajaran_id" id="mata_pelajaran_id"
@@ -120,7 +125,7 @@
         </div>
         <canvas id="grafik-perkembangan-nilai"></canvas>
     </div>
-
+    @include('partials.modal-lihat-data-guru')
     @include('partials.modal-edit-akun')
     <script>
         const ctx = document.getElementById('grafik-perkembangan-nilai').getContext('2d');

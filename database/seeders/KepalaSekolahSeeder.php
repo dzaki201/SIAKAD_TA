@@ -12,11 +12,11 @@ class KepalaSekolahSeeder extends Seeder
     {
         KepalaSekolah::insert([
             [
-                'user_id' => 13,
-                'nama' => 'Budi',
-                'nip' => '19821217 987443 8 008',
-                'alamat' => 'Jl. Arjuna No.1',
-                'no_hp' => '081234567890',
+                'user_id' => 10,
+                'nama' => 'Sri Sugiharti, S.Pd',
+                'nip' => '19671130 199203 2 008',
+                'alamat' => 'Purwokerto Utara',
+                'no_hp' => null,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

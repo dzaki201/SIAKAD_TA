@@ -44,7 +44,7 @@
     </div>
     <div class="mb-4 w-full p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
          <div class="flex justify-between">
-            <h2>Grafik Siswa diatas KKM</h2>
+            <h2 class="text-gray-800 dark:text-gray-300">Grafik Siswa diatas KKM</h2>
             <form action="{{ route('kepsek.dashboard') }}" method="GET" class="flex items-center gap-2">
                 <div>
                     <select name="mata_pelajaran_id" id="mata_pelajaran_id"

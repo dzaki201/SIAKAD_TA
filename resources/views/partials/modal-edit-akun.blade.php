@@ -18,7 +18,8 @@
                 </button>
             </div>
             <div class="p-6 space-y-6">
-                <form action="{{ route('user.update', ['id' => auth()->user()->id]) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('user.update', ['id' => auth()->user()->id]) }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="grid gap-4 mb-4 grid-cols-1">
@@ -31,11 +32,12 @@
                         </div>
                         <div>
                             <label for="password"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password Baru
-                                (Opsional)</label>
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                             <input type="password" name="password" id="password"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
                                 placeholder="Isi jika ingin ganti password">
+                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Minimal 6 karakter.
+                            </p>
                         </div>
                         <div>
                             <label for="password_confirmation"

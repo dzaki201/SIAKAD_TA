@@ -12,7 +12,19 @@ class MataPelajaranSeeder extends Seeder
     {
         MataPelajaran::insert([
             [
-                'nama' => 'Matematika',
+                'nama' => 'Agama',
+                'status' => 'Khusus',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'nama' => 'Penjaskes',
+                'status' => 'khusus',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'nama' => 'Pancasila',
                 'status' => 'umum',
                 'created_at' => now(),
                 'updated_at' => now()
@@ -24,20 +36,8 @@ class MataPelajaranSeeder extends Seeder
                 'updated_at' => now()
             ],
             [
-                'nama' => 'PPKN',
+                'nama' => 'Matematika',
                 'status' => 'umum',
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'nama' => 'Seni Rupa',
-                'status' => 'khusus',
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'nama' => 'Seni Musik',
-                'status' => 'khusus',
                 'created_at' => now(),
                 'updated_at' => now()
             ],

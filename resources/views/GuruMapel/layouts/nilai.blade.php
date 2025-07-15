@@ -128,7 +128,6 @@
                         @if ($nilaiakhirs && $nilaiakhirs->where('mata_pelajaran_id', $mapel->id)->isNotEmpty())
                             <th class="w-32 w-px-4 py-3 border border-gray-300 text-center">
                                 <div class="flex items-center justify-center space-x-2">
-
                                     Nilai Akhir
                                     @if (!$kunci->is_locked && $kunci->tahun_ajaran_id == $tahunAktif->id)
                                         <button id="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots"
@@ -143,7 +142,7 @@
                                     @endif
                                 </div>
                             </th>
-                            <th class="w-60 px-4 py-3 border border-gray-300 text-center break-words ">
+                            <th class="w-96 px-4 py-3 border border-gray-300 text-center break-words ">
                                 Keterangan
                             </th>
                         @else
