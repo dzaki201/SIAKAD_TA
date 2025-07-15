@@ -39,11 +39,16 @@
                     type="button">
                     Edit Akun
                 </button>
+                <button data-modal-target="lihat-data-kepsek-modal" data-modal-toggle="lihat-data-kepsek-modal"
+                    class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
+                    type="button">
+                    Lihat Data Kepala Sekolah
+                </button>
             </div>
         </div>
     </div>
     <div class="mb-4 w-full p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-         <div class="flex justify-between">
+        <div class="flex justify-between">
             <h2 class="text-gray-800 dark:text-gray-300">Grafik Siswa diatas KKM</h2>
             <form action="{{ route('kepsek.dashboard') }}" method="GET" class="flex items-center gap-2">
                 <div>
@@ -65,16 +70,18 @@
                 </button>
             </form>
         </div>
-        <canvas id="grafik-perkembangan-nilai"></canvas>
+        <canvas id="grafik-siswa-diatas-kkm"></canvas>
     </div>
+    @include('partials.modal-edit-akun')
+    @include('partials.modal-lihat-data-kepsek')
     <script>
-        const ctx = document.getElementById('grafik-perkembangan-nilai').getContext('2d');
+        const ctx = document.getElementById('grafik-siswa-diatas-kkm').getContext('2d');
         new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: {!! json_encode($hasilPerTahun->pluck('label')) !!},
                 datasets: [{
-                    label: 'Jumlah Siswa Diatas KKM Mapel {{ $namaMapel }}',
+                    label: 'Jumlah Siswa Dibawah KKM Mapel {{ $namaMapel }}',
                     data: {!! json_encode($hasilPerTahun->pluck('jumlah_siswa')) !!},
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.7)',
@@ -100,5 +107,5 @@
             }
         });
     </script>
-    @include('partials.modal-edit-akun')
+
 @endsection

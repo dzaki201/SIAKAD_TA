@@ -15,12 +15,14 @@ use App\Models\PlotSiswaKelas;
 use App\Models\KelasMataPelajaran;
 use Spatie\Browsershot\Browsershot;
 use App\Http\Controllers\Controller;
+use App\Models\KepalaSekolah;
 use App\Models\SiswaEkstrakulikuler;
 
 class DashboardKepalaSekolahController extends Controller
 {
     public function kepsekIndex(Request $request)
     {
+        $kepsek = KepalaSekolah::where('user_id', auth()->user()->id)->first();
         $kelases = Kelas::all();
         $mapels = MataPelajaran::all();
         $kelas = Kelas::all()->count();
@@ -53,8 +55,7 @@ class DashboardKepalaSekolahController extends Controller
                 'jumlah_siswa' => $siswaDiAtasKKM->count()
             ];
         })->values();
-
-        return view('KepalaSekolah.layouts.dashboard', compact('kelases', 'kelas', 'siswa', 'guru', 'mapel', 'mapels', 'hasilPerTahun', 'namaMapel', 'mapelSelect'));
+        return view('KepalaSekolah.layouts.dashboard', compact('kepsek', 'kelases', 'kelas', 'siswa', 'guru', 'mapel', 'mapels', 'hasilPerTahun', 'namaMapel', 'mapelSelect'));
     }
     public function kepsekSiswa(Request $request, $id)
     {
@@ -159,5 +160,35 @@ class DashboardKepalaSekolahController extends Controller
             ->save($outputPath);
 
         return response()->download($outputPath, $fileName);
+    }
+
+    public function rekapSiswa(Request $request)
+    {
+        $tahun = TahunAjaran::where('id', $request->tahun_id)->first() ?? TahunAjaran::where('status', 1)->first();
+        $tahuns = TahunAjaran::all();
+
+        $nilai = NilaiAkhir::where('tahun_ajaran_id', $tahun->id)->get();
+        $kkms = Kkm::where('tahun_ajaran_id', $tahun->id)->get();
+        $plotKelas = PlotSiswaKelas::where('tahun_ajaran_id', $tahun->id)->get();
+
+        $rekap = $kkms->map(function ($kkmItem) use ($nilai, $plotKelas) {
+            $siswaDiKelas = $plotKelas->where('kelas_id', $kkmItem->kelas_id)->pluck('siswa_id');
+
+            $jumlah = $nilai->where('mata_pelajaran_id', $kkmItem->mata_pelajaran_id)
+                ->filter(function ($item) use ($kkmItem, $siswaDiKelas) {
+                    return in_array($item->siswa_id, $siswaDiKelas->toArray()) && $item->nilai_akhir < $kkmItem->nilai;
+                })
+                ->count();
+
+            return [
+                'mapel'  => $kkmItem->mataPelajaran->nama,
+                'kelas'  => $kkmItem->kelas->nama,
+                'kkm'    => $kkmItem->nilai,
+                'jumlah' => $jumlah
+            ];
+        });
+
+        $kelases = Kelas::all();
+        return view('kepalaSekolah.layouts.rekap-siswa', compact('rekap', 'tahuns', 'tahun', 'kelases'));
     }
 }
