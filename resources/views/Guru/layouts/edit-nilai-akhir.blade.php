@@ -30,9 +30,9 @@
                     <thead class="text-xs text-white text-center uppercase bg-blue-800 dark:bg-gray-700">
                         <tr>
                             <th class="w-16 px-4 py-3 text-left border border-gray-300">No</th>
-                            <th class="w-60 w-px-4 py-3 border border-gray-300 break-words">NIS</th>
+                            <th class="w-24 w-px-4 py-3 border border-gray-300 break-words">NIS</th>
                             <th class="w-60 w-px-4 py-3 border border-gray-300 break-words">Nama</th>
-                            <th class="w-60 w-px-4 py-3 border border-gray-300 break-words">Nilai</th>
+                            <th class="w-16 w-px-4 py-3 border border-gray-300 break-words">Nilai</th>
                             <th class="w-60 w-px-4 py-3 border border-gray-300 break-words">Keterangan</th>
                         </tr>
                     </thead>
@@ -46,7 +46,8 @@
                                 @php
                                     $nilaiAkhirSiswa = $nilaiakhirs->where('siswa_id', $siswa->id)->first();
                                 @endphp
-                                <td class="px-4 py-3 border border-gray-300">{{ $nilaiAkhirSiswa ? $nilaiAkhirSiswa->nilai_akhir : '-' }}</td>
+                                <td class="px-4 py-3 border border-gray-300">
+                                    {{ $nilaiAkhirSiswa ? $nilaiAkhirSiswa->nilai_akhir : '-' }}</td>
                                 <td class="w-80 px-4 py-3 border border-gray-300 text-center">
                                     <input type="text" name="keterangan[{{ $siswa->id }}]"
                                         value="{{ $nilaiAkhirSiswa ? $nilaiAkhirSiswa->keterangan : '-' }}"
@@ -63,7 +64,7 @@
                     </a>
                     <button type="submit"
                         class="px-6 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-700">
-                        Simpan Nilai
+                        Simpan
                     </button>
                 </div>
             </div>

@@ -19,10 +19,9 @@
             <div class="p-6 space-y-6">
                 <form action="{{ route('admin.guru.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="flex flex-col md:flex-row gap-6">
+                    <div class="flex flex-col md:flex-row gap-6 mb-4">
                         <div class="w-full md:w-1/2 space-y-4">
                             <h4 class="text-lg font-semibold text-gray-700 dark:text-white">Akun</h4>
-                            <input type="hidden" name="role" value="kepsek">
                             <div>
                                 <label for="email"
                                     class="block text-sm font-medium text-gray-700 dark:text-white">Email</label>
@@ -48,6 +47,20 @@
                                 <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Format: JPG, JPEG, PNG. Maks
                                     2MB.
                                 </p>
+                            </div>
+                            <div>
+                                <label for="role"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
+                                <select name="role" id="role"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                                    required>
+                                    <option value="">pilih role</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="guru">Guru kelas</option>
+                                    <option value="guru_mapel">Guru Mapel</option>
+                                    <option value="kepsek">Kepala Sekolah</option>
+                                    <option value="orang_tua">Orang Tua</option>
+                                </select>
                             </div>
                         </div>
                         <div class="w-full md:w-1/2 space-y-4">

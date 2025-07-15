@@ -44,6 +44,7 @@ class DashboardGuruMapelController extends Controller
             ->where('tahun_ajaran_id', $tahun->id)
             ->get()
             ->keyBy('kelas_id');
+
         $totalSiswaKkm = $nilai->filter(function ($item) use ($kkmList, $siswaKelas) {
             $kelasId = $siswaKelas->get($item->siswa_id)->kelas_id ?? null;
 

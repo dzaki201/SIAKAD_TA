@@ -17,7 +17,8 @@
                 </button>
             </div>
             <div class="p-6 space-y-6">
-                <form action="{{ route('admin.orang-tua.update', $ortu->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.orang-tua.update', $ortu->id) }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="flex flex-col md:flex-row gap-6">
@@ -35,6 +36,8 @@
                                 <input type="password" name="password"
                                     class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 dark:text-white"
                                     placeholder="Kosongkan jika tidak ingin ganti">
+                                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Minimal 6 karakter.
+                                </p>
                             </div>
                             <div>
                                 <label for="foto"
@@ -147,7 +150,7 @@
                             class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700">
                             Simpan
                         </button>
-                        <button type="button" data-modal-hide="tambah-orang-tua-modal"
+                        <button type="button" data-modal-hide="edit-orang-tua-modal-{{ $ortu->id }}"
                             class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700">
                             Batal
                         </button>

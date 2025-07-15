@@ -34,7 +34,7 @@
                 <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Semester {{ $tahun->semester }}
                     {{ $tahun->tahun }}</h3>
             </div>
-            @if ($anak->count() > 0)
+            @if ($anak != null)
                 <div class="space-y-3">
                     @foreach ($anak as $siswa)
                         <div

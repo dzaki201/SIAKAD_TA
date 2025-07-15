@@ -5,7 +5,7 @@
 @section('content')
 
     <div class="overflow-x-auto w-auto rounded-lg border p-4 bg-white dark:bg-gray-800 shadow">
-        <div class="mb-4">
+        {{-- <div class="mb-4">
             <button data-modal-target="tambah-akun-modal" data-modal-toggle="tambah-akun-modal"
                 class="inline-flex items-center px-4 py-2 gap-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
                 type="button">
@@ -15,7 +15,7 @@
                 </svg>
                 Tambah User
             </button>
-        </div>
+        </div> --}}
         <div class="overflow-x-auto rounded-lg ">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-white uppercase bg-blue-800 dark:bg-gray-700">

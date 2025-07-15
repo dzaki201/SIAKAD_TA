@@ -34,6 +34,8 @@
                                 <input type="password" name="password"
                                     class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 dark:text-white"
                                     placeholder="Kosongkan jika tidak ingin ganti">
+                                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Minimal 6 karakter.
+                                </p>
                             </div>
                             <div>
                                 <label for="foto"

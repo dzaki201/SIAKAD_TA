@@ -96,6 +96,9 @@
             <p class="text-base text-gray-800 dark:text-gray-300 mb-4">
                 KKM = {{ $kkm->nilai ?? '-' }}
             </p>
+            @php
+                $nilaiKkm = $kkm && is_numeric($kkm->nilai) ? $kkm->nilai : 0;
+            @endphp
             <table
                 class="w-full min-w-[1000px] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 table-fixed">
                 <thead class="text-xs text-white text-center uppercase bg-blue-800 dark:bg-gray-700">
@@ -169,7 +172,6 @@
                                         ->where('siswa_id', $siswa->id)
                                         ->where('capaian_pembelajaran_id', $cp->id)
                                         ->first();
-                                    $nilaiKkm = $kkm && is_numeric($kkm->nilai) ? $kkm->nilai : 0;
                                 @endphp
                                 <td
                                     class="w-24 px-4 py-3 border border-gray-300 text-center 

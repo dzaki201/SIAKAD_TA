@@ -57,7 +57,11 @@ class DashboardAdminController extends Controller
     public function adminPlottingGuruKelas()
     {
         $gurukelases = Guru::whereNotNull('kelas_id')->get();
-        $gurus = Guru::whereNull('kelas_id')->get();
+        $gurus = Guru::whereNull('kelas_id')
+            ->whereHas('user', function ($query) {
+                $query->where('role', 'guru');
+            })
+            ->get();
         $mapels = MataPelajaran::get();
         $kelases = Kelas::doesntHave('guru')->get();
 
@@ -67,7 +71,11 @@ class DashboardAdminController extends Controller
     public function adminPlottingGuruMapel()
     {
         $gurukelases = Guru::whereNotNull('mata_pelajaran_id')->get();
-        $gurus = Guru::whereNull('mata_pelajaran_id')->get();
+        $gurus = Guru::whereNull('mata_pelajaran_id')
+            ->whereHas('user', function ($query) {
+                $query->where('role', 'guru_mapel');
+            })
+            ->get();
         $mapels = MataPelajaran::where('status', 'khusus')->get();
         $kelasmapels = KelasMataPelajaran::get();
         $kelasgurumapels = PlotGuruMapel::get();
@@ -88,7 +96,7 @@ class DashboardAdminController extends Controller
         $siswa = Siswa::when($request->filled('filter_kelas'), function ($query) use ($request, $tahun) {
             $query->whereHas('kelasSiswa', function ($sub) use ($request, $tahun) {
                 $sub->where('kelas_id', $request->filter_kelas)
-                ->where('tahun_ajaran_id', $tahun->id);
+                    ->where('tahun_ajaran_id', $tahun->id);
             });
         })->with(['kelasSiswa' => function ($query) {
             $query->orderByDesc('tahun_ajaran_id');

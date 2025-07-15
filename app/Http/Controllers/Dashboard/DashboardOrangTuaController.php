@@ -29,12 +29,16 @@ class DashboardOrangTuaController extends Controller
     {
         $tahun = TahunAjaran::where('status', 1)->first();
         $orangTua = OrangTua::where('user_id', auth()->user()->id)->first();
-        $siswaIds = OrangTuaSiswa::where('orang_tua_id', $orangTua->id)->pluck('siswa_id');
-        $anak = Siswa::with(['kelasSiswa' => function ($q) use ($tahun) {
-            $q->where('tahun_ajaran_id', $tahun->id);
-        }])
-            ->whereIn('id', $siswaIds)
-            ->get();
+        if ($orangTua) {
+            $siswaIds = OrangTuaSiswa::where('orang_tua_id', $orangTua->id)->pluck('siswa_id');
+            $anak = Siswa::with(['kelasSiswa' => function ($q) use ($tahun) {
+                $q->where('tahun_ajaran_id', $tahun->id);
+            }])
+                ->whereIn('id', $siswaIds)
+                ->get();
+        }else{
+            $anak = null;
+        }
 
         return view('OrangTua.layouts.dashboard', compact('anak', 'tahun', 'orangTua'));
     }

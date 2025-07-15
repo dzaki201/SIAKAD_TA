@@ -22,7 +22,7 @@
                             Guru</label>
                         <select id="guru_id" name="guru_id" required
                             class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                            <option value="" disabled selected>-- Pilih Guru --</option>
+                            <option>-- Pilih Guru --</option>
                             @foreach ($gurus as $guru)
                                 <option value="{{ $guru->id }}">{{ $guru->nama }}</option>
                             @endforeach
@@ -33,7 +33,7 @@
                             Kelas</label>
                         <select id="kelas_id" name="kelas_id" required
                             class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                            <option value="" disabled selected>-- Pilih Kelas --</option>
+                            <option >-- Pilih Kelas --</option>
                             @foreach ($kelases as $kelas)
                                 <option value="{{ $kelas->id }}" >
                                     {{ $kelas->nama }}

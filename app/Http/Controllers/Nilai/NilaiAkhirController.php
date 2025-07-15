@@ -60,7 +60,7 @@ class NilaiAkhirController extends Controller
         $nilaiAkhir = $hasilAkhir->map(function ($nilaiAkhir, $siswaId) use ($id, $tahunAjaran) {
             return [
                 'siswa_id' => $siswaId,
-                'mata_pelajaran_id' => $id,
+                'mata_pelajaran_id' => (int) $id,
                 'tahun_ajaran_id' => $tahunAjaran->id,
                 'nilai_akhir' => $nilaiAkhir,
                 'keterangan' => null,
@@ -69,14 +69,39 @@ class NilaiAkhirController extends Controller
             ];
         })->values()->all();
 
+
         if (count($nilaiAkhir) == 0) {
+            NilaiAkhir::whereIn('siswa_id', $siswaIds)
+                ->where('mata_pelajaran_id', $id)
+                ->where('tahun_ajaran_id', $tahunAjaran->id)
+                ->delete();
             return redirect()->back()->with('errors', 'Tidak ada data nilai untuk dihitung.');
         }
-        NilaiAkhir::whereIn('siswa_id', $siswaIds)
-            ->where('mata_pelajaran_id', $id)
-            ->where('tahun_ajaran_id', $tahunAjaran->id)
-            ->delete();
-        NilaiAkhir::insert($nilaiAkhir);
+        $hasilAkhir->each(function ($nilaiAkhir, $siswaId) use ($id, $tahunAjaran) {
+            $existing = NilaiAkhir::where('siswa_id', $siswaId)
+                ->where('mata_pelajaran_id', (int) $id)
+                ->where('tahun_ajaran_id', $tahunAjaran->id)
+                ->first();
+
+            if ($existing) {
+                // Update nilai_akhir dan updated_at saja, keterangan tetap
+                $existing->update([
+                    'nilai_akhir' => $nilaiAkhir,
+                    'updated_at'  => now(),
+                ]);
+            } else {
+                // Insert baru
+                NilaiAkhir::create([
+                    'siswa_id'           => $siswaId,
+                    'mata_pelajaran_id'  => (int) $id,
+                    'tahun_ajaran_id'    => $tahunAjaran->id,
+                    'nilai_akhir'        => $nilaiAkhir,
+                    'keterangan'         => null,
+                    'created_at'         => now(),
+                    'updated_at'         => now(),
+                ]);
+            }
+        });
         return redirect()->back()->with('success', 'Nilai akhir berhasil dihitung.');
     }
 

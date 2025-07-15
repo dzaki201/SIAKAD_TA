@@ -37,6 +37,8 @@
                                 <input type="file" name="foto"
                                     class="block w-full text-sm border border-gray-300 mt-2 rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
                                     accept="image/*">
+                                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Format gambar: JPG, JPEG, PNG.
+                                    Maksimal 2MB.</p>
                             </div>
                         </div>
                         <div class="w-full md:w-1/2 space-y-4">

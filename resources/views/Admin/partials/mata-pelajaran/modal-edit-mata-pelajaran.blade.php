@@ -47,8 +47,8 @@
                         <select name="status" id="status"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                             <option value="">pilih status mapel</option>
-                            <option value="umum">Umum</option>
-                            <option value="khusus">Khusus</option>
+                            <option value="umum" {{ $mapel->status == 'umum' ? 'selected' : '' }}>Umum</option>
+                            <option value="khusus" {{ $mapel->status == 'khusus' ? 'selected' : '' }}>Khusus</option>
                         </select>
                     </div>
                     <div class="p-6 space-x-4 border-t border-gray-200 dark:border-gray-600 text-right">

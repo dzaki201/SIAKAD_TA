@@ -20,9 +20,9 @@
                     <div class="mb-4">
                         <label for="kelas_id" class="block text-sm font-medium text-gray-700 dark:text-white">Pilih
                             Kelas</label>
-                        <select id="kelas_id" name="kelas_id" required
+                        <select id="kelas_id" name="kelas_id"
                             class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                            <option value="" disabled>-- Pilih Kelas --</option>
+                            <option value="">-- Pilih Kelas --</option>
                             <option value="{{ $guru->kelas_id }}" selected>{{ $guru->kelas->nama }}</option>
                             @foreach ($kelases as $kelas)
                                 <option value="{{ $kelas->id }}">
