@@ -55,7 +55,7 @@
                 @csrf
                 <div class="flex-1">
                     <label for="file" class="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200">Pilih File
-                        Excel/CSV</label>
+                        Excel</label>
                     <input type="file" name="file" id="file" accept=".xlsx,.xls,.csv" required
                         class="block w-full text-sm text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                     <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
