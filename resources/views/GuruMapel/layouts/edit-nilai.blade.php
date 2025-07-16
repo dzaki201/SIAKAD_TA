@@ -6,7 +6,7 @@
 
     <div class="flex items-center justify-between mt-4 mb-4">
         <div>
-            <h2 class="text-xl font-bold text-gray-800 dark:text-white">Tambah Keterangan Nilai Akhir</h2>
+            <h2 class="text-xl font-bold text-gray-800 dark:text-white">Edit Nilai</h2>
             <p class="text-sm text-gray-600 dark:text-gray-400">
                 Kelas: <span class="font-medium">{{ $kelas->nama }}</span><br>
                 Mata Pelajaran: <span class="font-medium">{{ $mapel->nama }}</span>

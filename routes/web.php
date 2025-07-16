@@ -66,6 +66,7 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin-dashboard', [DashboardAdminController::class, 'adminIndex'])->name('admin.dashboard');
+    Route::post('/admin-import-data', [DashboardAdminController::class, 'adminImportData'])->name('admin.import-data');
 
     Route::get('/admin-user', [DashboardAdminController::class, 'adminUser'])->name('admin.user');
     Route::post('/admin-user', [UserController::class, 'store'])->name('admin.user.store');

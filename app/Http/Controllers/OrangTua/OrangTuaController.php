@@ -120,15 +120,21 @@ class OrangTuaController extends Controller
 
     public function destroy($id)
     {
+
         $orangTua = OrangTua::findOrFail($id);
         $userId = $orangTua->user_id;
-        $user = User::findOrFail($userId);
-        if ($user->foto) {
-            Storage::delete('public/foto-users/' . $user->foto);
+        if ($orangTua->user_id) {
+            $user = User::find($orangTua->user_id);
+            if ($user) {
+                if ($user->foto) {
+                    Storage::delete('public/foto-users/' . $user->foto);
+                }
+                $user->delete();
+            }
         }
-        $user->delete();
         $orangTua->siswa()->detach();
         $orangTua->delete();
+
         return redirect()->back()->with('success', 'Data orang tua berhasil dihapus.');
     }
     private function generateFotoUserName()

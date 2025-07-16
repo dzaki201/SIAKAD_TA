@@ -19,7 +19,7 @@
     </div>
     <div class="mb-4 p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
         <div class="flex items-center justify-between mb-4">
-            <h5 class="text-2xl font-bold text-gray-900 dark:text-white">Nilai Akhir Anak</h5>
+            <h5 class="text-2xl font-bold text-gray-900 dark:text-white">Detail Nilai</h5>
             @if ($kunciStatus)
                 <span class="px-2 py-1 text-xs font-semibold text-green-800 bg-green-200 rounded">Nilai Mata Pelajaran
                     {{ $mapel->nama }} Sudah Terkunci</span>

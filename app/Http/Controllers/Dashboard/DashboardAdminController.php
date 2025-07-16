@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Models\Kkm;
 use App\Models\Guru;
 use App\Models\User;
 use App\Models\Kelas;
 use App\Models\Siswa;
 use App\Models\OrangTua;
+use App\Models\KunciNilai;
 use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
 use App\Models\KepalaSekolah;
@@ -14,10 +16,10 @@ use App\Models\MataPelajaran;
 use App\Models\PlotGuruMapel;
 use App\Models\PlotSiswaKelas;
 use App\Models\Ekstrakulikuler;
+use App\Imports\SiswaOrtuImport;
 use App\Models\KelasMataPelajaran;
 use App\Http\Controllers\Controller;
-use App\Models\Kkm;
-use App\Models\KunciNilai;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DashboardAdminController extends Controller
 {
@@ -29,6 +31,18 @@ class DashboardAdminController extends Controller
         $tahun = TahunAjaran::where('status', 1)->first();
 
         return view('Admin.layouts.dashboard', compact('guru', 'user', 'siswa', 'tahun'));
+    }
+    public function adminImportData(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls',
+        ]);
+        try {
+            Excel::import(new SiswaOrtuImport, $request->file('file'));
+            return redirect()->back()->with('success', 'Data berhasil diimpor!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('errors', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
+        }
     }
     public function adminUser()
     {

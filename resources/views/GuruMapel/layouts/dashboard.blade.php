@@ -27,8 +27,9 @@
     <div
         class="mb-4 w-full p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 flex items-center space-x-6">
         <div class="shrink-0">
-            <img class="w-24 h-24 rounded-full object-cover" src="https://randomuser.me/api/portraits/men/32.jpg"
-                alt="Profile Photo">
+            <img class="w-24 h-24 rounded-full object-cover"
+                        src="{{ asset(auth()->user()->foto ? 'storage/foto-users/' . auth()->user()->foto : 'storage/foto-default/default-profile.jpg') }}"
+                        alt="Foto Profil">
         </div>
         <div class="flex-1">
             <h5 class="text-2xl font-bold text-gray-900 dark:text-white mb-1">{{ Auth::user()->username }}</h5>
