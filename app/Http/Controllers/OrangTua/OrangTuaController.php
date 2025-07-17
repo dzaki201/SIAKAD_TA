@@ -5,6 +5,7 @@ namespace App\Http\Controllers\OrangTua;
 use App\Models\User;
 use App\Models\OrangTua;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -13,22 +14,23 @@ class OrangTuaController extends Controller
 {
     public function store(Request $request)
     {
-        $akunData = $request->validate([
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6',
-            'role' => 'required',
-            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        ]);
-        $akunData['password'] = Hash::make($akunData['password']);
-        if ($request->hasFile('foto')) {
-            $foto = $request->file('foto');
-            $extension = $foto->getClientOriginalExtension();
-            $namaFoto = $this->generateFotoUserName() . '.' . $extension;
-            $foto->storeAs('public/foto-users', $namaFoto);
-            $akunData['foto'] = $namaFoto;
+        if ($request->filled(['email', 'password', 'role'])) {
+            $akunData = $request->validate([
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required|min:6',
+                'role' => 'required',
+                'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            ]);
+            $akunData['password'] = Hash::make($akunData['password']);
+            if ($request->hasFile('foto')) {
+                $foto = $request->file('foto');
+                $extension = $foto->getClientOriginalExtension();
+                $namaFoto = $this->generateFotoUserName() . '.' . $extension;
+                $foto->storeAs('public/foto-users', $namaFoto);
+                $akunData['foto'] = $namaFoto;
+            }
+            $user = User::create($akunData);
         }
-
-        $user = User::create($akunData);
 
         $validatedData = $request->validate([
             'nik'       => 'required|string|max:20',
@@ -42,7 +44,7 @@ class OrangTuaController extends Controller
         ]);
 
         $orangTua = OrangTua::create([
-            'user_id'   => $user->id,
+            'user_id'   => $user->id ?? null,
             'nik'       => $validatedData['nik'],
             'nama'      => $validatedData['nama'],
             'pekerjaan' => $validatedData['pekerjaan'],
@@ -62,44 +64,64 @@ class OrangTuaController extends Controller
     public function update(Request $request, $id)
     {
         $orangTua = OrangTua::findOrFail($id);
-        $user = User::findOrFail($orangTua->user_id);
-
-        $validatedUser = $request->validate([
-            'email'    => 'required|email|unique:users,email,' . $user->id,
-            'password' => 'nullable',
-            'foto'     => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        ]);
-
-        $validatedOrtu = $request->validate([
-            'nik'       => 'required|string|max:20',
-            'nama'      => 'required|string|max:50',
-            'pekerjaan' => 'required|string|max:30',
-            'alamat'    => 'required|string',
-            'no_hp'     => 'nullable|string|max:20',
-            'siswa_id'  => 'required|array',
-            'siswa_id.*' => 'exists:siswa,id',
-            'status'    => 'required|in:ayah,ibu,wali',
-        ]);
-
-        if ($request->filled('password')) {
-            $validatedUser['password'] = Hash::make($request->password);
-        } else {
-            unset($validatedUser['password']);
-        }
-
-        if ($request->hasFile('foto')) {
-            if ($user->foto) {
-                Storage::delete('public/foto-users/' . $user->foto);
-                $namaFoto = $user->foto;
-            } else {
+        $user = User::find($orangTua->user_id);
+        if ($user == null && $request->filled(['email', 'password'])) {
+            $request->validate([
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required|min:6',
+                'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            ]);
+            $newUserData = [
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => 'orang_tua',
+            ];
+            if ($request->hasFile('foto')) {
                 $extension = $request->file('foto')->getClientOriginalExtension();
                 $namaFoto = $this->generateFotoUserName() . '.' . $extension;
+                $request->file('foto')->storeAs('public/foto-users', $namaFoto);
+                $newUserData['foto'] = $namaFoto;
             }
-            $request->file('foto')->storeAs('public/foto-users', $namaFoto);
-            $validatedUser['foto'] = $namaFoto;
-        }
+            $user = User::create($newUserData);
+            $orangTua->update(['user_id' => $user->id]);
+        } elseif ($user && $request->filled(['email'])) {
+            $validatedUser = $request->validate([
+                'email'    => 'required|email|unique:users,email,' . $user->id,
+                'password' => 'nullable|min:6',
+                'foto'     => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            ]);
 
-        $user->update($validatedUser);
+            if ($request->filled('password')) {
+                $validatedUser['password'] = Hash::make($validatedUser['password']);
+            } else {
+                unset($validatedUser['password']);
+            }
+            if ($request->hasFile('foto')) {
+                if ($user->foto) {
+                    Storage::delete('public/foto-users/' . $user->foto);
+                    $namaFoto = $user->foto;
+                } else {
+                    $extension = $request->file('foto')->getClientOriginalExtension();
+                    $namaFoto = $this->generateFotoUserName() . '.' . $extension;
+                }
+                $request->file('foto')->storeAs('public/foto-users', $namaFoto);
+                $validatedUser['foto'] = $namaFoto;
+            }
+            $user->update($validatedUser);
+        } 
+
+
+        $validatedOrtu = $request->validate([
+            'nik'        => 'required|string|max:20',
+            'nama'       => 'required|string|max:50',
+            'pekerjaan'  => 'required|string|max:30',
+            'alamat'     => 'required|string',
+            'no_hp'      => 'nullable|string|max:20',
+            'siswa_id'   => 'required|array',
+            'siswa_id.*' => 'exists:siswa,id',
+            'status'     => 'required|in:ayah,ibu,wali',
+        ]);
+
         $orangTua->update([
             'nik'       => $validatedOrtu['nik'],
             'nama'      => $validatedOrtu['nama'],
@@ -109,14 +131,13 @@ class OrangTuaController extends Controller
         ]);
 
         $pivotData = collect($validatedOrtu['siswa_id'])
-            ->mapWithKeys(function ($siswaId, $index) use ($validatedOrtu) {
-                return [$siswaId => ['status' => $validatedOrtu['status']]];
-            })
+            ->mapWithKeys(fn($siswaId) => [$siswaId => ['status' => $validatedOrtu['status']]])
             ->toArray();
-
         $orangTua->siswa()->sync($pivotData);
+
         return redirect()->back()->with('success', 'Data orang tua & akun berhasil diperbarui.');
     }
+
 
     public function destroy($id)
     {

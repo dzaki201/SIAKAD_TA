@@ -1,6 +1,6 @@
 <div id="tambah-orang-tua-modal" tabindex="-1" aria-hidden="true"
     class="fixed inset-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto bg-black/40">
-    <div class="relative w-full h-full max-w-2xl md:h-auto">
+    <div class="relative w-full h-full max-w-4xl md:h-auto">
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Tambah Data Orang Tua</h3>
@@ -22,12 +22,12 @@
                             <input type="hidden" name="role" value="orang_tua">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 dark:text-white">Email</label>
-                                <input type="email" name="email" required
+                                <input type="email" name="email"
                                     class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 dark:text-white">Password</label>
-                                <input type="password" name="password" required
+                                <input type="password" name="password"
                                     class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                                 <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Minimal 6 karakter.
                                 </p>
@@ -40,39 +40,10 @@
                                 <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Format gambar: JPG, JPEG, PNG.
                                     Maksimal 2MB.</p>
                             </div>
-                        </div>
-                        <div class="w-full md:w-1/2 space-y-4">
-                            <h4 class="text-lg font-semibold text-gray-700 dark:text-white">Data Orang Tua</h4>
-                            <div class="flex flex-col md:flex-row gap-4">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-white">NIK</label>
-                                    <input type="text" name="nik" required
-                                        class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-white">Nama
-                                        Lengkap</label>
-                                    <input type="text" name="nama" required
-                                        class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                                </div>
-                            </div>
-                            <div class="flex flex-col md:flex-row gap-4">
-                                <div>
-                                    <label
-                                        class="block text-sm font-medium text-gray-700 dark:text-white">Pekerjaan</label>
-                                    <input type="text" name="pekerjaan" required
-                                        class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-white">Nomor
-                                        HP</label>
-                                    <input type="text" name="no_hp"
-                                        class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                                </div>
-                            </div>
+                            <h4 class="text-lg font-semibold text-gray-700 dark:text-white">Data Anak</h4>
                             <div class="md:col-span-2">
                                 <label class="block text-sm font-medium text-gray-700 dark:text-white">Status</label>
-                                <select name="status" required
+                                <select name="status"
                                     class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                                     <option value="">Pilih Status</option>
                                     <option value="ayah">Ayah</option>
@@ -114,6 +85,31 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-1/2 space-y-4">
+                            <h4 class="text-lg font-semibold text-gray-700 dark:text-white">Data Orang Tua</h4>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-white">NIK</label>
+                                <input type="text" name="nik" required
+                                    class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-white">Nama
+                                    Lengkap</label>
+                                <input type="text" name="nama" required
+                                    class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-white">Pekerjaan</label>
+                                <input type="text" name="pekerjaan" required
+                                    class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-white">Nomor
+                                    HP</label>
+                                <input type="text" name="no_hp"
+                                    class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                             </div>
                             <div class="md:col-span-2">
                                 <label class="block text-sm font-medium text-gray-700 dark:text-white">Alamat</label>

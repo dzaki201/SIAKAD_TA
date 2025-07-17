@@ -1,6 +1,6 @@
 <div id="edit-orang-tua-modal-{{ $ortu->id }}" tabindex="-1" aria-hidden="true"
     class="fixed inset-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 bg-black/40">
-    <div class="relative w-full h-full max-w-2xl md:h-auto">
+    <div class="relative w-full h-full max-w-4xl md:h-auto">
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
@@ -25,11 +25,10 @@
                         <div class="w-full md:w-1/2 space-y-4">
                             <h4 class="text-lg font-semibold text-gray-700 dark:text-white">Akun</h4>
                             <input type="hidden" name="role" value="orang_tua">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 dark:text-white">Email</label>
-                                <input type="email" name="email" required value="{{ $ortu->user->email ?? '-' }}"
-                                    class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                            </div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-white">Email</label>
+                            <input type="email" name="email" value="{{ old('email', $ortu->user->email ?? '') }}"
+                                placeholder="Opsional, isi jika ingin buat/ubah akun"
+                                class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 dark:text-white">Password
                                 </label>
@@ -49,40 +48,11 @@
                                     2MB.
                                 </p>
                             </div>
-                        </div>
-                        <div class="w-full md:w-1/2 space-y-4">
-                            <h4 class="text-lg font-semibold text-gray-700 dark:text-white">Data Orang Tua</h4>
-                            <div class="flex flex-col md:flex-row gap-4">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-white">NIK</label>
-                                    <input type="text" name="nik" value="{{ $ortu->nik }}" required
-                                        class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-white">Nama
-                                        Lengkap</label>
-                                    <input type="text" name="nama" value="{{ $ortu->nama }}" required
-                                        class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                                </div>
-                            </div>
-                            <div class="flex flex-col md:flex-row gap-4">
-                                <div>
-                                    <label
-                                        class="block text-sm font-medium text-gray-700 dark:text-white">Pekerjaan</label>
-                                    <input type="text" name="pekerjaan" value="{{ $ortu->pekerjaan }}" required
-                                        class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-white">Nomor
-                                        HP</label>
-                                    <input type="text" id="no_hp" name="no_hp" value="{{ $ortu->no_hp }}"
-                                        class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                                </div>
-                            </div>
+                            <h4 class="text-lg font-semibold text-gray-700 dark:text-white">Data Anak</h4>
                             <div class="md:col-span-2">
                                 <label for="status"
                                     class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Status</label>
-                                <select id="status" name="status" required
+                                <select id="status" name="status"
                                     class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                                     <option value="">Pilih Status</option>
                                     <option value="ayah"
@@ -126,9 +96,8 @@
                                             @foreach ($siswas as $siswa)
                                                 <label
                                                     class="flex items-center px-3 py-2 border-b border-gray-200 dark:border-gray-600 siswa-item">
-                                                    <input type="checkbox" name="siswa_id[]"
-                                                        value="{{ $siswa->id }}" class="mr-2"
-                                                        @if ($ortu->siswa->contains($siswa->id)) checked @endif>
+                                                    <input type="checkbox" name="siswa_id[]" value="{{ $siswa->id }}"
+                                                        class="mr-2" @if ($ortu->siswa->contains($siswa->id)) checked @endif>
                                                     <span
                                                         class="text-gray-700 dark:text-white">{{ $siswa->nama }}</span>
                                                 </label>
@@ -136,6 +105,31 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-1/2 space-y-4">
+                            <h4 class="text-lg font-semibold text-gray-700 dark:text-white">Data Orang Tua</h4>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-white">NIK</label>
+                                <input type="text" name="nik" value="{{ $ortu->nik }}" required
+                                    class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-white">Nama
+                                    Lengkap</label>
+                                <input type="text" name="nama" value="{{ $ortu->nama }}" required
+                                    class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-white">Pekerjaan</label>
+                                <input type="text" name="pekerjaan" value="{{ $ortu->pekerjaan }}" required
+                                    class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-white">Nomor
+                                    HP</label>
+                                <input type="text" id="no_hp" name="no_hp" value="{{ $ortu->no_hp }}"
+                                    class="w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                             </div>
                             <div class="md:col-span-2">
                                 <label class="block text-sm font-medium text-gray-700 dark:text-white">Alamat</label>

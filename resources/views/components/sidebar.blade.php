@@ -305,7 +305,6 @@
                                     stroke-width="2" d="m1 1 4 4 4-4" />
                             </svg>
                         </button>
-                        {{-- Dropdown --}}
                         <ul id="dropdown-nilai2"
                             class="{{ request()->routeIs('guru-mapel.nilai', 'guru-mapel.edit.nilai', 'guru-mapel.edit.nilai-akhir') ? 'block' : 'hidden' }} space-y-2 ">
                             @foreach ($kelases as $kelas)
@@ -386,20 +385,6 @@
                     </li>
                 @endif
             </ul>
-            {{-- <ul class="mt-4 space-y-2 border-t border-gray-200 pt-4 font-medium dark:border-gray-700">
-                <li>
-                    <a href="{{ route('logout') }}"
-                        class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-800 dark:hover:bg-blue-500 group {{ request()->routeIs('logout') ? 'bg-blue-700 dark:bg-blue-600' : '' }}">
-                        <svg class="shrink-0 w-5 h-5 text-gray-200 transition duration-75 group-hover:text-white"
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
-                        </svg>
-                        <span class="flex-1 ms-3 whitespace-nowrap">Log Out</span>
-                    </a>
-                </li> --}}
-
             </ul>
         </div>
     </aside>
