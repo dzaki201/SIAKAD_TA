@@ -446,7 +446,7 @@ class DashboardGuruController extends Controller
          ->showBackground()
          ->save($outputPath);
 
-      return response()->download($outputPath, $fileName);
+      return response()->download($outputPath, $fileName)->deleteFileAfterSend();
    }
 
    public function guruRaporSiswa($id, Request $request)
@@ -530,6 +530,6 @@ class DashboardGuruController extends Controller
          ->showBackground()
          ->save($outputPath);
 
-      return response()->download($outputPath, $fileName);
+      return response()->download($outputPath, $fileName)->deleteFileAfterSend();
    }
 }

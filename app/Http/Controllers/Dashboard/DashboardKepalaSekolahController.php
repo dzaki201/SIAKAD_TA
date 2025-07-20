@@ -159,7 +159,7 @@ class DashboardKepalaSekolahController extends Controller
             ->margins(10, 10, 10, 10)
             ->save($outputPath);
 
-        return response()->download($outputPath, $fileName);
+        return response()->download($outputPath, $fileName)->deleteFileAfterSend();
     }
 
     public function rekapSiswa(Request $request)
