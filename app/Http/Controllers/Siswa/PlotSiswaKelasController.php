@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Siswa;
 
+use App\Models\Siswa;
 use Illuminate\Http\Request;
 use App\Models\PlotSiswaKelas;
 use App\Http\Controllers\Controller;
@@ -12,9 +13,15 @@ class PlotSiswaKelasController extends Controller
     {
         $request->validate([
             'siswa_id' => 'required|array',
-            'kelas_id' => 'required|exists:kelas,id',
+            'kelas_id' => 'required',
             'tahun_ajaran_id' => 'required|exists:tahun_ajaran,id'
         ]);
+        
+        if ($request->kelas_id === 'lulus') {
+            Siswa::whereIn('id', $request->siswa_id)->update(['status' => 1]);
+
+            return redirect()->back()->with('success', 'Data siswa telah diluluskan.');
+        }
 
         $existingIds = PlotSiswaKelas::whereIn('siswa_id', $request->siswa_id)
             ->where('tahun_ajaran_id', $request->tahun_ajaran_id)

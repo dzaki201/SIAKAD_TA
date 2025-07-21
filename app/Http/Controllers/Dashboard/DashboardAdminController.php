@@ -97,46 +97,65 @@ class DashboardAdminController extends Controller
         $users = User::where('role', 'guru')->whereDoesntHave('guru')->get();
         return view('admin.layouts.guru.plotting-guru-mapel',  compact('gurus', 'mapels', 'kelasmapels', 'kelasgurumapels', 'users', 'gurukelases'));
     }
-    public function adminSiswa()
+    public function adminSiswa(Request $request)
     {
-        $siswas = Siswa::latest()->paginate(25);
+        $siswas = Siswa::when($request->filled('status'), function ($query) use ($request) {
+            return $query->where('status', $request->status);
+        })
+            ->latest()
+            ->paginate(25);
         $kelases = Kelas::all();
-        return view('admin.layouts.siswa', compact('siswas', 'kelases'));
+        $status = $request->status;
+        return view('admin.layouts.siswa', compact('siswas', 'kelases', 'status'));
     }
     public function adminEditKelasSiswa(Request $request)
     {
         $kelases = Kelas::all();
         $tahun = TahunAjaran::where('status', 1)->first();
-        $siswa = Siswa::when($request->filled('filter_kelas'), function ($query) use ($request, $tahun) {
-            $query->whereHas('kelasSiswa', function ($sub) use ($request, $tahun) {
-                $sub->where('kelas_id', $request->filter_kelas)
-                    ->where('tahun_ajaran_id', $tahun->id);
-            });
-        })->with(['kelasSiswa' => function ($query) {
-            $query->orderByDesc('tahun_ajaran_id');
-        }])->get();
-
+        $siswa = Siswa::where('status', 0)
+            ->when($request->filled('filter_kelas'), function ($query) use ($request, $tahun) {
+                $query->whereHas('kelasSiswa', function ($sub) use ($request, $tahun) {
+                    $sub->where('kelas_id', $request->filter_kelas)
+                        ->where('tahun_ajaran_id', $tahun->id);
+                });
+            })
+            ->with(['kelasSiswa' => function ($query) {
+                $query->orderByDesc('tahun_ajaran_id');
+            }])
+            ->get();
         $siswas = $siswa->map(function ($item) use ($tahun) {
             $kelas = $item->kelasSiswa->firstWhere('tahun_ajaran_id', $tahun->id);
             if (!$kelas) {
                 $kelas = $item->kelasSiswa->first();
             }
-
             $item->setRelation('kelasSiswa', $kelas);
             return $item;
         });
         $kelas = Kelas::where('id', $request->filter_kelas)->first();
         return view('admin.layouts.siswa.edit-kelas-siswa', compact('siswas', 'kelases', 'tahun', 'kelas'));
     }
-    public function adminOrangTua()
+    public function adminOrangTua(Request $request)
     {
         $userIds = OrangTua::whereNotNull('user_id')->pluck('user_id');
         $users = User::where('role', 'orang_tua')
             ->whereNotIn('id', $userIds)
             ->get();
-        $orangTuas = OrangTua::with('siswa')->latest()->paginate(25);
+        $orangTuas = OrangTua::with(['siswa' => function ($query) use ($request) {
+            if ($request->filled('status')) {
+                $query->wherePivot('status', $request->status);
+            }
+        }])
+            ->when($request->filled('status'), function ($query) use ($request) {
+                $query->whereHas('siswa', function ($subQuery) use ($request) {
+                    $subQuery->where('orang_tua_siswa.status', $request->status);
+                });
+            })
+            ->latest()
+            ->paginate(25)
+            ->appends($request->query());
+        $status = $request->status;
         $siswas = Siswa::all();
-        return view('admin.layouts.orang-tua', compact('orangTuas', 'siswas', 'users'));
+        return view('admin.layouts.orang-tua', compact('orangTuas', 'siswas', 'users', 'status'));
     }
     public function adminFilterEditKelasSiswa()
     {

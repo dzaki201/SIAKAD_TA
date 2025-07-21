@@ -15,7 +15,7 @@
                         <option value="">Semua Kelas</option>
                         @foreach ($kelases as $item)
                             <option value="{{ $item->id }}"
-                                 {{ isset($kelas) && $item->id == $kelas->id ? 'selected' : '' }}>
+                                {{ isset($kelas) && $item->id == $kelas->id ? 'selected' : '' }}>
                                 {{ $item->nama }}
                             </option>
                         @endforeach
@@ -46,6 +46,7 @@
                     @foreach ($kelases as $kelas)
                         <option value="{{ $kelas->id }}">{{ $kelas->nama }}</option>
                     @endforeach
+                    <option value="lulus">Lulus</option>
                 </select>
                 <button type="submit"
                     class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ">

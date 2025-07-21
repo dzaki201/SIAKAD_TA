@@ -46,8 +46,15 @@ class TahunAjaranController extends Controller
     public function destroy($id)
     {
         $tahun = TahunAjaran::findOrFail($id);
+        $isActive = $tahun->status;
         $tahun->delete();
-
+        if ($isActive) {
+            $tahunSebelumnya = TahunAjaran::where('id', '<', $id)->orderByDesc('id')->first();
+            if ($tahunSebelumnya) {
+                $tahunSebelumnya->status = true;
+                $tahunSebelumnya->save();
+            }
+        }
         return redirect()->back()->with('success', 'Tahun ajaran berhasil dihapus.');
     }
     private function generateNextTahunAjaran($lastTahunAjaran)

@@ -36,7 +36,7 @@ class DashboardOrangTuaController extends Controller
             }])
                 ->whereIn('id', $siswaIds)
                 ->get();
-        }else{
+        } else {
             $anak = null;
         }
 
@@ -87,7 +87,6 @@ class DashboardOrangTuaController extends Controller
                 'nilai' => $item->nilai
             ];
         })->values();
-
         return view('OrangTua.layouts.nilai', compact('nilaiPerCP', 'tahun', 'tahuns', 'nilais', 'kunciStatus', 'mapel'));
     }
 

@@ -83,6 +83,7 @@
                                         <input type="hidden" name="siswa_id" value="{{ $nilai->siswa_id }}">
                                         <input type="hidden" name="mapel_id" value="{{ $nilai->mata_pelajaran_id }}">
                                         <input type="hidden" name="kelas_id" value="{{ $kelasId->kelas->id }}">
+                                        <input type="hidden" name="tahun_id" value="{{ $tahun->id }}">
                                         <button type="submit"
                                             class="px-3 py-1 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700">
                                             Lihat Detail Nilai

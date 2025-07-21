@@ -7,6 +7,7 @@
         <form action="{{ route('orang-tua.nilai-akhir') }}" method="GET">
             @csrf
             <input type="hidden" name="siswa_id" value="{{ $nilais->first()->siswa_id }}">
+            <input type="hidden" name="tahun_id" value="{{ $tahun->id }}">
             <button
                 class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gray-600 rounded hover:bg-gray-700">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
@@ -59,7 +60,7 @@
             <p class="text-sm text-gray-500 dark:text-gray-300">Belum ada data nilai akhir tersedia.</p>
         @endif
     </div>
-    <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+    <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300">
         <h2>Grafik Perkembangan Nilai Siswa</h2>
         <canvas id="grafik-perkembangan-nilai"></canvas>
     </div>

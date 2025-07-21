@@ -6,7 +6,7 @@
 
     <div class="overflow-x-auto w-auto rounded-lg border p-4 bg-white dark:bg-gray-800 shadow">
         @include('admin.components.navbar-admin-siswa')
-        <div class="mb-4">
+        <div class="mb-4 flex justify-between">
             <button data-modal-target="tambah-siswa-modal" data-modal-toggle="tambah-siswa-modal"
                 class="inline-flex items-center px-4 py-2 gap-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
                 type="button">
@@ -16,6 +16,18 @@
                 </svg>
                 Tambah Siswa
             </button>
+            <form action="{{ route('admin.siswa') }}" method="GET" class="space-y-2">
+                <select name="status" id="status"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    <option value="">Semua Siswa</option>
+                    <option value="0" {{ $status == '0' ? 'selected' : '' }}>Belum Lulus</option>
+                    <option value="1" {{ $status == '1' ? 'selected' : '' }}>Lulus</option>
+                </select>
+                <button type="submit"
+                    class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ">
+                    Search
+                </button>
+            </form>
         </div>
         <div class="mb-4 overflow-x-auto rounded-lg ">
             <table class="w-full min-w-[1000px] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -37,7 +49,11 @@
                 <tbody>
                     @foreach ($siswas as $siswa)
                         <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            class="
+                                border-b border-gray-200 dark:border-gray-700
+                                {{ $siswa->status == 1
+                                    ? 'bg-red-100 dark:bg-red-800 hover:bg-red-200 dark:hover:bg-red-700'
+                                    : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600' }}">
                             <td class="px-6 py-4">
                                 {{ ($siswas->currentPage() - 1) * $siswas->perPage() + $loop->iteration }}
                             </td>

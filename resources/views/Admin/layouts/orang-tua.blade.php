@@ -5,16 +5,31 @@
 @section('content')
 
     <div class="overflow-x-auto w-auto rounded-lg border p-4 bg-white dark:bg-gray-800 shadow">
-        <div class="mb-4">
-            <button data-modal-target="tambah-orang-tua-modal" data-modal-toggle="tambah-orang-tua-modal"
-                class="inline-flex items-center px-4 py-2 gap-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
-                type="button">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-5 h-5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                </svg>
-                Tambah Data Orang Tua
-            </button>
+        <div class="flex justify-between">
+            <div class="mb-4">
+                <button data-modal-target="tambah-orang-tua-modal" data-modal-toggle="tambah-orang-tua-modal"
+                    class="inline-flex items-center px-4 py-2 gap-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
+                    type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                    Tambah Data Orang Tua
+                </button>
+            </div>
+            <form action="{{ route('admin.orang-tua') }}" method="GET" class="space-y-2">
+                <select name="status" id="status"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    <option value="">Semua Orang Tua</option>
+                    <option value="ayah" {{ $status == 'ayah' ? 'selected' : '' }}>Ayah</option>
+                    <option value="ibu" {{ $status == 'ibu' ? 'selected' : '' }}>Ibu</option>
+                    <option value="wali" {{ $status == 'wali' ? 'selected' : '' }}>Wali</option>
+                </select>
+                <button type="submit"
+                    class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ">
+                    Search
+                </button>
+            </form>
         </div>
         <div class="mb-4 overflow-x-auto rounded-lg ">
             <table class="w-full min-w-[1000px] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -36,7 +51,9 @@
                     @foreach ($orangTuas as $ortu)
                         <tr
                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <td class="px-6 py-4">{{ $loop->iteration }}</td>
+                            <td class="px-6 py-4">
+                                {{ ($orangTuas->currentPage() - 1) * $orangTuas->perPage() + $loop->iteration }}
+                            </td>
                             <td class="px-6 py-4">{{ $ortu->user->email ?? '-' }}</td>
                             <td class="px-6 py-4">
                                 @foreach ($ortu->siswa as $siswa)
