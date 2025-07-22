@@ -191,4 +191,27 @@ class DashboardKepalaSekolahController extends Controller
         $kelases = Kelas::all();
         return view('kepalaSekolah.layouts.rekap-siswa', compact('rekap', 'tahuns', 'tahun', 'kelases'));
     }
+    public function grafikNilai(Request $request)
+    {
+        $kelas = Kelas::where('id', $request->kelas_id)->first();
+        $kelases = Kelas::all();
+
+        $mapel = $request->mata_pelajaran_id
+            ? MataPelajaran::where('id', $request->mata_pelajaran_id)->first()
+            : MataPelajaran::first();
+
+        $nilaiAkhirs = NilaiAkhir::where('siswa_id', $request->siswa_id)
+            ->where('mata_pelajaran_id', $mapel->id)
+            ->get();
+
+        $rekapChart = $nilaiAkhirs->map(function ($item) use ($mapel) {
+            $tahun = TahunAjaran::where('id', $item->tahun_ajaran_id)->first();
+            return [
+                'mapel' => $mapel->nama,
+                'nilai' => $item->nilai_akhir,
+                'tahun_ajaran' => $tahun->semester . '-' . $tahun->tahun
+            ];
+        });
+        return view('KepalaSekolah.layouts.grafik-nilai', compact('kelases', 'kelas', 'mapel', 'nilaiAkhirs', 'rekapChart'));
+    }
 }

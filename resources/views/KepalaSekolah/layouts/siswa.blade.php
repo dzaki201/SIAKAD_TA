@@ -40,7 +40,7 @@
                 <thead class="text-xs text-white text-center uppercase bg-blue-800 dark:bg-gray-700">
                     <tr>
                         <th class="w-10 py-3 border border-gray-300">No</th>
-                        <th class="py-3 border border-gray-300">NIS</th>
+                        <th class="w-24 py-3 border border-gray-300">NIS</th>
                         <th class="py-3 border border-gray-300">Nama</th>
                         <th class="py-3 border border-gray-300">Aksi</th>
                     </tr>
@@ -71,8 +71,16 @@
                                         <input type="hidden" name="tahun_id" value="{{ $tahun->id }}">
                                         <input type="hidden" name="siswa_id" value="{{ $siswa->id }}">
                                         <button type="submit"
-                                            class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 focus:ring-2 focus:ring-blue-500">
-                                            Lihat Buku Induk
+                                            class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700 focus:ring-2 focus:ring-green-500">
+                                            Buku Induk
+                                        </button>
+                                    </form>
+                                    <form action="{{ route('kepsek.grafik-nilai') }}" method="GET" class="inline">
+                                        <input type="hidden" name="siswa_id" value="{{ $siswa->id }}">
+                                        <input type="hidden" name="kelas_id" value="{{ $kelas->id }}">
+                                        <button type="submit"
+                                            class="bg-yellow-500 text-black px-4 py-2 rounded-lg text-sm hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-400">
+                                            Grafik Nilai
                                         </button>
                                     </form>
                                 </div>
