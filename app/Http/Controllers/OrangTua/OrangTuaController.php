@@ -6,7 +6,9 @@ use App\Models\User;
 use App\Models\OrangTua;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Controller;
+use App\Mail\AkunLogin;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,7 +23,10 @@ class OrangTuaController extends Controller
                 'role' => 'required',
                 'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             ]);
+
+            $passwordAsli = $akunData['password'];
             $akunData['password'] = Hash::make($akunData['password']);
+
             if ($request->hasFile('foto')) {
                 $foto = $request->file('foto');
                 $extension = $foto->getClientOriginalExtension();
@@ -29,7 +34,9 @@ class OrangTuaController extends Controller
                 $foto->storeAs('public/foto-users', $namaFoto);
                 $akunData['foto'] = $namaFoto;
             }
+
             $user = User::create($akunData);
+            Mail::to($user->email)->send(new AkunLogin($user->email, $passwordAsli));
         }
 
         $validatedData = $request->validate([
@@ -71,19 +78,26 @@ class OrangTuaController extends Controller
                 'password' => 'required|min:6',
                 'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             ]);
+
+            $passwordAsli = $request->password;
+
             $newUserData = [
                 'email' => $request->email,
-                'password' => Hash::make($request->password),
+                'password' => Hash::make($passwordAsli),
                 'role' => 'orang_tua',
             ];
+
             if ($request->hasFile('foto')) {
                 $extension = $request->file('foto')->getClientOriginalExtension();
                 $namaFoto = $this->generateFotoUserName() . '.' . $extension;
                 $request->file('foto')->storeAs('public/foto-users', $namaFoto);
                 $newUserData['foto'] = $namaFoto;
             }
+
             $user = User::create($newUserData);
             $orangTua->update(['user_id' => $user->id]);
+
+            Mail::to($user->email)->send(new AkunLogin($user->email, $passwordAsli));
         } elseif ($user && $request->filled(['email'])) {
             $validatedUser = $request->validate([
                 'email'    => 'required|email|unique:users,email,' . $user->id,
@@ -92,10 +106,10 @@ class OrangTuaController extends Controller
             ]);
 
             if ($request->filled('password')) {
-                $validatedUser['password'] = Hash::make($validatedUser['password']);
-            } else {
-                unset($validatedUser['password']);
+                $passwordAsli = $request->password;
+                $validatedUser['password'] = Hash::make($passwordAsli);
             }
+
             if ($request->hasFile('foto')) {
                 if ($user->foto) {
                     Storage::delete('public/foto-users/' . $user->foto);
@@ -107,9 +121,13 @@ class OrangTuaController extends Controller
                 $request->file('foto')->storeAs('public/foto-users', $namaFoto);
                 $validatedUser['foto'] = $namaFoto;
             }
-            $user->update($validatedUser);
-        } 
 
+            $user->update($validatedUser);
+
+            if (isset($plainPassword)) {
+                Mail::to($user->email)->send(new AkunLogin($user->email, $passwordAsli));
+            }
+        }
 
         $validatedOrtu = $request->validate([
             'nik'        => 'required|string|max:20',
