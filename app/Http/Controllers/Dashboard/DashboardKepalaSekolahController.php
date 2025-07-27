@@ -194,8 +194,9 @@ class DashboardKepalaSekolahController extends Controller
     public function grafikNilai(Request $request)
     {
         $kelas = Kelas::where('id', $request->kelas_id)->first();
+        $siswa = Siswa::where('id', $request->siswa_id)->first();
         $kelases = Kelas::all();
-
+        $mapels = MataPelajaran::all();
         $mapel = $request->mata_pelajaran_id
             ? MataPelajaran::where('id', $request->mata_pelajaran_id)->first()
             : MataPelajaran::first();
@@ -209,9 +210,9 @@ class DashboardKepalaSekolahController extends Controller
             return [
                 'mapel' => $mapel->nama,
                 'nilai' => $item->nilai_akhir,
-                'tahun_ajaran' => $tahun->semester . '-' . $tahun->tahun
+                'tahun_ajaran' => $tahun->semester . ' - ' . $tahun->tahun
             ];
         });
-        return view('KepalaSekolah.layouts.grafik-nilai', compact('kelases', 'kelas', 'mapel', 'nilaiAkhirs', 'rekapChart'));
+        return view('KepalaSekolah.layouts.grafik-nilai', compact('kelases', 'kelas', 'mapel', 'mapels', 'siswa', 'nilaiAkhirs', 'rekapChart'));
     }
 }
